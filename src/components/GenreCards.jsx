@@ -61,9 +61,9 @@ const GenreCards = () => {
 
   return (
     <div className="container pt-4">
-      <div className="row justify-content-center">
-        {cardInfo.map(renderCards)}
-      </div>
+      <h2>Explore the Genres</h2>
+      <p>You can search and explore the wide range of madh genres </p>
+      <div className="row">{cardInfo.map(renderCards)}</div>
     </div>
   );
 };
