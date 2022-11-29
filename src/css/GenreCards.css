@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+.card {
+  position: relative;
+  z-index: 0;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-image: url(../assets/pattern.png);
+  background-repeat: repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.15;
+}
