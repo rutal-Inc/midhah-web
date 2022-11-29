@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/Navbar";
 import Jumbotron from "../components/Jumbotron";
 import GenreCards from "../components/GenreCards";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -11,9 +12,10 @@ const Home = () => {
       <Jumbotron />
 
       <div className="container">
-        <GenreCards />;
+        <GenreCards />
       </div>
       <hr />
+      <Footer />
     </div>
   );
 };
