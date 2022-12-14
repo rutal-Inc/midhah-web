@@ -1,4 +1,3 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import GooglePlay from "../assets/Google_Play_Store_badge_EN.png";
