@@ -38,6 +38,13 @@ const Footer = () => {
               </a>
             </li>
           </ul>
+
+          <div className="col-md-4 d-flex align-items-center">
+            <span className="mb-3 mb-md-0 text-muted">
+              &copy; {year} Midhah
+            </span>
+          </div>
+          
           <div>
             <a
               href="/privacy-policy"
@@ -47,15 +54,6 @@ const Footer = () => {
               Privacy
             </a>
           </div>
-
-
-          <div className="col-md-4 d-flex align-items-center">
-            <span className="mb-3 mb-md-0 text-muted">
-              &copy; {year} Midhah
-            </span>
-          </div>
-          
-          
         </div>
       </footer>
     </div>
