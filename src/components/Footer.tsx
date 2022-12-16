@@ -8,13 +8,13 @@ const Footer = () => {
     <div>
       <footer className="container mx-auto py-3 my-4 border-top">
         <div className="d-flex flex-wrap justify-content-between align-items-center">
-          <div className="col-md-4 d-flex align-items-center">
+        <div className="col-md-4 d-flex align-items-center">
             <span className="mb-3 mb-md-0 text-muted">
               &copy; {year} Midhah
             </span>
           </div>
 
-          <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <ul className="nav col-md-4 justify-content-end list-unstyled d-flex ">
             <li className="ms-3">
               <a
                 className="text-muted"
@@ -43,6 +43,10 @@ const Footer = () => {
               </a>
             </li>
           </ul>
+
+          
+          
+          
         </div>
       </footer>
     </div>
