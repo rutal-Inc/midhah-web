@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import greylogo from "../assets/midhah-logo-grey.svg";
 
 const Footer = () => {
   const today = new Date();
@@ -40,6 +41,15 @@ const Footer = () => {
 
           <div className="col-md-4 d-flex align-items-center">
             <span className="mb-3 mb-md-0 text-muted">
+              <img
+                src={greylogo}
+                alt="Midhah Grey Logo"
+                style={{
+                  width: "18px",
+                  borderRadius: "5px",
+                  marginRight: "5px",
+                }}
+              />
               &copy; {year} Midhah
             </span>
           </div>
