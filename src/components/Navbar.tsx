@@ -1,4 +1,3 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../assets/midhah-lyrics-logo.svg";
 
