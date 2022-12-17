@@ -8,7 +8,6 @@ const Footer = () => {
     <div>
       <footer className="container mx-auto py-3 my-4 border-top">
         <div className="d-flex flex-wrap justify-content-between align-items-center">
-
           <ul className="nav col-md-4 justify-content-start list-unstyled d-flex ">
             <li className="ms-3">
               <a
@@ -44,7 +43,7 @@ const Footer = () => {
               &copy; {year} Midhah
             </span>
           </div>
-          
+
           <div>
             <a
               href="/privacy-policy"
