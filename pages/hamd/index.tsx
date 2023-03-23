@@ -18,7 +18,7 @@ function Hamd({ hamd }: Props) {
       <div className="relative overflow-hidden hamd card mb-5 md:rounded-[10px]">
         <div className="py-[60px] md:py-[150px] text-center">
           <h1 className="text-2xl md:text-5xl mb-1 text-white">
-            HAMD E TA'ALA
+            HAMD E TA&rsquo;ALA
           </h1>
         </div>
       </div>

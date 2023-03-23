@@ -1,4 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Image from "next/image";
+import Link from "next/link";
 
 function Footer() {
   const today = new Date();
@@ -36,22 +38,24 @@ function Footer() {
       </ul>
 
       <div className="col-md-4 flex items-center justify-center my-3">
-        <img
+        <Image
           src="/images/midhah-logo-grey.svg"
-          alt=""
-          className="w-[30px] mr-1"
+          alt="midhah-logo-grey"
+          className="mr-1"
+          width={30}
+          height={30}
         />
         <span className="mb-0 mx-1 text-gray-500">&copy; {year} Midhah</span>
       </div>
 
       <div className="flex col-md-4 justify-center md:justify-end my-3 order-2 order-md-3">
-        <a
+        <Link
           href="/privacy-policy"
           className="text-gray-500 text-de"
           style={{ textDecoration: "none" }}
         >
           Privacy Policy
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Jumbotron = () => {
   return (
     <div className="relative overflow-hidden sm:mx-3 md:p-5 text-center bg-gray-100">
@@ -13,11 +15,11 @@ const Jumbotron = () => {
           href="https://play.google.com/store/apps/details?id=com.midhah.lyrics"
           target="_blank"
         >
-          <img
+          <Image
             src="/images/Google_Play_Store_badge_EN.png"
             alt="Get it on Google Play"
             width="150"
-            height="150"
+            height="44"
             className="mx-auto inline-block"
           />
         </a>
