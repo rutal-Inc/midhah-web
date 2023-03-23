@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import GenreCard from "../models/GenreCard";
 
@@ -40,7 +41,7 @@ const GenreCards = () => {
               minHeight: "300px",
             }}
           >
-            <img
+            <Image
               src={card.image}
               alt={`image for ${card.title}`}
               style={{ width: "75%", margin: "auto", marginTop: "20px" }}

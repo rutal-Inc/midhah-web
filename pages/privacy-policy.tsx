@@ -33,7 +33,7 @@ const Privacy = () => {
           otherwise defined in this Privacy Policy are following:
         </p>
         <div className=" p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-2xl md:text-4xl mb-2">
+          <h3 className="text-2xl md:text-4xl mb-2">
             Information Collection and Use
           </h3>
 
@@ -75,8 +75,8 @@ const Privacy = () => {
           <p>
             Cookies are files with a small amount of data that are commonly used
             as anonymous unique identifiers. These are sent to your browser from
-            the websites that you visit and are stored on your device's internal
-            memory.
+            the websites that you visit and are stored on your device&rsquo;s
+            internal memory.
             <br />
             This Service does not use these “cookies” explicitly. However, the
             app may use third-party code and libraries that use “cookies” to
