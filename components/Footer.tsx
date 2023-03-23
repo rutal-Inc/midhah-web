@@ -40,8 +40,10 @@ function Footer() {
       <div className="col-md-4 flex items-center justify-center my-3">
         <Image
           src="/images/midhah-logo-grey.svg"
-          alt=""
-          className="w-[30px] mr-1"
+          alt="midhah-logo-grey"
+          className="mr-1"
+          width={30}
+          height={30}
         />
         <span className="mb-0 mx-1 text-gray-500">&copy; {year} Midhah</span>
       </div>
