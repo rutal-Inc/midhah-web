@@ -8,7 +8,8 @@ function Navbar() {
         <Image
           src="/images/midhah-lyrics-logo.svg"
           alt="Midhah Lyrics Logo"
-          className="h-[70px] "
+          width={150}
+          height={70}
         />
       </Link>
     </header>

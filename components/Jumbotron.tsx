@@ -19,7 +19,7 @@ const Jumbotron = () => {
             src="/images/Google_Play_Store_badge_EN.png"
             alt="Get it on Google Play"
             width="150"
-            height="150"
+            height="44"
             className="mx-auto inline-block"
           />
         </a>
