@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/midhah-lyrics-logo.svg" alt="Midhah Lyrics logo" width="300">
+  <img src="public/images/midhah-lyrics-logo.svg" alt="Midhah Lyrics logo" width="300">
 </p>
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
@@ -16,7 +16,7 @@ Have a bug or a feature request? Please search for existing and closed issues. I
 
 We welcome the developers from all level to contribute in this project. For this, please open an issue and discuss with the maintainers and then start coding... 🧑‍💻
 
-## 😍 Creator
+## 😎 Creator
 
 **Talha Meer**
 
