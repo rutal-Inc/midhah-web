@@ -14,7 +14,7 @@ interface Props {
 
 function Manqbat({ manqbat }: Props) {
   return (
-    <div className="container mx-auto w-[85%]">
+    <div className="container mx-auto w-full md:w-[85%]">
       <div className="relative overflow-hidden  manqbat card mb-5 md:rounded-[10px]">
         <div className="py-[60px] md:py-[150px] text-center">
           <h1 className="text-2xl md:text-5xl mb-1 text-white">MANQBAT</h1>

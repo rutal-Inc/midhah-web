@@ -9,11 +9,9 @@ interface Props {
 const Bayan = ({ lyrics }: Props) => {
   return (
     <div className="container mx-auto  w-full md:w-[85%] ">
-      <div className="relative overflow-hidden naat card md:rounded-[10px]">
+      <div className="relative overflow-hidden  manqbat card mb-5 md:rounded-[10px]">
         <div className="py-[60px] md:py-[150px] text-center">
-          <h1 className="text-2xl md:text-5xl mb-1 text-white">
-            {lyrics.title}
-          </h1>
+          <h1 className="text-2xl md:text-5xl mb-1 text-white">{lyrics.title}</h1>
         </div>
       </div>
       <p className="whitespace-pre-wrap text-2xl md:text-4xl text-center py-10 poetry leading-10 md:leading-[55px]">
