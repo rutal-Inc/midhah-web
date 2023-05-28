@@ -1,6 +1,7 @@
 export default interface Lyrics {
   id: Number;
   title: string;
-  lyrics: string;
+  genre: string;
+  lyrics?: string;
   slug: string;
 }
