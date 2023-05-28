@@ -1,41 +1,10 @@
+import GenreInfo from "@/src/models/GenreInfo";
+import { genresInfo } from "@/src/utilities/constants";
 import Image from "next/image";
 import Link from "next/link";
-import GenreCard from "../models/GenreCard";
-
-import bait_ullah from "../assets/bait-ullah.png";
-import gosha_e_durood from "../assets/gosha-e-durood.png";
-import roza_imam_hussain from "../assets/roza-e-imam-hussain.png";
-import roza_e_rasool from "../assets/roza-e-rusool.png";
 
 const GenreCards = () => {
-  const cardInfo: GenreCard[] = [
-    {
-      title: "HAMD E TA'ALA",
-      color: "linear-gradient(to bottom right, #2D2A2B, #1A1A1A)",
-      image: bait_ullah,
-      path: "hamd",
-    },
-    {
-      title: "NAAT E RASOOL",
-      color: "linear-gradient(to bottom right, #1F605E, #319678)",
-      image: roza_e_rasool,
-      path: "naat",
-    },
-    {
-      title: "MANQBAT",
-      color: "linear-gradient(to bottom right, #F7C638, #B87129)",
-      image: roza_imam_hussain,
-      path: "manqbat",
-    },
-    {
-      title: "DUROOD O SALAM",
-      color: "linear-gradient(to bottom right, #027278, #081B3E)",
-      image: gosha_e_durood,
-      path: "durood-o-salam",
-    },
-  ];
-
-  const renderCards = (card: GenreCard, index: number) => {
+  const renderCards = (card: GenreInfo, index: number) => {
     return (
       <div className="gap-3 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3" key={index}>
         <Link href={card.path}>
@@ -70,7 +39,7 @@ const GenreCards = () => {
       <p className="text-normal md:text-xl mb-6 pl-4 ">
         You can search and explore the wide range of madh genres{" "}
       </p>
-      <div className="flex flex-wrap">{cardInfo.map(renderCards)}</div>
+      <div className="flex flex-wrap">{genresInfo.map(renderCards)}</div>
     </div>
   );
 };
