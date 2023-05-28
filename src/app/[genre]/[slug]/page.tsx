@@ -1,6 +1,26 @@
 import Lyrics from "@/src/models/Lyrics";
 import { genresInfo } from "@/src/utilities/constants";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const lyric = await getLyrics(params.genre, params.slug);
+
+  const title = `${lyric.title} | Midhah Lyrics - Hamd, Naat, Manqbat & Durood o Salam`;
+
+  return {
+    title,
+    description: `Read the lyrics of ${lyric.genre} ${lyric.title}. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`,
+    openGraph: {
+      title,
+      type: "website",
+      siteName: "Midhah Lyrics",
+    },
+    twitter: {
+      creator: "@midhahOfficial",
+    },
+  };
+}
 
 const getLyrics = async (
   genre: string,
