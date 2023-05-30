@@ -1,12 +1,16 @@
 import Lyrics from "@/src/models/Lyrics";
 import { genresInfo } from "@/src/utilities/constants";
+import { capitalize } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.genre, params.slug);
 
-  const title = `${lyric.title} | Midhah Lyrics - Hamd, Naat, Manqbat & Durood o Salam`;
+  const title = `${lyric.title} (${capitalize(
+    lyric.genre,
+    "-"
+  )}) | Midhah Lyrics`;
 
   return {
     title,
