@@ -65,16 +65,16 @@ export default async function LyricsPage({ params }: Params) {
   return (
     <div className="container mx-auto  w-full md:w-[85%] ">
       <div
-        className="relative overflow-hidden naat card md:rounded-[10px]"
+        className="naat card relative overflow-hidden md:rounded-[10px]"
         style={{ background: genreInfo?.color }}
       >
-        <div className="py-[60px] md:py-[150px] text-center">
-          <h1 className="text-2xl md:text-5xl mb-1 text-white">
+        <div className="py-[60px] text-center md:py-[150px]">
+          <h1 className="mb-1 text-2xl text-white md:text-5xl">
             {lyric.title}
           </h1>
         </div>
       </div>
-      <p className="whitespace-pre-wrap text-2xl md:text-4xl text-center py-10 poetry leading-10 md:leading-[55px]">
+      <p className="poetry whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]">
         {lyric.lyrics}
       </p>
     </div>

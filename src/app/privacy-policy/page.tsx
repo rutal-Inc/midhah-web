@@ -1,20 +1,20 @@
 const Privacy = () => {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div className="relative overflow-hidden p-3 md:p-5 bg-gray-100 py-5">
-        <div className="py-[60px] md:py-[150px] text-center">
-          <h1 className="text-2xl md:text-5xl mb-1">Privacy Policy</h1>
+      <div className="relative overflow-hidden bg-gray-100 p-3 py-5 md:p-5">
+        <div className="py-[60px] text-center md:py-[150px]">
+          <h1 className="mb-1 text-2xl md:text-5xl">Privacy Policy</h1>
           <p className="text-normal md:text-xl">
             We ensure, your Data is Secure
           </p>
         </div>
-        <p className="text-[#666666] text-end fs-6 font-light">
+        <p className="fs-6 text-end font-light text-[#666666]">
           <small>Updated December 04, 2022</small>
         </p>
       </div>
 
-      <div className="container p-5 justify-content  ">
-        <p className="p-1 leading-relaxed mb-4 text-normal">
+      <div className="justify-content container p-5  ">
+        <p className="text-normal mb-4 p-1 leading-relaxed">
           rutal, Inc. built the Midhah Lyrics app as a Free app. This SERVICE is
           provided by rutal, Inc. at no cost and is intended for use as is.
           <br />
@@ -32,8 +32,8 @@ const Privacy = () => {
           Terms and Conditions, which are accessible at Midhah Lyrics unless
           otherwise defined in this Privacy Policy are following:
         </p>
-        <div className=" p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">
+        <div className=" mb-4 p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">
             Information Collection and Use
           </h3>
 
@@ -58,8 +58,8 @@ const Privacy = () => {
           </ul>
         </div>
 
-        <div className="p-1  leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">Log Data</h3>
+        <div className="mb-4  p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">Log Data</h3>
           <p>
             We want to inform you that whenever you use my Service, in a case of
             an error in the app We collect data and information (through
@@ -70,8 +70,8 @@ const Privacy = () => {
             date of your use of the Service, and other statistics.
           </p>
         </div>
-        <div className=" p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">Cookies</h3>
+        <div className=" mb-4 p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">Cookies</h3>
           <p>
             Cookies are files with a small amount of data that are commonly used
             as anonymous unique identifiers. These are sent to your browser from
@@ -87,8 +87,8 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="p-1 leading-relaxed mb-4 ">
-          <h3 className="text-2xl md:text-4xl mb-2">Service Providers</h3>
+        <div className="mb-4 p-1 leading-relaxed ">
+          <h3 className="mb-2 text-2xl md:text-4xl">Service Providers</h3>
           <p>
             We may employ third-party companies and individuals due to the
             following reasons:
@@ -108,8 +108,8 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">Security</h3>
+        <div className="mb-4 p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">Security</h3>
           <p>
             We value your trust in providing us your Personal Information, thus
             we are striving to use commercially acceptable means of protecting
@@ -119,8 +119,8 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">Links to Other Sites</h3>
+        <div className="mb-4 p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">Links to Other Sites</h3>
           <p>
             This Service may contain links to other sites. If you click on a
             third-party link, you will be directed to that site. Note that these
@@ -131,8 +131,8 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="p-1 leading-relaxed mb-4">
-          <h3 className="text-2xl md:text-4xl mb-2">
+        <div className="mb-4 p-1 leading-relaxed">
+          <h3 className="mb-2 text-2xl md:text-4xl">
             Changes to This Privacy Policy
           </h3>
           <p>
@@ -150,4 +150,3 @@ const Privacy = () => {
 };
 
 export default Privacy;
-
