@@ -2,12 +2,12 @@ import Image from "next/image";
 
 const Jumbotron = () => {
   return (
-    <div className="relative overflow-hidden sm:mx-3 md:p-5 text-center bg-gray-100">
-      <div className="md:col-span-3 mx-auto py-[120px] ">
-        <h2 className="text-2xl md:text-5xl mb-1 md:mb-4 ">
+    <div className="relative overflow-hidden bg-gray-100 text-center sm:mx-3 md:p-5">
+      <div className="mx-auto py-[120px] md:col-span-3">
+        <h2 className="mb-1 text-2xl md:mb-4 md:text-5xl">
           Explore the most <br /> authentic lyrics
         </h2>
-        <p className="md:col-span-9 mx-auto leading text-normal md:text-xl font-normal py-4">
+        <p className="leading text-normal mx-auto py-4 font-normal md:col-span-9 md:text-xl">
           Midhah مدحة is the leading and most authentic platform for Naat <br />
           lyrics, in addition to Hamd, Manqbat, and Durood o Salam
         </p>
@@ -24,8 +24,8 @@ const Jumbotron = () => {
           />
         </a>
       </div>
-      <div className="product-device shadow-sm d-none d-md-block"></div>
-      <div className="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      <div className="product-device d-none d-md-block shadow-sm"></div>
+      <div className="product-device product-device-2 d-none d-md-block shadow-sm"></div>
     </div>
   );
 };

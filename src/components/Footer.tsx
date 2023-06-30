@@ -6,8 +6,8 @@ function Footer() {
   const today = new Date();
   const year = today.getFullYear();
   return (
-    <div className="w-[85%] flex md:flex-row flex-col justify-between items-center text-center border-t-2 pt-6 pb-10 mx-auto">
-      <ul className="nav col- justify-center nd:justify-start flex gap-5  ">
+    <div className="mx-auto flex w-[85%] flex-col items-center justify-between border-t-2 pt-6 pb-10 text-center md:flex-row">
+      <ul className="nav col- nd:justify-start flex justify-center gap-5  ">
         <li>
           <a
             className="text-gray-500"
@@ -37,7 +37,7 @@ function Footer() {
         </li>
       </ul>
 
-      <div className="col-md-4 flex items-center justify-center my-3">
+      <div className="col-md-4 my-3 flex items-center justify-center">
         <Image
           src="/images/midhah-logo-grey.svg"
           alt="midhah-logo-grey"
@@ -45,13 +45,13 @@ function Footer() {
           width={30}
           height={30}
         />
-        <span className="mb-0 mx-1 text-gray-500">&copy; {year} Midhah</span>
+        <span className="mx-1 mb-0 text-gray-500">&copy; {year} Midhah</span>
       </div>
 
-      <div className="flex col-md-4 justify-center md:justify-end my-3 order-2 order-md-3">
+      <div className="col-md-4 order-md-3 order-2 my-3 flex justify-center md:justify-end">
         <Link
           href="/privacy-policy"
-          className="text-gray-500 text-de"
+          className="text-de text-gray-500"
           style={{ textDecoration: "none" }}
         >
           Privacy Policy
