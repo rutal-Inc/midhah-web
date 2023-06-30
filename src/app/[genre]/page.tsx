@@ -97,16 +97,19 @@ export default function GenreListPage({ params }: Params) {
           {lyrics.map((lyric: Lyrics, index: number) => (
             <Link href={`/${genre}/${lyric.slug}`} key={lyric.slug}>
               <li
-                className="flex flex-row my-1"
+                className="flex flex-row my-1 group hover:block relative"
                 ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
               >
-                <div className="select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4">
+                <div className="group-hover:scale-0 scale-100 select-none cursor-pointer hover:bg-gray-50 flex flex-1 items-center p-4">
                   <div className="flex-1 pl-1 mr-16">
-                    <div className="text-gray-600  ">{lyric.title}</div>
-                    <span className="text-gray-400  text-sm uppercase">
+                    <h2 className="text-gray-600  ">{lyric.title}</h2>
+                    <h3 className="text-gray-400  text-sm uppercase">
                       {lyric.genre}
-                    </span>
+                    </h3>
                   </div>
+                </div>
+                <div className="absolute top-1/2 -translate-y-1/2 group-hover:py-4 scale-0 group-hover:w-full group-hover:scale-100 whitespace-pre-wrap text-center poetry text-3xl bg-white">
+                  {lyric.preview}
                 </div>
               </li>
             </Link>
