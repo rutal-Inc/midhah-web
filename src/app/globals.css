@@ -4,47 +4,50 @@
 
 @font-face {
   font-family: "Jameel Noori Nastaleeq Regular";
-  src: url("/fonts/Jameel Noori Nastaleeq Regular.ttf");
+  src: url("/fonts/Jameel Noori Nastaleeq Regular.woff2") format("woff2");
 }
-.poetry {
-  font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
-}
+
+@layer utilities {
+  .poetry {
+    font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
+  }
 
   .hero-bg {
     background-image: url("/images/hero-bg.png");
     background-size: cover;
   }
 
-.card {
-  position: relative;
-  z-index: 0;
-}
+  .card {
+    position: relative;
+    z-index: 0;
+  }
 
-.card::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  background-image: url("/images/pattern.png");
-  background-repeat: repeat;
-  background-position: center;
-  background-size: contain;
-  opacity: 0.15;
-  width: 100%;
-  height: 100%;
-}
+  .card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: url("/images/pattern.png");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.15;
+    width: 100%;
+    height: 100%;
+  }
 
-.manqbat {
-  background-image: linear-gradient(to bottom right, #f7c638, #b87129);
-}
+  .manqbat {
+    background-image: linear-gradient(to bottom right, #f7c638, #b87129);
+  }
 
-.naat {
-  background-image: linear-gradient(to bottom right, #1f605e, #319678);
-}
+  .naat {
+    background-image: linear-gradient(to bottom right, #1f605e, #319678);
+  }
 
-.hamd {
-  background-image: linear-gradient(to bottom right, #2d2a2b, #1a1a1a);
-}
+  .hamd {
+    background-image: linear-gradient(to bottom right, #2d2a2b, #1a1a1a);
+  }
 
-.durood {
-  background-image: linear-gradient(to bottom right, #027278, #081b3e);
+  .durood {
+    background-image: linear-gradient(to bottom right, #027278, #081b3e);
+  }
 }
