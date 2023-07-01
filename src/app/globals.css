@@ -10,6 +10,11 @@
   font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
 }
 
+  .hero-bg {
+    background-image: url("/images/hero-bg.png");
+    background-size: cover;
+  }
+
 .card {
   position: relative;
   z-index: 0;

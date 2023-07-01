@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Jumbotron = () => {
   return (
-    <div className="relative overflow-hidden bg-gray-100 text-center sm:mx-3 md:p-5">
+    <div className="hero-bg relative overflow-hidden text-center text-white sm:mx-3 md:p-5">
       <div className="mx-auto py-[120px] md:col-span-3">
         <h2 className="mb-1 text-2xl md:mb-4 md:text-5xl">
           Explore the most <br /> authentic lyrics
