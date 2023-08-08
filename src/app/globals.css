@@ -4,42 +4,56 @@
 
 @font-face {
   font-family: "Jameel Noori Nastaleeq Regular";
-  src: url("/fonts/Jameel Noori Nastaleeq Regular.ttf");
-}
-.poetry {
-  font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
+  src: url("/fonts/Jameel Noori Nastaleeq Regular.woff2") format("woff2");
 }
 
-.card {
-  position: relative;
-  z-index: 0;
+@layer components {
+  .btn-primary {
+    @apply flex-none rounded-md bg-gradient-to-br from-secondary to-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-secondary-dark hover:to-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary;
+  }
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  background-image: url("/images/pattern.png");
-  background-repeat: repeat;
-  background-position: center;
-  background-size: contain;
-  opacity: 0.15;
-  width: 100%;
-  height: 100%;
-}
+@layer utilities {
+  .poetry {
+    font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
+  }
 
-.manqbat {
-  background-image: linear-gradient(to bottom right, #f7c638, #b87129);
-}
+  .hero-bg {
+    background-image: url("/images/hero-bg.png");
+    background-size: cover;
+  }
 
-.naat {
-  background-image: linear-gradient(to bottom right, #1f605e, #319678);
-}
+  .card {
+    position: relative;
+    z-index: 0;
+  }
 
-.hamd {
-  background-image: linear-gradient(to bottom right, #2d2a2b, #1a1a1a);
-}
+  .card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: url("/images/pattern.png");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.15;
+    width: 100%;
+    height: 100%;
+  }
 
-.durood {
-  background-image: linear-gradient(to bottom right, #027278, #081b3e);
+  .manqbat {
+    background-image: linear-gradient(to bottom right, #f7c638, #b87129);
+  }
+
+  .naat {
+    background-image: linear-gradient(to bottom right, #1f605e, #319678);
+  }
+
+  .hamd {
+    background-image: linear-gradient(to bottom right, #2d2a2b, #1a1a1a);
+  }
+
+  .durood {
+    background-image: linear-gradient(to bottom right, #027278, #081b3e);
+  }
 }
