@@ -47,7 +47,7 @@ export default function Search() {
 
     if (hasMoreData) {
       fetch(
-        `http://api.midhah.com/v2/search?query=${query}&page=${page}&size=30`,
+        `https://api.midhah.com/v2/search?query=${query}&page=${page}&size=30`,
         {
           method: "GET",
           headers: {
