@@ -5,6 +5,7 @@ import Lyrics from "@/src/models/Lyrics";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+
 export default function Search() {
   const searchParams = useSearchParams();
 
