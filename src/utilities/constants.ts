@@ -1,9 +1,9 @@
 import GenreInfo from "@/src/models/GenreInfo";
 
-import bait_ullah from "../assets/bait-ullah.png";
-import gosha_e_durood from "../assets/gosha-e-durood.png";
-import roza_imam_hussain from "../assets/roza-e-imam-hussain.png";
-import roza_e_rasool from "../assets/roza-e-rusool.png";
+import bait_ullah from "@/src/assets/bait-ullah.png";
+import gosha_e_durood from "@/src/assets/gosha-e-durood.png";
+import roza_imam_hussain from "@/src/assets/roza-e-imam-hussain.png";
+import roza_e_rasool from "@/src/assets/roza-e-rusool.png";
 
 export const genresInfo: GenreInfo[] = [
   {
