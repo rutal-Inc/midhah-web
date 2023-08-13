@@ -40,7 +40,7 @@ function SearchDialog({ show, closeModal }: Props) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform shadow-xl transition-all">
-                <form action="search" method="get" className="flex">
+                <form action="/search" method="get" className="flex">
                   <label htmlFor="search" className="sr-only">
                     Email address
                   </label>
