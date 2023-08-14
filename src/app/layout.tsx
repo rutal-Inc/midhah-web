@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     creator: "@midhahOfficial",
   },
-  manifest: "app.webmanifest",
+  manifest: "/app.webmanifest",
 };
 
 export default function RootLayout({
