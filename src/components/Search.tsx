@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { useSearchParams } from "next/navigation";
-import { Fragment } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 
 type Props = {
   show: boolean;
@@ -12,7 +12,12 @@ type Props = {
 function SearchDialog({ show, closeModal }: Props) {
   const searchParams = useSearchParams();
 
-  const query = searchParams.get("query") as string;
+  const [query, setQuery] = useState(searchParams.get("query") as string);
+
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -40,7 +45,7 @@ function SearchDialog({ show, closeModal }: Props) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform shadow-xl transition-all">
-                <form action="search" method="get" className="flex">
+                <form action="/search" method="get" className="flex">
                   <label htmlFor="search" className="sr-only">
                     Email address
                   </label>
@@ -49,6 +54,7 @@ function SearchDialog({ show, closeModal }: Props) {
                     name="query"
                     id="query"
                     value={query}
+                    onChange={handleQueryChange}
                     required
                     className="mr-2 flex w-full min-w-0 rounded-md px-3.5 py-2 shadow-sm ring-1 ring-inset ring-secondary-light placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                     placeholder="Hamd, Naat, Manqbat or Durood-o-Salam"
