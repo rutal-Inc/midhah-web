@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.midhah.lyrics",
+      "sha256_cert_fingerprints": [
+        "61:A2:DA:C8:16:8B:BB:D0:69:75:CE:04:42:50:3A:9C:7E:A5:94:FE:26:D5:8A:72:EC:0C:74:52:97:D3:1F:4C"
+      ]
+    }
+  }
+]
