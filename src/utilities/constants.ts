@@ -31,3 +31,5 @@ export const genresInfo: GenreInfo[] = [
     path: "durood-o-salam",
   },
 ];
+
+export const WEB_BASE_URL = "https://lyrics.midhah.com";

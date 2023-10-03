@@ -1,3 +1,22 @@
+import { WEB_BASE_URL } from "@/src/utilities/constants";
+import { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  const title = `Privacy Policy | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  return {
+    title,
+    openGraph: {
+      title,
+    },
+    twitter: {
+      title,
+    },
+    alternates: {
+      canonical: `${WEB_BASE_URL}/privacy-policy`,
+    },
+  };
+}
+
 const Privacy = () => {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
