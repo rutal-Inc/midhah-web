@@ -15,20 +15,24 @@ export const metadata: Metadata = {
   description,
   openGraph: {
     title,
+    description,
     type: "website",
     siteName: "Midhah Lyrics",
   },
   twitter: {
+    title,
+    description,
     creator: "@midhahOfficial",
   },
   manifest: "/app.webmanifest",
+  creator: "rutal, Inc.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body className={montserrat.className} suppressHydrationWarning={true}>

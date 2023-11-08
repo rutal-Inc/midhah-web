@@ -1,6 +1,6 @@
 import Lyrics from "@/src/models/Lyrics";
-import { genresInfo } from "@/src/utilities/constants";
-import { capitalize } from "@/src/utilities/helpers";
+import { WEB_BASE_URL } from "@/src/utilities/constants";
+import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -12,24 +12,26 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     "-"
   )}) | Midhah Lyrics`;
 
+  const description = `Read the lyrics of ${lyric.genre} ${lyric.title}. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
+
   return {
     title,
-    description: `Read the lyrics of ${lyric.genre} ${lyric.title}. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`,
+    description,
     openGraph: {
       title,
-      type: "website",
-      siteName: "Midhah Lyrics",
+      description,
     },
     twitter: {
-      creator: "@midhahOfficial",
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `${WEB_BASE_URL}/${params.genre}/${params.slug}`,
     },
   };
 }
 
-const getLyrics = async (
-  genre: string,
-  slug: string
-): Promise<Lyrics | never> => {
+const getLyrics = async (genre: string, slug: string): Promise<Lyrics> => {
   const res = await fetch(`https://api.midhah.com/v2/lyrics/${genre}/${slug}`, {
     method: "GET",
     headers: {
@@ -46,12 +48,8 @@ const getLyrics = async (
   }
 };
 
-function getPageGenre(genre: string) {
-  return genresInfo.filter((genreInfo) => genreInfo.path === genre)[0];
-}
-
 type Params = {
-  params: {
+  readonly params: {
     genre: string;
     slug: string;
   };

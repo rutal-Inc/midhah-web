@@ -1,3 +1,22 @@
+import { WEB_BASE_URL } from "@/src/utilities/constants";
+import { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  const title = `Privacy Policy | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  return {
+    title,
+    openGraph: {
+      title,
+    },
+    twitter: {
+      title,
+    },
+    alternates: {
+      canonical: `${WEB_BASE_URL}/privacy-policy`,
+    },
+  };
+}
+
 const Privacy = () => {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
@@ -64,10 +83,10 @@ const Privacy = () => {
             We want to inform you that whenever you use my Service, in a case of
             an error in the app We collect data and information (through
             third-party products) on your phone called Log Data. This Log Data
-            may include information such as your device Internet Protocol (
-            <strong>IP</strong>) address, device name, operating system version,
-            the configuration of the app when utilizing my Service, the time and
-            date of your use of the Service, and other statistics.
+            may include information such as your device Internet Protocol (IP)
+            address, device name, operating system version, the configuration of
+            the app when utilizing my Service, the time and date of your use of
+            the Service, and other statistics.
           </p>
         </div>
         <div className=" mb-4 p-1 leading-relaxed">
