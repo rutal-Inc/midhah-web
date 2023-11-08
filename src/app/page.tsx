@@ -11,11 +11,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <main>
-        <Jumbotron />
-        <GenreCards />
-      </main>
-    </>
+    <main>
+      <Jumbotron />
+      <GenreCards />
+    </main>
   );
 }
