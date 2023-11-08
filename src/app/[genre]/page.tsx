@@ -28,7 +28,7 @@ export function generateMetadata({ params }: Params): Metadata {
 }
 
 type Params = {
-  params: { genre: string };
+  readonly params: { genre: string };
 };
 export default function GenreListPage({ params }: Params) {
   const genre = params.genre;

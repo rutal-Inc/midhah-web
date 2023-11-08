@@ -31,10 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-const getLyrics = async (
-  genre: string,
-  slug: string
-): Promise<Lyrics | never> => {
+const getLyrics = async (genre: string, slug: string): Promise<Lyrics> => {
   const res = await fetch(`https://api.midhah.com/v2/lyrics/${genre}/${slug}`, {
     method: "GET",
     headers: {
@@ -52,7 +49,7 @@ const getLyrics = async (
 };
 
 type Params = {
-  params: {
+  readonly params: {
     genre: string;
     slug: string;
   };
