@@ -23,7 +23,7 @@ function Footer() {
             href="https://twitter.com/midhahOfficial"
             target="_blank"
           >
-            <i className="bi bi-twitter"></i>
+            <i className="bi bi-twitter-x"></i>
           </a>
         </li>
         <li className="ms-3">
