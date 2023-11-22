@@ -18,7 +18,7 @@ export default function FeatureCards() {
         </p>
 
         <div className="m-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="bg-slate-100 px-4 pt-4 ">
+          <div className="order-1 flex flex-col justify-between bg-slate-100 px-4 pt-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Pure Poetic Purity</h3>
               <p className="text-normal md:text-xl">
@@ -26,7 +26,7 @@ export default function FeatureCards() {
                 untouched and true
               </p>
             </div>
-            <div className="mx-auto h-80 max-w-[40%] overflow-hidden">
+            <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
               <Image
                 src={lyricsScreen}
                 alt="home screen"
@@ -35,19 +35,16 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="bg-primary px-4 pt-4 ">
+          <div className="order-2 flex flex-col justify-between bg-primary px-4 pt-4">
             <div className="my-4 py-4 text-center text-white">
-              <h3 className="mb-3 text-2xl md:text-4xl">
-                {/* Explore Instantly */}
-                At Your Fingertips
-              </h3>
+              <h3 className="mb-3 text-2xl md:text-4xl">At Your Fingertips</h3>
               <p className="text-normal md:text-xl">
                 Unleash the power of precision with our state-of-the-art search
                 functionality
                 {/* Advanced Search for Hamd, Naat, Manqbat, and Durood o Salam */}
               </p>
             </div>
-            <div className="mx-auto h-80 max-w-[40%] overflow-hidden">
+            <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
               <Image
                 src={searchScreen}
                 alt="search screen"
@@ -56,7 +53,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="bg-primary px-4 pt-4 ">
+          <div className="order-4 flex flex-col justify-between bg-primary px-4 pt-4 lg:order-3">
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">Offline Access</h3>
               <p className="text-normal md:text-xl">
@@ -64,7 +61,7 @@ export default function FeatureCards() {
                 verses anytime, anywhere
               </p>
             </div>
-            <div className="mx-auto h-80 max-w-[40%] overflow-hidden">
+            <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
               <Image
                 src={downloadsScreen}
                 alt="home screen"
@@ -73,7 +70,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="bg-slate-300 px-4 pt-4">
+          <div className="order-3 flex flex-col justify-between bg-slate-300 px-4 pt-4 lg:order-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Lyrical Oasis</h3>
               <p className="text-normal md:text-xl">
@@ -90,7 +87,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="bg-slate-100 px-4 pt-4 ">
+          <div className="order-5 flex flex-col justify-between bg-slate-100 px-4 pt-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Interactive Harmony</h3>
               <p className="text-normal md:text-xl">
@@ -98,7 +95,7 @@ export default function FeatureCards() {
                 interface
               </p>
             </div>
-            <div className="mx-auto h-80 overflow-hidden xl:max-w-[40%]">
+            <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
               <Image
                 src={homeScreen}
                 alt="home screen"
