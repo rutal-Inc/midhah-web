@@ -23,7 +23,8 @@
     background-size: cover;
   }
 
-  .card {
+  .card,
+  .bg-floral-frame {
     position: relative;
     z-index: 0;
   }
@@ -39,6 +40,28 @@
     opacity: 0.15;
     width: 100%;
     height: 100%;
+  }
+
+  .bg-floral-frame::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: url("/images/floral-frame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    bottom: -350px;
+    right: -350px;
+    opacity: 0.1;
+    width: 700px;
+    height: 700px;
+    animation: spin 60s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .manqbat {
