@@ -1,4 +1,5 @@
 import Image from "next/image";
+import googlePlayBadge from "../assets/google-play-badge.png";
 
 const Jumbotron = () => {
   return (
@@ -16,7 +17,7 @@ const Jumbotron = () => {
           target="_blank"
         >
           <Image
-            src="/images/Google_Play_Store_badge_EN.png"
+            src={googlePlayBadge}
             alt="Get it on Google Play"
             width="150"
             height="44"
