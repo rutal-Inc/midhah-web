@@ -1,12 +1,14 @@
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Noto_Nastaliq_Urdu } from "next/font/google";
 import { WEB_BASE_URL } from "../utilities/constants";
 import "./globals.css";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
-
+const noto_urdu = Noto_Nastaliq_Urdu({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 const title = "Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform";
 const description =
   "Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.";
@@ -37,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className} suppressHydrationWarning={true}>
+      <body className={noto_urdu.className} suppressHydrationWarning={true}>
         <Navbar />
         {children}
         <Footer />
