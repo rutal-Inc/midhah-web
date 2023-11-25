@@ -1,8 +1,9 @@
-import Navbar from "@/src/components/Navbar";
-import "./globals.css";
-import { Montserrat } from "next/font/google";
 import Footer from "@/src/components/Footer";
+import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
+import { Montserrat } from "next/font/google";
+import { WEB_BASE_URL } from "../utilities/constants";
+import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  metadataBase: new URL(WEB_BASE_URL),
   openGraph: {
     title,
     description,
