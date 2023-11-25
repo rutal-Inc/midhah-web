@@ -6,7 +6,7 @@ function Footer() {
   const today = new Date();
   const year = today.getFullYear();
   return (
-    <div className="mx-auto flex w-[85%] flex-col items-center justify-between border-t-2 pt-6 pb-10 text-center md:flex-row">
+    <div className="mx-auto flex w-[85%] flex-col items-center justify-between border-t-2 pb-10 pt-6 text-center md:flex-row">
       <ul className="nav col- nd:justify-start flex justify-center gap-5  ">
         <li>
           <a
@@ -33,6 +33,15 @@ function Footer() {
             target="_blank"
           >
             <i className="bi bi-instagram"></i>
+          </a>
+        </li>
+        <li className="ms-3">
+          <a
+            className="text-gray-500"
+            href="https://github.com/rutal-Inc/midhah-web"
+            target="_blank"
+          >
+            <i className="bi bi-github"></i>
           </a>
         </li>
       </ul>
