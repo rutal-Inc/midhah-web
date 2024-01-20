@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { noto_nastaliq_urdu } from "../app/fonts";
 import GenreInfo from "../models/GenreInfo";
 import Lyrics from "../models/Lyrics";
 import { getPageGenre } from "../utilities/helpers";
@@ -90,7 +91,9 @@ export default function RenderLyricsList({ genre }: Params) {
                   </h3>
                 </div>
               </div>
-              <div className="poetry absolute top-1/2 -translate-y-1/2 scale-0 whitespace-pre-wrap text-center text-3xl group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all">
+              <div
+                className={`${noto_nastaliq_urdu.className} absolute top-1/2 -translate-y-1/2 scale-0 whitespace-pre-wrap text-center text-3xl group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all`}
+              >
                 {lyric.preview}
               </div>
             </li>
