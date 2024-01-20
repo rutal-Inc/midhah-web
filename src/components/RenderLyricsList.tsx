@@ -3,21 +3,17 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { noto_nastaliq_urdu } from "../app/fonts";
-import GenreInfo from "../models/GenreInfo";
 import Lyrics from "../models/Lyrics";
-import { getPageGenre } from "../utilities/helpers";
 import Loader from "./Loader";
 
 type Params = {
   genre: string;
 };
-export default function RenderLyricsList({ genre }: Params) {
+export default function RenderLyricsList({ genre }: Readonly<Params>) {
   const [lyrics, setLyrics] = useState<Lyrics[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreData, setHasMoreData] = useState(true);
-
-  const [genreInfo, setGenreInfo] = useState<GenreInfo | null>(null);
 
   const lastLyricRef = useRef<HTMLLIElement>(null);
 
@@ -51,8 +47,6 @@ export default function RenderLyricsList({ genre }: Params) {
     setIsLoading(true);
 
     if (genre && hasMoreData) {
-      setGenreInfo(getPageGenre(genre));
-
       fetch(`https://api.midhah.com/v2/lyrics/${genre}?page=${page}&size=30`, {
         method: "GET",
         headers: {
