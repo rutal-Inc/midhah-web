@@ -3,6 +3,7 @@ import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { noto_nastaliq_urdu } from "../../fonts";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.genre, params.slug);
@@ -72,7 +73,9 @@ export default async function LyricsPage({ params }: Params) {
           </h1>
         </div>
       </div>
-      <p className="poetry whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]">
+      <p
+        className={`${noto_nastaliq_urdu.className} whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]`}
+      >
         {lyric.lyrics}
       </p>
     </div>

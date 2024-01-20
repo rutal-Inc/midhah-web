@@ -1,11 +1,9 @@
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import { WEB_BASE_URL } from "../utilities/constants";
+import { montserrat } from "./fonts";
 import "./globals.css";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
 
 const title = "Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform";
 const description =
