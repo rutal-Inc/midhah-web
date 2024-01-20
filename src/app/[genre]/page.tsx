@@ -2,6 +2,7 @@ import RenderLyricsList from "@/src/components/RenderLyricsList";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
+import { notFound, permanentRedirect } from "next/navigation";
 
 export function generateMetadata({ params }: Params): Metadata {
   const title = `${capitalize(
@@ -30,10 +31,20 @@ export function generateMetadata({ params }: Params): Metadata {
 type Params = {
   readonly params: { genre: string };
 };
-export default function GenreListPage({ params }: Params) {
+export default async function GenreListPage({ params }: Params) {
   const genre = params.genre;
 
   const genreInfo = getPageGenre(params.genre);
+
+  if (!genreInfo) {
+    const res = await searchGenre(params.genre);
+
+    if (res) {
+      permanentRedirect(`/${res.genre}/${params.genre}`);
+    } else {
+      notFound();
+    }
+  }
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
@@ -51,4 +62,21 @@ export default function GenreListPage({ params }: Params) {
       <RenderLyricsList genre={genre} />
     </div>
   );
+}
+
+async function searchGenre(genre: string): Promise<{ genre: string } | null> {
+  const res = await fetch(`https://api.midhah.com/v2/search/genre/${genre}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  }).then((response) => {
+    return response.json();
+  });
+
+  if (res.data) {
+    return res.data;
+  }
+  return null;
 }
