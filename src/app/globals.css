@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Jameel Noori Nastaleeq Regular";
-  src: url("/fonts/Jameel Noori Nastaleeq Regular.woff2") format("woff2");
-}
-
 @layer components {
   .btn-primary {
     @apply flex-none rounded-md bg-gradient-to-br from-secondary to-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-secondary-dark hover:to-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary;
@@ -14,10 +9,6 @@
 }
 
 @layer utilities {
-  .poetry {
-    font-family: "Jameel Noori Nastaleeq Regular", sans-serif;
-  }
-
   .hero-bg {
     background-image: url("/images/hero-bg.png");
     background-size: cover;
