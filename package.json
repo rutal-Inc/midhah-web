@@ -12,7 +12,8 @@
     "@headlessui/react": "^1.7.15",
     "@tailwindcss/forms": "^0.5.7",
     "axios": "^1.6.2",
-    "bootstrap-icons": "^1.11.1"
+    "bootstrap-icons": "^1.11.1",
+    "sharp": "^0.33.2"
   },
   "devDependencies": {
     "@types/node": "^18.18.10",
@@ -21,8 +22,8 @@
     "autoprefixer": "^10.4.13",
     "color": "^4.2.3",
     "eslint": "^8.36.0",
-    "eslint-config-next": "13.5.6",
-    "next": "13.5.6",
+    "eslint-config-next": "^13.5.6",
+    "next": "^13.5.6",
     "postcss": "^8.4.31",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
