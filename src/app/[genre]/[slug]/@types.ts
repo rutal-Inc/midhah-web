@@ -1,6 +1,6 @@
-export type Params = {
-  readonly params: {
+export type Params = Readonly<{
+  params: {
     genre: string;
     slug: string;
   };
-};
+}>;
