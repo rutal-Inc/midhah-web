@@ -1,8 +1,8 @@
-import Lyrics from "@/src/models/Lyrics";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
 import { Params } from "./@types";
+import { getLyrics } from "./service";
 
 export const runtime = "edge";
 
@@ -14,20 +14,8 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image({ params }: Params) {
-  const res = await fetch(
-    `https://api.midhah.com/v2/lyrics/${params.genre}/${params.slug}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  ).then(async (response) => {
-    const res = await response.json();
-    return res?.data[0] as Lyrics;
-  });
-
   const genereDetails = getPageGenre(params.genre);
+  const lyrics = await getLyrics(params.genre, params.slug);
 
   return new ImageResponse(
     (
@@ -68,7 +56,7 @@ export default async function Image({ params }: Params) {
           {params.genre}
         </p>
 
-        <h4>{res.title}</h4>
+        <h4>{lyrics?.title}</h4>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
