@@ -2,6 +2,7 @@ import Lyrics from "@/src/models/Lyrics";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
+import { Params } from "./@types";
 
 export const runtime = "edge";
 
@@ -11,13 +12,6 @@ export const size = {
 };
 
 export const contentType = "image/png";
-
-type Params = {
-  readonly params: {
-    genre: string;
-    slug: string;
-  };
-};
 
 export default async function Image({ params }: Params) {
   const res = await fetch(

@@ -4,6 +4,7 @@ import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { noto_nastaliq_urdu } from "../../fonts";
+import { Params } from "./@types";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.genre, params.slug);
@@ -47,13 +48,6 @@ const getLyrics = async (genre: string, slug: string): Promise<Lyrics> => {
   } else {
     notFound();
   }
-};
-
-type Params = {
-  readonly params: {
-    genre: string;
-    slug: string;
-  };
 };
 
 export default async function LyricsPage({ params }: Params) {
