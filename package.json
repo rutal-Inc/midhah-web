@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@tailwindcss/forms": "^0.5.7",
+    "@vercel/og": "^0.6.2",
     "axios": "^1.6.2",
     "bootstrap-icons": "^1.11.1",
     "sharp": "^0.33.2"
