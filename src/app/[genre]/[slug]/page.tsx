@@ -1,12 +1,17 @@
-import Lyrics from "@/src/models/Lyrics";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { noto_nastaliq_urdu } from "../../fonts";
+import { Params } from "./@types";
+import { getLyrics } from "./service";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.genre, params.slug);
+
+  if (!lyric) {
+    notFound();
+  }
 
   const title = `${lyric.title} (${capitalize(
     lyric.genre,
@@ -32,34 +37,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-const getLyrics = async (genre: string, slug: string): Promise<Lyrics> => {
-  const res = await fetch(`https://api.midhah.com/v2/lyrics/${genre}/${slug}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => {
-    return response.json();
-  });
-
-  if (res.data) {
-    return res.data[0] as Lyrics;
-  } else {
-    notFound();
-  }
-};
-
-type Params = {
-  readonly params: {
-    genre: string;
-    slug: string;
-  };
-};
-
 export default async function LyricsPage({ params }: Params) {
+  const genreInfo = getPageGenre(params.genre);
   const lyric = await getLyrics(params.genre, params.slug);
 
-  const genreInfo = getPageGenre(params.genre);
+  if (!lyric) {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto  w-full md:w-[85%] ">
