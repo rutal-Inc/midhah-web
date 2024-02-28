@@ -1,6 +1,8 @@
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import Loader from "../components/Loader";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
 import "./globals.css";
@@ -35,10 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className} suppressHydrationWarning={true}>
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={montserrat.className}>
+        <Suspense fallback={<Loader />}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
