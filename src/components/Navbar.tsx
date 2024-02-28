@@ -1,9 +1,8 @@
 "use client";
 
-import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import SearchDialog from "./Search";
 
 function Navbar() {
@@ -29,7 +28,7 @@ function Navbar() {
       </Link>
 
       <button
-        className="rounded-md py-2 px-3.5 ring-1 hover:bg-gray-100 md:pr-7"
+        className="rounded-md px-3.5 py-2 ring-1 hover:bg-gray-100 md:pr-7"
         onClick={openModal}
       >
         <i className="bi bi-search md:mr-1"></i>{" "}
