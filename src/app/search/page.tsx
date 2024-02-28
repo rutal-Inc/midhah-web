@@ -2,11 +2,12 @@
 
 import Loader from "@/src/components/Loader";
 import Lyrics from "@/src/models/Lyrics";
+import { genresInfo } from "@/src/utilities/constants";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { genresInfo } from "@/src/utilities/constants";
+import { noto_nastaliq_urdu } from "../fonts";
 
 export default function Search() {
   const searchParams = useSearchParams();
@@ -109,7 +110,9 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
-                <div className="poetry absolute top-1/2 -translate-y-1/2 scale-0 whitespace-pre-wrap text-center text-3xl group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all">
+                <div
+                  className={`${noto_nastaliq_urdu.className} absolute top-1/2 -translate-y-1/2 scale-0 whitespace-pre-wrap text-center text-3xl group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all`}
+                >
                   {lyric.preview}
                 </div>
               </li>
