@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${WEB_BASE_URL}/weekly`,
+      url: `${WEB_BASE_URL}/naat`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
