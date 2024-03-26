@@ -2,6 +2,7 @@ import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import GoogleAnalytics from "../components/GoogleAnalytics";
 import Loader from "../components/Loader";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
@@ -37,6 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics
+        GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
+      />
       <body className={montserrat.className}>
         <Suspense fallback={<Loader />}>
           <Navbar />
