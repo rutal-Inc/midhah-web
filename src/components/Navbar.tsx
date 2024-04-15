@@ -28,6 +28,7 @@ function Navbar() {
       </Link>
 
       <button
+        aria-label="Search your favorite midhah lyrics"
         className="rounded-md px-3.5 py-2 ring-1 hover:bg-gray-100 md:pr-7"
         onClick={openModal}
       >
