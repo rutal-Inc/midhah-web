@@ -10,6 +10,7 @@ function Footer() {
       <ul className="nav col- nd:justify-start flex justify-center gap-5  ">
         <li>
           <a
+            aria-label="Follow us on Facebook"
             className="text-gray-500"
             href="https://www.facebook.com/midhah.official"
             target="_blank"
@@ -19,6 +20,7 @@ function Footer() {
         </li>
         <li className="ms-3">
           <a
+            aria-label="Follow us on Twitter"
             className="text-gray-500"
             href="https://twitter.com/midhahOfficial"
             target="_blank"
@@ -28,6 +30,7 @@ function Footer() {
         </li>
         <li className="ms-3">
           <a
+            aria-label="Follow us on Instagram"
             className="text-gray-500"
             href="https://www.instagram.com/midhah.official/"
             target="_blank"
@@ -37,6 +40,7 @@ function Footer() {
         </li>
         <li className="ms-3">
           <a
+            aria-label="Checkout our source code"
             className="text-gray-500"
             href="https://github.com/rutal-Inc/midhah-web"
             target="_blank"
