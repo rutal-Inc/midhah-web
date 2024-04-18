@@ -37,7 +37,7 @@ const GenreCards = () => {
         Explore the Genres
       </h2>
       <p className="text-normal mb-6 pl-4 md:text-xl ">
-        You can search and explore the wide range of madh genres{" "}
+        Delve into and explore the lyrics of a diverse array of madh genres{" "}
       </p>
       <div className="flex flex-wrap">{genresInfo.map(renderCards)}</div>
     </div>

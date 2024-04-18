@@ -13,8 +13,8 @@ export default function FeatureCards() {
           Discover Uncharted Devotion
         </h2>
         <p className="text-normal mb-6 pl-4 md:text-xl ">
-          Dive into a world of authenticity, diversity, and immersive lyrical
-          experiences
+          Dive into diverse, authentic, and immersive lyrical experiences with
+          our app
         </p>
 
         <div className="m-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -41,7 +41,6 @@ export default function FeatureCards() {
               <p className="text-normal md:text-xl">
                 Unleash the power of precision with our state-of-the-art search
                 functionality
-                {/* Advanced Search for Hamd, Naat, Manqbat, and Durood o Salam */}
               </p>
             </div>
             <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
@@ -57,8 +56,8 @@ export default function FeatureCards() {
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">Offline Access</h3>
               <p className="text-normal md:text-xl">
-                Capture the essence offline—download and access your favorite
-                verses anytime, anywhere
+                Capture the essence offline—download app and access your
+                favorite verses anytime, anywhere
               </p>
             </div>
             <div className="mx-auto h-80 max-w-[60%] overflow-hidden sm:max-w-[50%] md:h-96 lg:h-80 xl:max-w-[40%]">
