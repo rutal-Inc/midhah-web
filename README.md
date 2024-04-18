@@ -2,7 +2,8 @@
   <img src="public/images/midhah-lyrics-logo.svg" alt="Midhah Lyrics logo" width="300">
 </p>
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rutal-Inc_midhah-web&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rutal-Inc_midhah-web)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) 
 
 ## ℹ️ Introduction
 
@@ -10,11 +11,11 @@ Midhah is the leading and most authentic platform that allows you to effortlessl
 
 ## 🐛 Bugs and feature requests
 
-Have a bug or a feature request? Please search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/rutal-Inc/midhah-www/issues/new).
+Do you have a bug or a feature request? Please search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/rutal-Inc/midhah-www/issues/new).
 
 ## 🧑‍💻 Contributing
 
-We welcome the developers from all level to contribute in this project. For this, please open an issue and discuss with the maintainers and then start coding... 🧑‍💻
+We welcome developers from all levels to contribute to this project. For this, please open an issue, discuss it with the maintainers, and then start coding... 🧑‍💻
 
 ## 😎 Creator
 
