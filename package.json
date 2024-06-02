@@ -9,28 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
-    "@tailwindcss/forms": "^0.5.7",
+    "@headlessui/react": "^2.0.4",
     "@vercel/og": "^0.6.2",
-    "axios": "^1.6.2",
-    "bootstrap-icons": "^1.11.1",
-    "sharp": "^0.33.2"
+    "bootstrap-icons": "^1.11.3",
+    "next": "^14.2.3",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@types/node": "^18.18.10",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "autoprefixer": "^10.4.13",
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/node": "^20.13.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
     "color": "^4.2.3",
-    "eslint": "^8.36.0",
-    "eslint-config-next": "^13.5.6",
-    "next": "^13.5.6",
-    "postcss": "^8.4.31",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.2.7",
-    "typescript": "^5.0.2"
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "postcss": "^8.4.38",
+    "prettier": "^3.3.0",
+    "prettier-plugin-tailwindcss": "^0.6.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
   }
 }
