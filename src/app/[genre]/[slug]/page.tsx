@@ -1,3 +1,4 @@
+import NeworMedia from "@/src/components/NeworMedia";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
@@ -57,6 +58,9 @@ export default async function LyricsPage({ params }: Params) {
           </h1>
         </div>
       </div>
+      
+      <NeworMedia />
+
       <p
         className={`${noto_nastaliq_urdu.className} whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]`}
       >
