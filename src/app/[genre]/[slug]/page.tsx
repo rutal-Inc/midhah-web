@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
+import Ads from "@/src/components/ads";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.genre, params.slug);
@@ -58,8 +59,8 @@ export default async function LyricsPage({ params }: Params) {
           </h1>
         </div>
       </div>
-      
-      <NeworMedia />
+      <NeworMedia/>
+      <Ads />
 
       <p
         className={`${noto_nastaliq_urdu.className} whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]`}
