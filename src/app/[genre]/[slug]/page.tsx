@@ -9,7 +9,7 @@ import { getLyrics } from "./service";
 import Ads from "@/src/components/ads";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const lyric = await getLyrics(params.genre, params.slug);
+  const lyric = await getLyrics(params.slug);
 
   if (!lyric) {
     notFound();
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   const title = `${lyric.title} (${capitalize(
     lyric.genre,
-    "-"
+    "-",
   )}) | Midhah Lyrics`;
 
   const description = `Read the lyrics of ${lyric.genre} ${lyric.title}. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
@@ -41,14 +41,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function LyricsPage({ params }: Params) {
   const genreInfo = getPageGenre(params.genre);
-  const lyric = await getLyrics(params.genre, params.slug);
+  const lyric = await getLyrics(params.slug);
 
   if (!lyric) {
     notFound();
   }
 
   return (
-    <div className="container mx-auto  w-full md:w-[85%] ">
+    <div className="container mx-auto w-full md:w-[85%]">
       <div
         className="naat card relative overflow-hidden md:rounded-[10px]"
         style={{ background: genreInfo?.color }}
@@ -59,7 +59,7 @@ export default async function LyricsPage({ params }: Params) {
           </h1>
         </div>
       </div>
-      <NeworMedia/>
+      <NeworMedia />
       <Ads />
 
       <p

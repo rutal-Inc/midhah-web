@@ -47,12 +47,15 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
     setIsLoading(true);
 
     if (genre && hasMoreData) {
-      fetch(`https://api.midhah.com/v2/lyrics/${genre}?page=${page}&size=30`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
+      fetch(
+        `https://api.midhah.com/v2/lyrics/genre/${genre}?page=${page}&size=30`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      })
+      )
         .then((response) => {
           if (!response.ok) {
             setHasMoreData(false);
@@ -79,7 +82,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
             >
               <div className="flex flex-1 scale-100 cursor-pointer select-none items-center p-4 hover:bg-gray-50 group-hover:scale-0">
                 <div className="mr-16 flex-1 pl-1">
-                  <h2 className="text-gray-600  ">{lyric.title}</h2>
+                  <h2 className="text-gray-600">{lyric.title}</h2>
                   <h3 className="text-sm uppercase text-gray-400">
                     {lyric.genre}
                   </h3>

@@ -15,7 +15,7 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: Params) {
   const genereDetails = getPageGenre(params.genre);
-  const lyrics = await getLyrics(params.genre, params.slug);
+  const lyrics = await getLyrics( params.slug);
 
   return new ImageResponse(
     (
