@@ -67,7 +67,7 @@ export default function Search() {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       )
         .then((response) => {
           if (!response.ok) {

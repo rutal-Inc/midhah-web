@@ -7,7 +7,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 export function generateMetadata({ params }: Params): Metadata {
   const title = `${capitalize(
     params.genre,
-    "-"
+    "-",
   )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
   const description = `Explore your favorite ${params.genre} lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
 

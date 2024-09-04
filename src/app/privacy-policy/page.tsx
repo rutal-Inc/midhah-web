@@ -32,7 +32,7 @@ const Privacy = () => {
         </p>
       </div>
 
-      <div className="justify-content container p-5  ">
+      <div className="justify-content container p-5">
         <p className="text-normal mb-4 p-1 leading-relaxed">
           rutal, Inc. built the Midhah Lyrics app as a Free app. This SERVICE is
           provided by rutal, Inc. at no cost and is intended for use as is.
@@ -51,7 +51,7 @@ const Privacy = () => {
           Terms and Conditions, which are accessible at Midhah Lyrics unless
           otherwise defined in this Privacy Policy are following:
         </p>
-        <div className=" mb-4 p-1 leading-relaxed">
+        <div className="mb-4 p-1 leading-relaxed">
           <h3 className="mb-2 text-2xl md:text-4xl">
             Information Collection and Use
           </h3>
@@ -77,7 +77,7 @@ const Privacy = () => {
           </ul>
         </div>
 
-        <div className="mb-4  p-1 leading-relaxed">
+        <div className="mb-4 p-1 leading-relaxed">
           <h3 className="mb-2 text-2xl md:text-4xl">Log Data</h3>
           <p>
             We want to inform you that whenever you use my Service, in a case of
@@ -89,7 +89,7 @@ const Privacy = () => {
             the Service, and other statistics.
           </p>
         </div>
-        <div className=" mb-4 p-1 leading-relaxed">
+        <div className="mb-4 p-1 leading-relaxed">
           <h3 className="mb-2 text-2xl md:text-4xl">Cookies</h3>
           <p>
             Cookies are files with a small amount of data that are commonly used
@@ -106,7 +106,7 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed ">
+        <div className="mb-4 p-1 leading-relaxed">
           <h3 className="mb-2 text-2xl md:text-4xl">Service Providers</h3>
           <p>
             We may employ third-party companies and individuals due to the
