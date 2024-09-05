@@ -1,7 +1,12 @@
 import Script from "next/script";
 
 function NeworMedia() {
-  return <Script crossOrigin="anonymous" strategy="lazyOnload" src="//cdn.thisiswaldo.com/static/js/25508.js" />
+  return (
+    <Script
+      strategy="lazyOnload"
+      src="//cdn.thisiswaldo.com/static/js/25508.js"
+    />
+  );
 }
 
 export default NeworMedia;
