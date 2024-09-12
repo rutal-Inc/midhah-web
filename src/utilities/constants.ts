@@ -33,3 +33,19 @@ export const genresInfo: GenreInfo[] = [
 ];
 
 export const WEB_BASE_URL = "https://lyrics.midhah.com";
+
+export const promoLines = [
+  "Why Screenshot When You Can Download? Get the App for Efficient Storage!",
+  "No More Screenshots! Save Storage with Our Lyrics App!",
+  "Free Up Space - Get Lyrics Without Bulky Screenshots!",
+  "Stop Wasting Storage - Download Lyrics in Lightweight Text Format!",
+  "More Lyrics, Less Storage - Install the App and Ditch the Screenshots!",
+  "Your Lyrics, Even Offline - Install the App for Free!",
+  "No Internet? No Problem! Get the App for Offline Lyrics!",
+  "Offline Lyrics Anytime, Anywhere - Download the App Today!",
+  "Never Be Without Your Favorite Lyrics - Get the App for Offline Access!",
+  "Download Lyrics & Access Offline - Install Our App Now!",
+  "Get Lyrics On-The-Go! Download Our App Now!",
+  "Find Your Favorite Lyrics Anytime, Anywhere - Install the App Today!",
+  "Instant Access to Thousands of Lyrics - Tap to Install!",
+];
