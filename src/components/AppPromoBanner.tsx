@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import googlePlayBadge from "../assets/google-play-badge.png";
 import { promoLines } from "../utilities/constants";
 
-export const PromoBanner = () => {
+export const AppPromoBanner = () => {
   const [isVisible, setIsVisible] = useState<Boolean>(true);
   const [selectedPromo, setSelectedPromo] = useState<string>("");
 

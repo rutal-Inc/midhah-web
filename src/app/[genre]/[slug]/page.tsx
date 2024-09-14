@@ -1,5 +1,5 @@
+import { AppPromoBanner } from "@/src/components/AppPromoBanner";
 import NeworMedia from "@/src/components/NeworMedia";
-import { PromoBanner } from "@/src/components/PromoBanner";
 import Ads from "@/src/components/ads";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
@@ -76,7 +76,7 @@ export default async function LyricsPage({ params }: Params) {
             </p>
             {index === randomIndex && (
               <>
-                <PromoBanner />
+                <AppPromoBanner />
               </>
             )}
             {index < lyricsParts.length - 1 && (
