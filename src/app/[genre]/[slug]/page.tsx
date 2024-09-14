@@ -1,12 +1,14 @@
+import { AppPromoBanner } from "@/src/components/AppPromoBanner";
 import NeworMedia from "@/src/components/NeworMedia";
+import Ads from "@/src/components/ads";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
-import Ads from "@/src/components/ads";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const lyric = await getLyrics(params.slug);
@@ -47,6 +49,10 @@ export default async function LyricsPage({ params }: Params) {
     notFound();
   }
 
+  const lyricsChunks = lyric.lyrics ? lyric.lyrics.split("\n\n") : [];
+  let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
+  randomIndex == 1 && ++randomIndex;
+
   return (
     <div className="container mx-auto w-full md:w-[85%]">
       <div
@@ -62,11 +68,30 @@ export default async function LyricsPage({ params }: Params) {
       <NeworMedia />
       <Ads />
 
-      <p
-        className={`${noto_nastaliq_urdu.className} whitespace-pre-wrap py-10 text-center text-2xl leading-10 md:text-4xl md:leading-[55px]`}
-      >
-        {lyric.lyrics}
-      </p>
+      <div className={`${noto_nastaliq_urdu.className} py-10 text-center`}>
+        {lyricsChunks.map((part, index) => (
+          <React.Fragment key={index}>
+            <p className="whitespace-pre-wrap text-2xl leading-10 md:text-4xl md:leading-[55px]">
+              {part}
+            </p>
+
+            {index === randomIndex && (
+              <>
+                <br />
+                <br />
+                <AppPromoBanner />
+              </>
+            )}
+
+            {index < lyricsChunks.length - 1 && (
+              <p>
+                <br />
+                <br />
+              </p>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 }

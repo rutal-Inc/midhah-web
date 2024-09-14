@@ -1,5 +1,4 @@
-import Image from "next/image";
-import googlePlayBadge from "../assets/google-play-badge.png";
+import GooglePlayBadge from "./GooglePlayBadge";
 
 const Jumbotron = () => {
   return (
@@ -12,18 +11,8 @@ const Jumbotron = () => {
           Midhah مدحة is the leading and most authentic platform for Naat <br />
           lyrics, in addition to Hamd, Manqbat, and Durood o Salam
         </p>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.midhah.lyrics"
-          target="_blank"
-        >
-          <Image
-            src={googlePlayBadge}
-            alt="Get it on Google Play"
-            width="150"
-            height="44"
-            className="mx-auto inline-block"
-          />
-        </a>
+
+        <GooglePlayBadge location={"jumbotron"} />
       </div>
       <div className="product-device d-none d-md-block shadow-sm"></div>
       <div className="product-device product-device-2 d-none d-md-block shadow-sm"></div>
