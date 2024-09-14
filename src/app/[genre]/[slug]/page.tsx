@@ -49,8 +49,8 @@ export default async function LyricsPage({ params }: Params) {
     notFound();
   }
 
-  const lyricsParts = lyric.lyrics ? lyric.lyrics.split("\n\n") : [];
-  let randomIndex = Math.floor(Math.random() * (lyricsParts.length - 1));
+  const lyricsChunks = lyric.lyrics ? lyric.lyrics.split("\n\n") : [];
+  let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
   randomIndex == 1 && ++randomIndex;
 
   return (
@@ -69,18 +69,23 @@ export default async function LyricsPage({ params }: Params) {
       <Ads />
 
       <div className={`${noto_nastaliq_urdu.className} py-10 text-center`}>
-        {lyricsParts.map((part, index) => (
+        {lyricsChunks.map((part, index) => (
           <React.Fragment key={index}>
             <p className="whitespace-pre-wrap text-2xl leading-10 md:text-4xl md:leading-[55px]">
               {part}
             </p>
+
             {index === randomIndex && (
               <>
+                <br />
+                <br />
                 <AppPromoBanner />
               </>
             )}
-            {index < lyricsParts.length - 1 && (
+
+            {index < lyricsChunks.length - 1 && (
               <p>
+                <br />
                 <br />
               </p>
             )}
