@@ -1,6 +1,6 @@
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
-import NeworMedia from "@/src/components/NeworMedia";
 import Ads from "@/src/components/ads";
+import NeworMedia from "@/src/components/scripts/NeworMedia";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
