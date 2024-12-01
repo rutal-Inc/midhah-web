@@ -34,8 +34,8 @@ const Privacy = () => {
 
       <div className="justify-content container p-5">
         <p className="text-normal mb-4 p-1 leading-relaxed">
-          rutal, Inc. built the Midhah Lyrics app as a Free app. This SERVICE is
-          provided by rutal, Inc. at no cost and is intended for use as is.
+          Rutal, Inc. built the Midhah Lyrics app as a Free app. This SERVICE is
+          provided by Rutal, Inc. at no cost and is intended for use as is.
           <br />
           This page is used to inform visitors regarding my policies with the
           collection, use, and disclosure of Personal Information if anyone

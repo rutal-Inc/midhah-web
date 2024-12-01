@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     creator: "@midhahOfficial",
   },
   manifest: "/app.webmanifest",
-  creator: "rutal, Inc.",
+  creator: "Rutal, Inc.",
 };
 
 export default function RootLayout({
