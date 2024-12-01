@@ -6,7 +6,7 @@ import { promoLines } from "../utilities/constants";
 import GooglePlayBadge from "./GooglePlayBadge";
 
 export const AppPromoBanner = () => {
-  const [isVisible, setIsVisible] = useState<Boolean>(true);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const [selectedPromo, setSelectedPromo] = useState<string>("");
 
   useEffect(() => {

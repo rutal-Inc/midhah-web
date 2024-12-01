@@ -3,7 +3,9 @@ import Navbar from "@/src/components/Navbar";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import Loader from "../components/Loader";
+import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
+import NeworMedia from "../components/scripts/NeworMedia";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
 import "./globals.css";
@@ -41,6 +43,9 @@ export default function RootLayout({
       <GoogleAnalytics
         GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
       />
+      <AdSense />
+      <NeworMedia />
+
       <body className={montserrat.className}>
         <Suspense fallback={<Loader />}>
           <Navbar />

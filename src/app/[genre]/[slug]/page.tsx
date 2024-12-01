@@ -1,6 +1,5 @@
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
-import Ads from "@/src/components/ads";
-import NeworMedia from "@/src/components/scripts/NeworMedia";
+import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
@@ -65,8 +64,10 @@ export default async function LyricsPage({ params }: Params) {
           </h1>
         </div>
       </div>
-      <NeworMedia />
-      <Ads />
+
+      <div className="py-10">
+        <BannerAd adSlot="8493724848" adFormat="auto" />
+      </div>
 
       <div className={`${noto_nastaliq_urdu.className} py-10 text-center`}>
         {lyricsChunks.map((part, index) => (
