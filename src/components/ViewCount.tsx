@@ -21,7 +21,7 @@ export default function ViewCount({
 
   async function callApi() {
     try {
-      await fetch("https://api.midhah.com/v2/view", {
+      await fetch("${process.env.API_BASE_URL}/view", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +30,7 @@ export default function ViewCount({
           entityId: lyric?.id,
           entityType: "LYRICS",
           referrer: referer,
+          client: "WEB",
         }),
       });
     } catch (error) {

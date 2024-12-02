@@ -48,7 +48,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
 
     if (genre && hasMoreData) {
       fetch(
-        `https://api.midhah.com/v2/lyrics/genre/${genre}?page=${page}&size=30`,
+        `${process.env.API_BASE_URL}/lyrics/genre/${genre}?page=${page}&size=30`,
         {
           method: "GET",
           headers: {

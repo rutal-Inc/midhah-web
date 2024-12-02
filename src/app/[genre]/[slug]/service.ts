@@ -1,7 +1,7 @@
 import Lyrics from "@/src/models/Lyrics";
 
 export const getLyrics = async (slug: string): Promise<Lyrics | null> => {
-  const res = await fetch(`https://api.midhah.com/v2/lyrics/${slug}`, {
+  const res = await fetch(`${process.env.API_BASE_URL}/lyrics/${slug}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

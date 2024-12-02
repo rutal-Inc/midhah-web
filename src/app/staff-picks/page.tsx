@@ -5,10 +5,10 @@ import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
   const title = `${capitalize(
-    "Trending Lyrics",
+    "Staff Picks",
     "-",
   )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
-  const description = `Explore trending lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
+  const description = `Explore staff picks lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
 
   return {
     title,
@@ -26,7 +26,7 @@ export function generateMetadata(): Metadata {
     },
   };
 }
-export default async function TrendingLyricsPage() {
+export default async function StaffPicksLyricsPage() {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
       <div className="hero-bg relative mb-5 overflow-hidden md:rounded-[10px]">
