@@ -65,7 +65,7 @@ export default async function GenreListPage({ params }: Params) {
 }
 
 async function searchGenre(genre: string): Promise<{ genre: string } | null> {
-  const res = await fetch(`https://api.midhah.com/v2/search/genre/${genre}`, {
+  const res = await fetch(`${process.env.API_BASE_URL}/search/genre/${genre}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

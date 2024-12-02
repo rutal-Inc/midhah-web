@@ -4,7 +4,7 @@ import { WEB_BASE_URL } from "../utilities/constants";
 type SitemapRes = { genre: string; slug: string; updatedAt: Date };
 
 const getSitemap = async () => {
-  const res = await fetch(`https://api.midhah.com/v2/sitemap`, {
+  const res = await fetch(`${process.env.API_BASE_URL}/sitemap`, {
     method: "GET",
     cache: "no-store",
     headers: {
