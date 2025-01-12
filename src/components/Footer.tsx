@@ -19,7 +19,7 @@ function Footer() {
   }, []);
 
   return (
-    <div className="bg-slate-200">
+    <div>
       <div className="mx-auto w-[90%] border-t-2 py-8 text-center">
         <div className="flex flex-col items-center gap-3">
           <h3 className="text-lg text-gray-500">{selectedPromo}</h3>
