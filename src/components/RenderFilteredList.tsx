@@ -8,7 +8,7 @@ export default async function RenderFilteredList({
   columns = 2,
 }: Readonly<{ size: number; type: string; columns?: number }>) {
   const lyrics: Lyrics[] = await fetch(
-    `${process.env.API_BASE_URL}/lyrics/${type}?size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/${type}?size=${size}`,
     {
       method: "GET",
       headers: {

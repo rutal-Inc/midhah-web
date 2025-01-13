@@ -65,13 +65,16 @@ export default async function GenreListPage({ params }: Params) {
 }
 
 async function searchGenre(genre: string): Promise<{ genre: string } | null> {
-  const res = await fetch(`${process.env.API_BASE_URL}/search/genre/${genre}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/search/genre/${genre}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
     },
-    cache: "no-store",
-  }).then((response) => {
+  ).then((response) => {
     return response.json();
   });
 

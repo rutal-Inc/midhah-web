@@ -21,7 +21,7 @@ export default function ViewCount({
 
   async function callApi() {
     try {
-      await fetch(`${process.env.API_BASE_URL}/view`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/view`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
