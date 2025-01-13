@@ -1,7 +1,5 @@
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
-import NeworMedia from "@/src/components/NeworMedia";
 import ViewCount from "@/src/components/ViewCount";
-import Ads from "@/src/components/ads";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
