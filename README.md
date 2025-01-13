@@ -27,4 +27,4 @@ We welcome developers from all levels to contribute to this project. For this, p
 
 ## ⚖️ Copyright and license
 
-Code and documentation copyright 2016–2022 the [Midhah Authors](https://github.com/rutal-Inc/midhah-www/graphs/contributors) and [rutal, Inc.](https://www.rutal.net) Code released under the [MIT License](https://github.com/rutal-Inc/midhah-www/blob/develop/LICENSE).
+Code and documentation copyright 2016–2022 the [Midhah Authors](https://github.com/rutal-Inc/midhah-www/graphs/contributors) and [Rutal, Inc.](https://www.rutal.net) Code released under the [MIT License](https://github.com/rutal-Inc/midhah-www/blob/develop/LICENSE).
