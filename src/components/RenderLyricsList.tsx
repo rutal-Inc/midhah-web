@@ -48,7 +48,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
 
     if (genre && hasMoreData) {
       fetch(
-        `https://api.midhah.com/v2/lyrics/genre/${genre}?page=${page}&size=30`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/genre/${genre}?page=${page}&size=30`,
         {
           method: "GET",
           headers: {
@@ -75,7 +75,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
     <main className="flex min-h-[calc(100vh-575px)] flex-col items-center justify-center">
       <ul className="w-full md:grid md:grid-cols-2">
         {lyrics.map((lyric: Lyrics, index: number) => (
-          <Link href={`/${genre}/${lyric.slug}`} key={lyric.slug}>
+          <Link href={`/${genre}/${lyric.slug}`} key={lyric.slug + index}>
             <li
               className="group relative my-1 flex flex-row hover:block"
               ref={index === lyrics.length - 1 ? lastLyricRef : undefined}

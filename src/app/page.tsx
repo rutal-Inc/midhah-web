@@ -16,6 +16,7 @@ export default function Home() {
       <Jumbotron />
       <GenreCards />
       <FeatureCards />
+      {/* <TrendingStaffPicksList /> */}
     </main>
   );
 }

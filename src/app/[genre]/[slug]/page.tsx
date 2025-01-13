@@ -1,8 +1,12 @@
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
+import NeworMedia from "@/src/components/NeworMedia";
+import ViewCount from "@/src/components/ViewCount";
+import Ads from "@/src/components/ads";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
@@ -43,6 +47,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function LyricsPage({ params }: Params) {
   const genreInfo = getPageGenre(params.genre);
   const lyric = await getLyrics(params.slug);
+
+  const headersList = headers();
+  const referer = headersList.get("referer");
 
   if (!lyric) {
     notFound();
@@ -93,6 +100,7 @@ export default async function LyricsPage({ params }: Params) {
           </React.Fragment>
         ))}
       </div>
+      <ViewCount entityId={lyric.id} referer={`${referer}`} />
     </div>
   );
 }

@@ -41,7 +41,7 @@ function Navbar() {
       <div className="hidden gap-8 md:flex">
         <Link href="/">Home</Link>
         <Popover className="relative">
-          <PopoverButton className=" focus-within:outline-0">
+          <PopoverButton className="focus-within:outline-0">
             Genres <i className="bi bi-chevron-down text-xs"></i>
           </PopoverButton>
           <PopoverPanel
@@ -65,6 +65,8 @@ function Navbar() {
             </Link>
           </PopoverPanel>
         </Popover>
+        {/* <Link href="/trending">Trending</Link> */}
+        {/* <Link href="/staff-picks">Staff Picks</Link> */}
       </div>
     </nav>
   );
