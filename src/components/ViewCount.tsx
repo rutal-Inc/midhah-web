@@ -1,25 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
-import Lyrics from "../models/Lyrics";
+import { useCallback, useEffect } from "react";
 
 export default function ViewCount({
-  lyric,
+  entityId,
   referer,
 }: {
-  lyric: Lyrics;
+  entityId: number;
   referer: string;
 }) {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      callApi();
-    }, 10000);
+  const callApi = useCallback(async () => {
+    if (process.env.NODE_ENV !== "production") return;
 
-    // Cleanup the timeout if the component unmounts
-    return () => clearTimeout(timer);
-  }, []);
-
-  async function callApi() {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/view`, {
         method: "POST",
@@ -27,7 +19,7 @@ export default function ViewCount({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          entityId: lyric?.id,
+          entityId,
           entityType: "LYRICS",
           referrer: referer,
           client: "WEB",
@@ -36,7 +28,15 @@ export default function ViewCount({
     } catch (error) {
       console.error("API call failed:", error);
     }
-  }
+  }, [entityId, referer]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      callApi();
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [callApi]);
 
   return null;
 }

@@ -97,7 +97,7 @@ export default async function LyricsPage({ params }: Params) {
           </React.Fragment>
         ))}
       </div>
-      <ViewCount lyric={lyric} referer={`${referer}`} />
+      <ViewCount entityId={lyric.id} referer={`${referer}`} />
     </div>
   );
 }
