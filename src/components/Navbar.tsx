@@ -65,8 +65,8 @@ function Navbar() {
             </Link>
           </PopoverPanel>
         </Popover>
-        {/* <Link href="/trending">Trending</Link> */}
-        {/* <Link href="/staff-picks">Staff Picks</Link> */}
+        <Link href="/trending">Trending</Link>
+        <Link href="/staff-picks">Staff Picks</Link>
       </div>
     </nav>
   );
