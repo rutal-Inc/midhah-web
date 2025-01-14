@@ -14,6 +14,7 @@ export default async function RenderFilteredList({
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 86400 },
     },
   )
     .then((response) => {
