@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
 export default function ViewCount({
@@ -9,6 +10,8 @@ export default function ViewCount({
   entityId: number;
   referer: string;
 }) {
+  const pathname = usePathname();
+
   const callApi = useCallback(async () => {
     if (process.env.NODE_ENV !== "production") return;
 
@@ -21,19 +24,19 @@ export default function ViewCount({
         body: JSON.stringify({
           entityId,
           entityType: "LYRICS",
-          referrer: referer,
+          referrer: referer.includes(pathname) ? undefined : referer,
           client: "WEB",
         }),
       });
     } catch (error) {
       console.error("API call failed:", error);
     }
-  }, [entityId, referer]);
+  }, [entityId, pathname, referer]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       callApi();
-    }, 10000);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, [callApi]);
