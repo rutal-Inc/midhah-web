@@ -14,13 +14,16 @@ export default async function RenderFilteredList({
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 86400 },
+      next: {
+        tags: [new Date().toISOString().split("T")[0]],
+      },
     },
   )
     .then((response) => {
       return response.json();
     })
     .then((data) => data.data);
+
   return (
     <ul className={`w-full md:grid md:grid-cols-${columns}`}>
       {lyrics.map((lyric: Lyrics, index: number) => (
