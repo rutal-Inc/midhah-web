@@ -38,7 +38,7 @@ export default async function StaffPicksLyricsPage() {
         </div>
       </div>
 
-      <RenderFilteredList size={15} type="staff-picks" />
+      <RenderFilteredList size={16} type="staff-picks" />
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default async function TrendingLyricsPage() {
         </div>
       </div>
 
-      <RenderFilteredList size={15} type="trending" />
+      <RenderFilteredList size={16} type="trending" />
     </div>
   );
 }
