@@ -15,7 +15,7 @@ export default async function RenderFilteredList({
         "Content-Type": "application/json",
       },
       next: {
-        tags: [new Date().toISOString().split("T")[0]],
+        revalidate: 86400, // 24 * 60 * 60
       },
     },
   )

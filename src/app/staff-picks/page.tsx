@@ -3,6 +3,8 @@ import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 
+export const revalidate = 86400; // 24 * 60 * 60
+
 export function generateMetadata(): Metadata {
   const title = `${capitalize(
     "Staff Picks",
