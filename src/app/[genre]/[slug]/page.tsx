@@ -60,7 +60,7 @@ export default async function LyricsPage({ params }: Params) {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
       <div
-        className="naat card relative overflow-hidden md:rounded-[10px]"
+        className="card relative overflow-hidden md:rounded-[10px]"
         style={{ background: genreInfo?.color }}
       >
         <div className="py-[60px] text-center md:py-[150px]">

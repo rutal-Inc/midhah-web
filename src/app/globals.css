@@ -54,20 +54,4 @@
       transform: rotate(360deg);
     }
   }
-
-  .manqbat {
-    background-image: linear-gradient(to bottom right, #f7c638, #b87129);
-  }
-
-  .naat {
-    background-image: linear-gradient(to bottom right, #1f605e, #319678);
-  }
-
-  .hamd {
-    background-image: linear-gradient(to bottom right, #2d2a2b, #1a1a1a);
-  }
-
-  .durood {
-    background-image: linear-gradient(to bottom right, #027278, #081b3e);
-  }
 }
