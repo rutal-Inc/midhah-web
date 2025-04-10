@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 type Props = {
@@ -8,6 +9,8 @@ type Props = {
 };
 
 function BannerAd({ adSlot, adFormat }: Readonly<Props>) {
+  const pathname = usePathname();
+
   useEffect(() => {
     try {
       const adsbygoogle = (window as any).adsbygoogle || [];
@@ -15,10 +18,11 @@ function BannerAd({ adSlot, adFormat }: Readonly<Props>) {
     } catch (error) {
       console.error("Error while loading banner ad", error);
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <ins
+      key={pathname}
       className="adsbygoogle"
       style={{ display: "block" }}
       data-ad-client="ca-pub-9810490020982461"
