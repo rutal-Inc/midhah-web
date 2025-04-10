@@ -70,7 +70,7 @@ export default async function LyricsPage({ params }: Params) {
         </div>
       </div>
 
-      <div className="py-10">
+      <div className="py-10 text-center">
         <BannerAd adSlot="8493724848" adFormat="auto" />
       </div>
 
