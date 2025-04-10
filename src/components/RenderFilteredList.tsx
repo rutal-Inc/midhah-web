@@ -27,7 +27,7 @@ export default async function RenderFilteredList({
   return (
     <ul className={`w-full md:grid md:grid-cols-${columns}`}>
       {lyrics.map((lyric: Lyrics, index: number) => (
-        <Link href={`/naat/${lyric.slug}`} key={lyric.slug}>
+        <Link href={`/${lyric.genre}/${lyric.slug}`} key={lyric.slug}>
           <li className="group relative my-1 flex flex-row hover:block">
             <div className="flex flex-1 scale-100 cursor-pointer select-none items-center p-4 hover:bg-gray-50 group-hover:scale-0">
               <div className="mr-16 flex-1 pl-1">
