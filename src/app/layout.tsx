@@ -40,13 +40,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleAnalytics
-        GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
-      />
-      <AdSense />
-      <NeworMedia />
-
       <body className={montserrat.className}>
+        <GoogleAnalytics
+          GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
+        />
+        <AdSense />
+        <NeworMedia />
+
         <Suspense fallback={<Loader />}>
           <Navbar />
           {children}

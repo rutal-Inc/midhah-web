@@ -1,9 +1,10 @@
 import Script from "next/script";
 
-function NeworMedia() {
+function AdSense() {
   return (
+    // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
     <Script
-      strategy="lazyOnload"
+      strategy="beforeInteractive"
       async
       crossOrigin="anonymous"
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9810490020982461"
@@ -11,4 +12,4 @@ function NeworMedia() {
   );
 }
 
-export default NeworMedia;
+export default AdSense;
