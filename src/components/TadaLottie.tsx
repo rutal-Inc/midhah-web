@@ -4,28 +4,37 @@ import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
 export default function TadaLottie({
-    loader,
-    delay = 0,
-}: Readonly<{ loader: object, delay?: number }>) {
-    const [show, setShow] = useState(delay === 0);
+  loader,
+  interval = 10000,
+  duration = 3050,
+}: Readonly<{ loader: object; interval?: number; duration?: number }>) {
+  const [show, setShow] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (delay > 0) {
-            const timer = setTimeout(() => setShow(true), delay);
-            return () => clearTimeout(timer);
-        }
-    }, [delay]);
+  useEffect(() => {
+    setShow(true);
+    const initialTimer = setTimeout(() => setShow(false), duration);
 
-    if (!show) return null;
+    const loop = setInterval(() => {
+      setShow(true);
+      setTimeout(() => setShow(false), duration);
+    }, interval);
 
-    return (
-        <div className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center opacity-100 w-screen h-screen">
-            <Lottie
-                animationData={loader}
-                loop
-                autoplay
-                className="w-full h-full"
-            />
-        </div>
-    );
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(loop);
+    };
+  }, [interval, duration]);
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center w-screen h-screen">
+      {show && (
+        <Lottie
+          animationData={loader}
+          loop={false}
+          autoplay
+          className="w-full h-full"
+        />
+      )}
+    </div>
+  );
 }
