@@ -1,5 +1,6 @@
 "use client";
-import { Button, Dialog, Flex, Text } from "@radix-ui/themes";
+import { Cross1Icon } from "@radix-ui/react-icons";
+import { Box, Dialog, Flex, Heading, Text } from "@radix-ui/themes";
 import { useState } from "react";
 
 const AdBanner = () => {
@@ -8,67 +9,84 @@ const AdBanner = () => {
     <Flex
       display={visible ? "flex" : "none"}
       translate={"yes"}
-      className="bg-cyan-700"
+      className="hero-bg"
       p={"2"}
       align={"center"}
       justify={"center"}
-      gap={'3'}
     >
-      <Text className="text-white" size={{initial: "2", sm: "3"}}>
+      <Text className="text-white max-w-[86vw]" size={{ initial: "2", sm: "3" }} >
         We&apos;ve added ads to help keep the platform running and improving for
         you.{" "}
         <Dialog.Root>
           <Dialog.Trigger>
-            <Text className="cursor-pointer underline">Learn More</Text>
+            <Text className="cursor-pointer underline underline-offset-2">
+              Learn More
+            </Text>
           </Dialog.Trigger>
 
-          <Dialog.Content maxWidth="600px">
-            <Dialog.Title>Why Ads</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              Our Purpose is to serve you with the most authentic lyrics of
-              Hamd, Naat, Manqbat and Darood o Salam to encourage you towards
-              your spiritual journey.
-              <br />
-              We understand that ads can sometimes be disruptive and we truly
-              appreciate your patience. The ads displayed in this website are
-              not meant for profit or personal gain. Instead, they help us cover
-              the necessary expenses required for Hosting servers, developing
-              new features & updates to keep the website running smoothly.
-              <br />
-              <br />
-              The amount generated from ads are strictly used to accomplish app
-              needs as:
-              <br />
-              <ul className="list-disc pl-10">
-                <li>Web development and maintenance costs</li>
-                <li>Server and hoisting expenses</li>
-                <li>Ongoing improvements and new features</li>
-                <li>Content creation costs</li>
-              </ul>
-              <br />
-              We want to make this platform is accessible and sustainabel.{" "}
-              <span className="font-bold">Liwajhillah</span> (for the sake of
-              Allah Almighty).
-              <br />
-              <br />
-              We are sincerely grateful that you understand our aim and continue
-              supporting us in our journey. We&apos;re always focused on
-              providing you with user-friendly and meaningful spiritual content
-              that seamlessly connects you with religious boundaries. Kindly
-              stay with us to stay true to our mission.
-            </Dialog.Description>
-
-            <Flex gap="3" justify="end">
+          <Dialog.Content maxWidth="600px" maxHeight={"88vh"}>
+            <Flex gap="3" justify="between" align={"start"}>
+              <Dialog.Title>
+                Why We Show Ads – Serving You with Authentic Spiritual Content
+              </Dialog.Title>
               <Dialog.Close>
-                <Button variant="soft" color="cyan">
-                  Close
-                </Button>
+                <Box className="cursor-pointer hover:bg-black/15 transition-all" p={"1"}>
+                  <Cross1Icon className="font-bold " />
+                </Box>
               </Dialog.Close>
             </Flex>
+            <Dialog.Description size="2" mb="4">
+              <Heading as="h2" weight={"bold"} size={"3"}>
+                Our Purpose
+              </Heading>
+              <Text as="p">
+                We are dedicated to providing the most authentic lyrics of Hamd,
+                Naat, Manqbat, and Darood o Salam, so that naat singers and
+                reciters can access accurate content with ease and confidence.
+              </Text>
+              <Text as="p">
+                While we understand that ads can sometimes feel disruptive, we
+                deeply appreciate your patience. These ads are not placed for
+                profit or personal gain; rather, they help us cover the
+                essential costs of keeping this platform alive and improving.
+              </Text>
+              <Text as="p" weight={"bold"}>
+                Ad revenue is solely used for:{" "}
+              </Text>
+              <ul className="list-disc pl-10">
+                <li>Website development and ongoing maintenance</li>
+                <li>Server hosting and related expenses</li>
+                <li>Continuous improvements and feature updates</li>
+                <li>Content creation and curation</li>
+              </ul>
+              <Text as="p">
+                We strive to make this platform accessible and sustainable,
+                purely <Text weight={"bold"}>Liwajhillah</Text> (for the sake of
+                Allah Almighty), with the intention of serving the Ummah and
+                supporting those who spread Islamic messages through their
+                voices.{" "}
+              </Text>
+              <Text as="p">
+                We are sincerely grateful for your understanding and continued
+                support. Our commitment remains to provide you with
+                user-friendly, accurate, and spiritually meaningful content that
+                strengthens your recitation and connects you to faith in a
+                seamless way.
+              </Text>
+            </Dialog.Description>
           </Dialog.Content>
         </Dialog.Root>
       </Text>
-      <Text className="text-white cursor-pointer" onClick={() => setVisible(false)} size={{initial: "2", sm: "3"}}>X</Text>
+      <Box
+      position={'absolute'}
+      right={{initial: '2', sm:'4'}}
+        onClick={() => setVisible(false)}
+        className="cursor-pointer hover:bg-black/30 transition-all"
+        p={"1"}
+        maxWidth={'10vw'}
+      >
+        <Cross1Icon className="font-bold text-white" />
+      </Box>
     </Flex>
   );
 };
