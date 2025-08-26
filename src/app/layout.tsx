@@ -1,8 +1,11 @@
 import loader from "@/src/animations/success2.json";
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import AdBanner from "../components/AdBanner";
 import Loader from "../components/Loader";
 import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
@@ -56,17 +59,15 @@ export default function RootLayout({
         />
         <AdSense />
         <NeworMedia />
-        {datebetween && (
-          <>
-            <TadaLottie loader={loader}  />
-            <TadaLottie loader={loader} delay={1500} />
-          </>
-        )}
-        <Suspense fallback={<Loader />}>
-          <Navbar />
-          {children}
-          <Footer />
-        </Suspense>
+        <Theme>
+          <Suspense fallback={<Loader />}>
+            <AdBanner />
+            <Navbar />
+            {children}
+            <Footer />
+          </Suspense>
+        </Theme>
+        {datebetween && <TadaLottie loader={loader} />}
       </body>
     </html>
   );
