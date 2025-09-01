@@ -7,7 +7,7 @@
 
 ## ℹ️ Introduction
 
-Midhah is the leading and most authentic platform that allows you to effortlessly search and read the authentic Hamd, Naat, Manqbat, or Durood o Salam that suits your interests and taste. It started its journey in December 2016 as an online Naat lyrics website under the name of TheNaat.com and later got rebranded as Midhah Lyrics in October 2022.
+Midhah is the leading and most authentic platform that allows you to effortlessly search and read authentic Hamd, Naat, Manqbat, or Durood-e-Salam that suits your interests and taste. It began its journey in December 2016 as an online Naat lyrics website under the name TheNaat.com and was later rebranded as Midhah Lyrics in October 2022.
 
 ## 🐛 Bugs and feature requests
 
@@ -27,4 +27,4 @@ We welcome developers from all levels to contribute to this project. For this, p
 
 ## ⚖️ Copyright and license
 
-Code and documentation copyright 2016–2022 the [Midhah Authors](https://github.com/rutal-Inc/midhah-www/graphs/contributors) and [Rutal, Inc.](https://www.rutal.net) Code released under the [MIT License](https://github.com/rutal-Inc/midhah-www/blob/develop/LICENSE).
+Code and documentation copyright 2016–2025 the [Midhah Authors](https://github.com/rutal-Inc/midhah-www/graphs/contributors) and [Rutal Labs](https://www.rutal.net). Code released under the [MIT License](https://github.com/rutal-Inc/midhah-www/blob/develop/LICENSE).
