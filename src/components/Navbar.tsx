@@ -46,7 +46,7 @@ function Navbar() {
           </PopoverButton>
           <PopoverPanel
             anchor="bottom"
-            className="flex flex-col rounded bg-white py-4 shadow-lg [--anchor-gap:4px]"
+            className="flex flex-col rounded-sm bg-white py-4 shadow-lg [--anchor-gap:4px]"
           >
             <Link href="/hamd" className="px-5 py-1 hover:bg-slate-100">
               Hamd e Ta&apos;ala

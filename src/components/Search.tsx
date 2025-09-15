@@ -1,6 +1,11 @@
 "use client";
 
-import { Dialog, Transition } from "@headlessui/react";
+import {
+  Dialog,
+  DialogPanel,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
 import { useSearchParams } from "next/navigation";
 import { ChangeEvent, Fragment, useState } from "react";
 
@@ -21,7 +26,7 @@ function SearchDialog({ show, closeModal }: Props) {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -30,12 +35,12 @@ function SearchDialog({ show, closeModal }: Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur" />
-        </Transition.Child>
+          <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
+        </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 scale-95"
@@ -44,7 +49,7 @@ function SearchDialog({ show, closeModal }: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform shadow-xl transition-all">
+              <DialogPanel className="w-full max-w-md transform shadow-xl transition-all">
                 <form action="/search" method="get" className="flex">
                   <label htmlFor="search" className="sr-only">
                     Email address
@@ -55,8 +60,9 @@ function SearchDialog({ show, closeModal }: Props) {
                     id="query"
                     value={query}
                     onChange={handleQueryChange}
+                    autoFocus
                     required
-                    className="mr-2 flex w-full min-w-0 rounded-md px-3.5 py-2 shadow-sm ring-1 ring-inset ring-secondary-light placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                    className="ring-secondary-light focus:ring-secondary mr-2 flex w-full min-w-0 rounded-md px-3.5 py-2 shadow-xs ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                     placeholder="Hamd, Naat, Manqbat or Durood-o-Salam"
                   />
                   <button type="submit" className="btn-primary">
@@ -64,8 +70,8 @@ function SearchDialog({ show, closeModal }: Props) {
                     <span className="hidden md:inline">Search</span>
                   </button>
                 </form>
-              </Dialog.Panel>
-            </Transition.Child>
+              </DialogPanel>
+            </TransitionChild>
           </div>
         </div>
       </Dialog>

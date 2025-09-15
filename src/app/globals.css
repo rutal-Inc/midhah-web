@@ -1,26 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer components {
-  .btn-primary {
-    @apply flex-none rounded-md bg-gradient-to-br from-secondary to-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-secondary-dark hover:to-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary;
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --color-primary: #256279;
+  --color-primary-light: rgb(81, 129, 148);
+  --color-primary-dark: rgb(30, 78, 97);
+
+  --color-secondary: #1c8eb0;
+  --color-secondary-light: rgb(73, 165, 192);
+  --color-secondary-dark: rgb(22, 114, 141);
+
+  --color-tertiary: #247c99;
+  --color-tertiary-light: rgb(80, 150, 173);
+  --color-tertiary-dark: rgb(29, 99, 122);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
 }
 
-@layer utilities {
-  .hero-bg {
-    background-image: url("/images/hero-bg.png");
-    background-size: cover;
-  }
+@utility btn-primary {
+  @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
+}
 
-  .card,
-  .bg-floral-frame {
-    position: relative;
-    z-index: 0;
-  }
+@utility hero-bg {
+  background-image: url("/images/hero-bg.png");
+  background-size: cover;
+}
 
-  .card::before {
+@utility card {
+  position: relative;
+  z-index: 0;
+
+  &::before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -32,8 +59,13 @@
     width: 100%;
     height: 100%;
   }
+}
 
-  .bg-floral-frame::before {
+@utility bg-floral-frame {
+  position: relative;
+  z-index: 0;
+
+  &::before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -48,14 +80,18 @@
     height: 700px;
     animation: spin 60s linear infinite;
   }
+}
 
+@utility adsbygoogle {
+  &ins[data-ad-status="unfilled"] {
+    display: none !important;
+  }
+}
+
+@layer utilities {
   @keyframes spin {
     to {
       transform: rotate(360deg);
     }
-  }
-
-  ins.adsbygoogle[data-ad-status="unfilled"] {
-    display: none !important;
   }
 }

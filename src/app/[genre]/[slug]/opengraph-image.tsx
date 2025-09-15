@@ -13,9 +13,10 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default async function Image({ params }: Params) {
-  const genereDetails = getPageGenre(params.genre);
-  const lyrics = await getLyrics( params.slug);
+export default async function Image({ params }: Readonly<{ params: Params }>) {
+  const { slug, genre } = await  params;
+  const genereDetails = getPageGenre(genre);
+  const lyrics = await getLyrics( slug);
 
   return new ImageResponse(
     (
@@ -53,7 +54,7 @@ export default async function Image({ params }: Params) {
             fontSize: "48px",
           }}
         >
-          {params.genre}
+          {genre}
         </p>
 
         <h4>{lyrics?.title}</h4>
