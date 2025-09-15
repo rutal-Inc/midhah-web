@@ -30,7 +30,7 @@ export default function FeatureCards() {
               <Image
                 src={lyricsScreen}
                 alt="home screen"
-                className="aspect-[9/16] rounded-3xl border-8 border-y-[10px] border-gray-800"
+                className="aspect-9/16 rounded-3xl border-8 border-y-10 border-gray-800"
               />
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function FeatureCards() {
               <Image
                 src={searchScreen}
                 alt="search screen"
-                className="aspect-[9/16] rounded-3xl border-8 border-y-[10px] border-gray-800"
+                className="aspect-9/16 rounded-3xl border-8 border-y-10 border-gray-800"
               />
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function FeatureCards() {
               <Image
                 src={downloadsScreen}
                 alt="home screen"
-                className="aspect-[9/16] rounded-3xl border-8 border-y-[10px] border-gray-800"
+                className="aspect-9/16 rounded-3xl border-8 border-y-10 border-gray-800"
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function FeatureCards() {
               <Image
                 src={listingScreen}
                 alt="home screen"
-                className="aspect-[9/16] rounded-3xl border-8 border-y-[10px] border-gray-800"
+                className="aspect-9/16 rounded-3xl border-8 border-y-10 border-gray-800"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function FeatureCards() {
               <Image
                 src={homeScreen}
                 alt="home screen"
-                className="aspect-[9/16] rounded-3xl border-8 border-y-[10px] border-gray-800"
+                className="aspect-9/16 rounded-3xl border-8 border-y-10 border-gray-800"
               />
             </div>
           </div>

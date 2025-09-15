@@ -26,7 +26,7 @@ export default function TadaLottie({
   }, [interval, duration]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center w-screen h-screen">
+    <div className="pointer-events-none fixed inset-0 z-9999 flex items-center justify-center w-screen h-screen">
       {show && (
         <Lottie
           animationData={loader}

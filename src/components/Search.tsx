@@ -30,7 +30,7 @@ function SearchDialog({ show, closeModal }: Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur" />
+          <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -56,7 +56,7 @@ function SearchDialog({ show, closeModal }: Props) {
                     value={query}
                     onChange={handleQueryChange}
                     required
-                    className="mr-2 flex w-full min-w-0 rounded-md px-3.5 py-2 shadow-sm ring-1 ring-inset ring-secondary-light placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                    className="mr-2 flex w-full min-w-0 rounded-md px-3.5 py-2 shadow-xs ring-1 ring-inset ring-secondary-light placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                     placeholder="Hamd, Naat, Manqbat or Durood-o-Salam"
                   />
                   <button type="submit" className="btn-primary">

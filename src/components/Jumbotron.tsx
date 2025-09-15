@@ -14,8 +14,8 @@ const Jumbotron = () => {
 
         <GooglePlayBadge location={"jumbotron"} />
       </div>
-      <div className="product-device d-none d-md-block shadow-sm"></div>
-      <div className="product-device product-device-2 d-none d-md-block shadow-sm"></div>
+      <div className="product-device d-none d-md-block shadow-xs"></div>
+      <div className="product-device product-device-2 d-none d-md-block shadow-xs"></div>
     </div>
   );
 };

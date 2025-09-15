@@ -10,7 +10,7 @@ export default async function TrendingStaffPicksList() {
         <div className="mx-auto text-center">
           <Link
             href="/trending"
-            className="inline-block rounded border px-4 py-2 ring-1 ring-inset ring-secondary-light hover:ring-2 hover:ring-inset hover:ring-secondary"
+            className="inline-block rounded-sm border px-4 py-2 ring-1 ring-inset ring-secondary-light hover:ring-2 hover:ring-inset hover:ring-secondary"
           >
             Explore More
           </Link>
@@ -22,7 +22,7 @@ export default async function TrendingStaffPicksList() {
         <div className="mx-auto text-center">
           <Link
             href="/staff-picks"
-            className="inline-block rounded border px-4 py-2 ring-1 ring-inset ring-secondary-light hover:ring-2 hover:ring-inset hover:ring-secondary"
+            className="inline-block rounded-sm border px-4 py-2 ring-1 ring-inset ring-secondary-light hover:ring-2 hover:ring-inset hover:ring-secondary"
           >
             Explore More
           </Link>
