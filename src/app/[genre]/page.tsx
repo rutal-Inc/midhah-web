@@ -4,7 +4,8 @@ import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 
-export function generateMetadata({ params }: Params): Metadata {
+export async function generateMetadata(props: Params): Promise<Metadata> {
+  const params = await props.params;
   const title = `${capitalize(
     params.genre,
     "-",
@@ -29,9 +30,10 @@ export function generateMetadata({ params }: Params): Metadata {
 }
 
 type Params = {
-  readonly params: { genre: string };
+  readonly params: Promise<{ genre: string }>;
 };
-export default async function GenreListPage({ params }: Params) {
+export default async function GenreListPage(props: Params) {
+  const params = await props.params;
   const genre = params.genre;
 
   const genreInfo = getPageGenre(params.genre);

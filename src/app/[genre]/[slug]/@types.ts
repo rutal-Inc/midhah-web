@@ -1,6 +1,4 @@
-export type Params = Readonly<{
-  params: {
-    genre: string;
-    slug: string;
-  };
+export type Params = Promise<{
+  genre: string;
+  slug: string;
 }>;

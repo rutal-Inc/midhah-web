@@ -11,8 +11,9 @@ import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const lyric = await getLyrics(params.slug);
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug, genre } = await  params;
+  const lyric = await getLyrics(slug);
 
   if (!lyric) {
     notFound();
@@ -37,17 +38,18 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description,
     },
     alternates: {
-      canonical: `${WEB_BASE_URL}/${params.genre}/${params.slug}`,
+      canonical: `${WEB_BASE_URL}/${genre}/${slug}`,
     },
   };
 }
 
-export default async function LyricsPage({ params }: Params) {
-  const genreInfo = getPageGenre(params.genre);
-  const lyric = await getLyrics(params.slug);
+export default async function LyricsPage({ params }: Readonly<{ params: Params }>) {
+  const { slug, genre } = await  params;
+  const genreInfo = getPageGenre(genre);
+  const lyric = await getLyrics(slug);
 
   const headersList = headers();
-  const referer = headersList.get("referer");
+  const referer = (await headersList).get("referer");
 
   if (!lyric) {
     notFound();
