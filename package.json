@@ -14,7 +14,6 @@
     "@radix-ui/themes": "^3.2.1",
     "@vercel/og": "^0.6.2",
     "bootstrap-icons": "^1.11.3",
-    "lottie-react": "^2.4.1",
     "next": "15.5.3",
     "sharp": "^0.33.4"
   },
