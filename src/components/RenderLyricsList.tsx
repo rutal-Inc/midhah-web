@@ -44,9 +44,9 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
   }, [isLoading, page, lastLyricRef]);
 
   useEffect(() => {
-    setIsLoading(true);
-
+    
     if (genre && hasMoreData) {
+      setIsLoading(true);
       fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/genre/${genre}?page=${page}&size=30`,
         {
@@ -59,12 +59,15 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
         .then((response) => {
           if (!response.ok) {
             setHasMoreData(false);
+            setIsLoading(false);
           }
           return response.json();
         })
         .then((res) => {
           if (res.data) {
             setLyrics((prevLyrics) => [...prevLyrics, ...res.data]);
+          }else{
+            setIsLoading(false);
           }
           setIsLoading(false);
         });

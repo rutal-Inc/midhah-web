@@ -9,7 +9,7 @@ type Props = {
   closeModal: (value: boolean) => void;
 };
 
-function SearchDialog({ show, closeModal }: Props) {
+function SearchDialog({ show, closeModal }: Readonly<Props>) {
   const searchParams = useSearchParams();
 
   const [query, setQuery] = useState(searchParams.get("query") as string);
