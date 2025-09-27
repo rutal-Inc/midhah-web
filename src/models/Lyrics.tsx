@@ -6,3 +6,7 @@ export default interface Lyrics {
   lyrics?: string;
   slug: string;
 }
+export interface SuggestionLyrics {
+  title: string;
+  icon:string;
+}
