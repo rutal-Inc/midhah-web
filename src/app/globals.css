@@ -1,6 +1,6 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@plugin '@tailwindcss/forms';
+@plugin "@tailwindcss/forms";
 
 @theme {
   --color-primary: #256279;
@@ -35,11 +35,11 @@
 }
 
 @utility btn-primary {
-  @apply flex-none rounded-md bg-linear-to-br from-secondary to-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary;
+  @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
 }
 
 @utility hero-bg {
-  background-image: url('/images/hero-bg.png');
+  background-image: url("/images/hero-bg.png");
   background-size: cover;
 }
 
@@ -48,10 +48,10 @@
   z-index: 0;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     z-index: -1;
-    background-image: url('/images/pattern.png');
+    background-image: url("/images/pattern.png");
     background-repeat: repeat;
     background-position: center;
     background-size: contain;
@@ -66,10 +66,10 @@
   z-index: 0;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     z-index: -1;
-    background-image: url('/images/floral-frame.png');
+    background-image: url("/images/floral-frame.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -83,13 +83,12 @@
 }
 
 @utility adsbygoogle {
-  &ins[data-ad-status='unfilled'] {
+  &ins[data-ad-status="unfilled"] {
     display: none !important;
   }
 }
 
 @layer utilities {
-
   @keyframes spin {
     to {
       transform: rotate(360deg);
