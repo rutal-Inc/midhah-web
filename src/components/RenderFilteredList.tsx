@@ -11,7 +11,7 @@ export default function RenderFilteredList({
   columns = 2,
 }: Readonly<{ size: number; type: string; columns?: number }>) {
   const [lyrics, setLyrics] = useState<Lyrics[]>([]);
-
+  
   useEffect(() => {
     async function fetchLyrics() {
       const res = await fetch(
@@ -19,18 +19,10 @@ export default function RenderFilteredList({
       );
       const data = await res.json();
       setLyrics(data.data);
-
-      if (type === "trending") {
-        const formatted = data.data.map(({ title }: { title: string }) => ({
-          icon: "trend",
-          title: title,
-        }));
-        const top5 = formatted.slice(0, 5);
-        localStorage.setItem("trending-lyrics", JSON.stringify(top5));
-      }
     }
 
     fetchLyrics();
+
   }, [size, type]);
 
   return (

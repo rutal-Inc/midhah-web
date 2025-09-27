@@ -16,7 +16,8 @@
     "bootstrap-icons": "^1.11.3",
     "lucide-react": "^0.544.0",
     "next": "15.5.3",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.4",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

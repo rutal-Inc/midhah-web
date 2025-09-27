@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { noto_nastaliq_urdu } from "../fonts";
+import { useLyricsStore } from '../../store/useLyricsStore';
 
 export default function Search() {
   const searchParams = useSearchParams();
@@ -17,7 +18,7 @@ export default function Search() {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreData, setHasMoreData] = useState(true);
-
+  const { addRecentSearch } = useLyricsStore();
   const lastLyricRef = useRef<HTMLLIElement>(null);
 
   function getGenreIcon(genre: string): StaticImageData {
@@ -58,15 +59,9 @@ export default function Search() {
 
 
   const addSearchLyric = (query: string) => {
-    const raw = localStorage.getItem("recent-searches");
-    const arr = raw ? JSON.parse(raw) : [];
-
-    const filtered = arr.filter((item: any) => item.title !== query);
-
     const newItem = { icon: "search", title: query };
 
-    const newArr = [newItem, ...filtered];
-    localStorage.setItem("searchLyrics", JSON.stringify(newArr));
+    addRecentSearch(newItem);
   };
 
   useEffect(() => {
@@ -76,6 +71,7 @@ export default function Search() {
     setLyrics([]);
     setPage(0);
     setHasMoreData(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
     useEffect(() => {
@@ -104,6 +100,7 @@ export default function Search() {
           }
           setIsLoading(false);
         });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
   return (
