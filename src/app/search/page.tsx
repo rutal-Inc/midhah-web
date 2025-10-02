@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { noto_nastaliq_urdu } from "../fonts";
+import { useLyricsStore } from '../../store/useLyricsStore';
 
 export default function Search() {
   const searchParams = useSearchParams();
@@ -17,7 +18,7 @@ export default function Search() {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreData, setHasMoreData] = useState(true);
-
+  const { addRecentSearch } = useLyricsStore();
   const lastLyricRef = useRef<HTMLLIElement>(null);
 
   function getGenreIcon(genre: string): StaticImageData {
@@ -56,33 +57,51 @@ export default function Search() {
     };
   }, [isLoading, page, lastLyricRef]);
 
-  useEffect(() => {
-    setIsLoading(true);
 
-    if (hasMoreData) {
+  const addSearchLyric = (query: string) => {
+    const newItem = { icon: "search", title: query };
+
+    addRecentSearch(newItem);
+  };
+
+  useEffect(() => {
+    if (!query) return;
+    addSearchLyric(query); 
+
+    setLyrics([]);
+    setPage(0);
+    setHasMoreData(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+    useEffect(() => {
+      if (!query || !hasMoreData) return;
+
+      setIsLoading(true);
       fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/search?query=${query}&page=${page}&size=30`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/search?query=${encodeURIComponent(
+          query
+        )}&page=${page}&size=30`
       )
         .then((response) => {
           if (!response.ok) {
             setHasMoreData(false);
+            setIsLoading(false);
+            return { data: [] };
           }
           return response.json();
         })
         .then((res) => {
-          if (res.data) {
-            setLyrics((prevLyrics) => [...prevLyrics, ...res.data]);
+          if (res.data?.length) {
+            setLyrics((prev) => [...prev, ...res.data]);
+          } else {
+            // no more data
+            setHasMoreData(false);
           }
           setIsLoading(false);
         });
-    }
-  }, [hasMoreData, page, query]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query]);
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">

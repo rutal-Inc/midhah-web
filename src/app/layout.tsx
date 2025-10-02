@@ -1,4 +1,3 @@
-import loader from "@/src/animations/success2.json";
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Theme } from "@radix-ui/themes";
@@ -10,7 +9,6 @@ import Loader from "../components/Loader";
 import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import NeworMedia from "../components/scripts/NeworMedia";
-import TadaLottie from "../components/TadaLottie";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
 import "./globals.css";
@@ -43,13 +41,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let datebetween: boolean = false;
-  if (
-    new Date() >= new Date("2025-08-24") &&
-    new Date() <= new Date("2025-09-22")
-  ) {
-    datebetween = true;
-  }
 
   return (
     <html lang="en">
@@ -67,7 +58,6 @@ export default function RootLayout({
             <Footer />
           </Suspense>
         </Theme>
-        {datebetween && <TadaLottie loader={loader} />}
       </body>
     </html>
   );
