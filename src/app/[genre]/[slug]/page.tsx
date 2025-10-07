@@ -10,6 +10,7 @@ import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -75,6 +76,11 @@ export default async function LyricsPage({
           <h1 className="mb-1 text-2xl text-white md:text-5xl">
             {lyric.title}
           </h1>
+          <Link 
+          href={`/poet/${lyric.poet?.slug}`}
+          className="mb-1 text-lg text-white md:text-xl">
+            {lyric.poet.name}
+          </Link>
         </div>
       </div>
 
