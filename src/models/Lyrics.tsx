@@ -5,6 +5,10 @@ export default interface Lyrics {
   preview: string;
   lyrics?: string;
   slug: string;
+  poet: {
+    name: string;
+    slug: string;
+  }
 }
 export interface SuggestionLyrics {
   title: string;
