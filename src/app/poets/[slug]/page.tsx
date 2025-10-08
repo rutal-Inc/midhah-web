@@ -6,11 +6,14 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
+  const poetInfo = await searchPoet(params.slug);
+  const poetName = poetInfo!.name;
+
   const title = `${capitalize(
-    params.slug,
-    "-",
+    poetName,
+    " ",
   )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
-  const description = `Explore ${params.slug} lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
+  const description = `Explore ${poetName} lyrics on Midhah مدحة — the most authentic platform for Hamd, Naat, Nasheed, Manqabat, and Durood o Salam. Download now on Google Play.`;
 
   return {
     title,
@@ -36,20 +39,18 @@ export default async function GenreListPage(props: Params) {
   const params = await props.params;
   const slug = params.slug;
 
-  const poetInfo = searchPoet(params.slug);
+  const poetInfo = await searchPoet(params.slug);
 
   if (!poetInfo) {
-      notFound();
+    notFound();
   }
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div
-        className="hero-bg card relative mb-5 overflow-hidden md:rounded-[10px]"
-      >
+      <div className="hero-bg card relative mb-5 overflow-hidden md:rounded-[10px]">
         <div className="py-[60px] text-center md:py-[150px]">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">
-            {poetInfo.then((res)=> res?.name)}
+            {poetInfo.name}
           </h1>
         </div>
       </div>
@@ -59,26 +60,22 @@ export default async function GenreListPage(props: Params) {
   );
 }
 
-async function searchPoet(slug: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${slug}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+async function searchPoet(slug: string): Promise<{ name: string } | null> {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${slug}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
       },
-      cache: "no-store",
-    },
-  )
-  if (!res.ok) {
-    console.error(`❌ Failed to fetch poet: ${res.statusText}`);
+    ).then((response) => {
+      return response.json();
+    });
+
+    if (res.data) {
+      return res.data;
+    }
     return null;
-  }
-  const data = await res.json();
-
-  if (data?.data) {
-    return { name: data.data.name };
-  }
-
-  
 }
