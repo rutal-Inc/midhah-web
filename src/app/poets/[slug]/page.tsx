@@ -1,4 +1,4 @@
-import RenderLyricsListWithSr from "@/src/components/RenderLyricsListWithSr";
+import RenderLyricsList from "@/src/components/RenderLyricsList";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize } from "@/src/utilities/helpers";
 import { Metadata } from "next";
@@ -55,7 +55,7 @@ export default async function GenreListPage(props: Params) {
         </div>
       </div>
 
-      <RenderLyricsListWithSr slug={slug} />
+      <RenderLyricsList slug={slug} type="poet" />
     </div>
   );
 }
