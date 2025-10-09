@@ -5,7 +5,7 @@ export default interface Lyrics {
   preview: string;
   lyrics?: string;
   slug: string;
-  poet: {
+  poet?: {
     name: string;
     slug: string;
   }
