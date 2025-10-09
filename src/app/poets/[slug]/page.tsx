@@ -27,7 +27,7 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
       description,
     },
     alternates: {
-      canonical: `${WEB_BASE_URL}/${params.slug}`,
+      canonical: `${WEB_BASE_URL}/poets/${params.slug}`,
     },
   };
 }
