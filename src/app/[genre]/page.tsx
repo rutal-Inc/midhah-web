@@ -61,7 +61,7 @@ export default async function GenreListPage(props: Params) {
         </div>
       </div>
 
-      <RenderLyricsList slug={genre} />
+      <RenderLyricsList genre={genre} />
     </div>
   );
 }

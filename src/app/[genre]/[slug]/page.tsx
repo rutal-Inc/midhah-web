@@ -5,12 +5,12 @@ import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
-import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -76,12 +76,14 @@ export default async function LyricsPage({
           <h1 className="mb-1 text-2xl text-white md:text-5xl">
             {lyric.title}
           </h1>
-          {lyric.poet && <Link 
-          href={`/poets/${lyric.poet?.slug}`}
-            className="leading text-normal mx-auto py-4 font-normal md:col-span-9 md:text-xl text-white">
-            {lyric.poet.name}
-          </Link>
-          }
+          {lyric.poet && (
+            <Link
+              href={`/poets/${lyric.poet?.slug}`}
+              className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl"
+            >
+              {lyric.poet.name}
+            </Link>
+          )}
         </div>
       </div>
 
@@ -113,7 +115,11 @@ export default async function LyricsPage({
           </React.Fragment>
         ))}
       </div>
-      <ViewCount entityId={lyric.id} referer={`${referer}`} />
+      <ViewCount
+        entityId={lyric.id}
+        entityType="LYRICS"
+        referer={`${referer}`}
+      />
     </div>
   );
 }

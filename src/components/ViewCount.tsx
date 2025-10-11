@@ -5,9 +5,11 @@ import { useCallback, useEffect } from "react";
 
 export default function ViewCount({
   entityId,
+  entityType,
   referer,
 }: {
   entityId: number;
+  entityType: "LYRICS" | "POETS";
   referer: string;
 }) {
   const pathname = usePathname();
@@ -23,7 +25,7 @@ export default function ViewCount({
         },
         body: JSON.stringify({
           entityId,
-          entityType: "LYRICS",
+          entityType,
           referrer: referer.includes(pathname) ? undefined : referer,
           client: "WEB",
         }),
