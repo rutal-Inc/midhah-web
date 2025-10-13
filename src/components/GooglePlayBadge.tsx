@@ -5,7 +5,7 @@ import googlePlayBadge from "../assets/google-play-badge.png";
 
 export default function GooglePlayBadge({ location }: { location: string }) {
   const handleClick = () => {
-    (window as any).gtag("event", "google_play_badge_click", {
+    window.gtag("event", "google_play_badge_click", {
       location,
     });
   };

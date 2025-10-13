@@ -8,7 +8,6 @@ import AdBanner from "../components/AdBanner";
 import Loader from "../components/Loader";
 import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
-import NeworMedia from "../components/scripts/NeworMedia";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
 import "./globals.css";
@@ -48,7 +47,6 @@ export default function RootLayout({
           GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
         />
         <AdSense />
-        <NeworMedia />
         <Theme>
           <Suspense fallback={<Loader />}>
             <AdBanner />

@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { noto_nastaliq_urdu } from "../app/fonts";
 import Lyrics from "../models/Lyrics";
 import Loader from "./Loader";
+import LyricCard from "./LyricCard";
 
 type Params = {
   genre: string;
@@ -78,26 +77,14 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
     <main className="flex min-h-[calc(100vh-575px)] flex-col items-center justify-center">
       <ul className="w-full md:grid md:grid-cols-2">
         {lyrics.map((lyric: Lyrics, index: number) => (
-          <Link href={`/${genre}/${lyric.slug}`} key={lyric.slug + index}>
-            <li
-              className="group relative my-1 flex flex-row hover:block"
-              ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
-            >
-              <div className="flex flex-1 scale-100 cursor-pointer items-center p-4 select-none group-hover:scale-0 hover:bg-gray-50">
-                <div className="mr-16 flex-1 pl-1">
-                  <h2 className="text-gray-600">{lyric.title}</h2>
-                  <h3 className="text-sm text-gray-400 uppercase">
-                    {lyric.genre}
-                  </h3>
-                </div>
-              </div>
-              <div
-                className={`${noto_nastaliq_urdu.className} absolute top-1/2 -translate-y-1/2 scale-0 text-center text-3xl whitespace-pre-wrap group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all`}
-              >
-                {lyric.preview}
-              </div>
-            </li>
-          </Link>
+          <LyricCard
+            title={lyric.title}
+            genre={genre}
+            slug={lyric.slug}
+            preview={lyric.preview}
+            key={lyric.slug + index}
+            ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
+          />
         ))}
       </ul>
 

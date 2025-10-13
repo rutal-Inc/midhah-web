@@ -6,11 +6,12 @@ interface LyricCardProps {
   genre: string;
   slug: string;
   preview: string;
+  ref?: React.Ref<HTMLLIElement>;
 }
-const LyricCard = ({ title, genre, slug, preview }: LyricCardProps) => {
+const LyricCard = ({ title, genre, slug, preview, ref }: LyricCardProps) => {
   return (
     <Link href={`/${genre}/${slug}`}>
-      <li className="group relative my-1 flex flex-row hover:block">
+      <li className="group relative my-1 flex flex-row hover:block" ref={ref}>
         <div className="flex flex-1 scale-100 cursor-pointer items-center p-4 select-none group-hover:scale-0 hover:bg-gray-50">
           <div className="mr-16 flex-1 pl-1">
             <h2 className="text-gray-600">{title}</h2>

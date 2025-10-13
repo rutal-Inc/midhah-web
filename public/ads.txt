@@ -3,8 +3,6 @@
 #updated 08.07.2024
 
 ownerdomain=lyrics.midhah.com
-managerdomain=newormedia.com
-contact=hello@newormedia.com
 
 #Sovrn
 lijit.com, 217352, DIRECT, fafdf38b16bf6b2b #SOVRN 
