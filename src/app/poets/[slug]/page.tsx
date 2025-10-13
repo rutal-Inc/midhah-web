@@ -1,3 +1,4 @@
+import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import RenderPoetsLyricsList from "@/src/components/RenderPoetsLyricsList";
 import ViewCount from "@/src/components/ViewCount";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
@@ -56,6 +57,9 @@ export default async function PoetLyricsPage(props: Params) {
         <div className="py-[60px] text-center md:py-[150px]">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">{poet.name}</h1>
         </div>
+      </div>
+      <div className="py-10 text-center">
+        <BannerAd adSlot="9551075709" adFormat="auto" />
       </div>
 
       <RenderPoetsLyricsList slug={slug} />
