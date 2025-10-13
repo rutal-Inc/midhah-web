@@ -1,4 +1,4 @@
-import RenderLyricsList from "@/src/components/RenderLyricsList";
+import RenderPoetsLyricsList from "@/src/components/RenderPoetsLyricsList";
 import ViewCount from "@/src/components/ViewCount";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize } from "@/src/utilities/helpers";
@@ -58,7 +58,7 @@ export default async function PoetLyricsPage(props: Params) {
         </div>
       </div>
 
-      <RenderLyricsList genre={slug} />
+      <RenderPoetsLyricsList slug={slug} />
 
       <ViewCount
         entityId={poet.id}
