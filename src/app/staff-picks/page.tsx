@@ -3,7 +3,7 @@ import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize } from "@/src/utilities/helpers";
 import { Metadata } from "next";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export function generateMetadata(): Metadata {
   const title = `${capitalize(
