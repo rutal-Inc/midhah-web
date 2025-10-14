@@ -5,7 +5,7 @@ import FeatureCards from "../components/FeatureCards";
 import TrendingStaffPicksList from "../components/TrendingStaffPicksList";
 import { WEB_BASE_URL } from "../utilities/constants";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   alternates: {

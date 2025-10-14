@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "paths": {
       "@/*": ["./*"]
     },

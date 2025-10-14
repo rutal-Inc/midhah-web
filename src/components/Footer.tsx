@@ -41,7 +41,7 @@ function Footer() {
               <a
                 aria-label="Follow us on Twitter"
                 className="text-gray-500"
-                href="https://twitter.com/midhahOfficial"
+                href="https://x.com/midhahOfficial"
                 target="_blank"
               >
                 <i className="bi bi-twitter-x text-2xl"></i>

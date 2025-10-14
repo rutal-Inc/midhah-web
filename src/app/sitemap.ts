@@ -1,7 +1,10 @@
 import { MetadataRoute } from "next";
 import { WEB_BASE_URL } from "../utilities/constants";
 
-type SitemapRes = { genre: string; slug: string; updatedAt: Date };
+type SitemapRes = {
+  lyrics: { genre: string; slug: string; updatedAt: string }[];
+  poets: { slug: string; updatedAt: string }[];
+};
 
 const getSitemap = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sitemap`, {
@@ -14,18 +17,29 @@ const getSitemap = async () => {
     return response.json();
   });
 
-  return res.data as SitemapRes[];
+  return res.data as SitemapRes;
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapRes = await getSitemap();
 
-  const sitemap: MetadataRoute.Sitemap = sitemapRes.map((sitemap) => ({
-    url: `${WEB_BASE_URL}/${sitemap.genre}/${sitemap.slug}`,
-    lastModified: sitemap.updatedAt,
-    changeFrequency: "weekly",
-    priority: 1,
-  }));
+  const lyricsSitemap: MetadataRoute.Sitemap = sitemapRes.lyrics.map(
+    (sitemap) => ({
+      url: `${WEB_BASE_URL}/${sitemap.genre}/${sitemap.slug}`,
+      lastModified: sitemap.updatedAt,
+      changeFrequency: "weekly",
+      priority: 1,
+    }),
+  );
+
+  const poetsSitemap: MetadataRoute.Sitemap = sitemapRes.poets.map(
+    (sitemap) => ({
+      url: `${WEB_BASE_URL}/poets/${sitemap.slug}`,
+      lastModified: sitemap.updatedAt,
+      changeFrequency: "weekly",
+      priority: 1,
+    }),
+  );
 
   return [
     {
@@ -64,6 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 1,
     },
-    ...sitemap,
+    ...lyricsSitemap,
+    ...poetsSitemap,
   ];
 }

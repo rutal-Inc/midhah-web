@@ -7,8 +7,8 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useLyricsStore } from "../../store/useLyricsStore";
 import { noto_nastaliq_urdu } from "../fonts";
-import { useLyricsStore } from '../../store/useLyricsStore';
 
 export default function Search() {
   const searchParams = useSearchParams();
@@ -57,7 +57,6 @@ export default function Search() {
     };
   }, [isLoading, page, lastLyricRef]);
 
-
   const addSearchLyric = (query: string) => {
     const newItem = { icon: "search", title: query };
 
@@ -66,7 +65,7 @@ export default function Search() {
 
   useEffect(() => {
     if (!query) return;
-    addSearchLyric(query); 
+    addSearchLyric(query);
 
     setLyrics([]);
     setPage(0);
@@ -74,34 +73,34 @@ export default function Search() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-    useEffect(() => {
-      if (!query || !hasMoreData) return;
+  useEffect(() => {
+    if (!query || !hasMoreData) return;
 
-      setIsLoading(true);
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/search?query=${encodeURIComponent(
-          query
-        )}&page=${page}&size=30`
-      )
-        .then((response) => {
-          if (!response.ok) {
-            setHasMoreData(false);
-            setIsLoading(false);
-            return { data: [] };
-          }
-          return response.json();
-        })
-        .then((res) => {
-          if (res.data?.length) {
-            setLyrics((prev) => [...prev, ...res.data]);
-          } else {
-            // no more data
-            setHasMoreData(false);
-          }
+    setIsLoading(true);
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/search?query=${encodeURIComponent(
+        query,
+      )}&page=${page}&size=30`,
+    )
+      .then((response) => {
+        if (!response.ok) {
+          setHasMoreData(false);
           setIsLoading(false);
-        });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query]);
+          return { data: [] };
+        }
+        return response.json();
+      })
+      .then((res) => {
+        if (res.data?.length) {
+          setLyrics((prev) => [...prev, ...res.data]);
+        } else {
+          // no more data
+          setHasMoreData(false);
+        }
+        setIsLoading(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
@@ -113,7 +112,7 @@ export default function Search() {
                 className="group relative m-1 flex flex-row bg-slate-100 hover:block"
                 ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
               >
-                <div className="flex flex-1 scale-100 cursor-pointer select-none items-center hover:bg-gray-50 group-hover:scale-0">
+                <div className="flex flex-1 scale-100 cursor-pointer items-center select-none group-hover:scale-0 hover:bg-gray-50">
                   <div className="flex items-center">
                     <Image
                       src={getGenreIcon(lyric.genre)}
@@ -123,14 +122,14 @@ export default function Search() {
                     ></Image>
                     <div className="mr-16 flex-1 pl-1">
                       <h2 className="text-gray-600">{lyric.title}</h2>
-                      <h3 className="text-sm uppercase text-gray-400">
+                      <h3 className="text-sm text-gray-400 uppercase">
                         {lyric.genre}
                       </h3>
                     </div>
                   </div>
                 </div>
                 <div
-                  className={`${noto_nastaliq_urdu.className} absolute top-1/2 -translate-y-1/2 scale-0 whitespace-pre-wrap text-center text-3xl group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all`}
+                  className={`${noto_nastaliq_urdu.className} absolute top-1/2 -translate-y-1/2 scale-0 text-center text-3xl whitespace-pre-wrap group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all`}
                 >
                   {lyric.preview}
                 </div>
