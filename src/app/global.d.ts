@@ -1,4 +1,3 @@
-// global.d.ts
 export {};
 
 declare global {
@@ -11,3 +10,5 @@ declare global {
     ) => void;
   }
 }
+
+declare module "*.css";
