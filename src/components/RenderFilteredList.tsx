@@ -1,4 +1,4 @@
-import Lyrics from "../models/Lyrics";
+import { FilteredLyrics } from "../models/Lyrics";
 import LyricCard from "./LyricCard";
 
 export default async function RenderFilteredList({
@@ -6,7 +6,7 @@ export default async function RenderFilteredList({
   type,
   columns = 2,
 }: Readonly<{ size: number; type: string; columns?: number }>) {
-  const lyrics: Lyrics[] = await fetch(
+  const lyrics: FilteredLyrics[] = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/${type}?size=${size}`,
     {
       method: "GET",
@@ -25,13 +25,14 @@ export default async function RenderFilteredList({
 
   return (
     <ul className={`w-full md:grid md:grid-cols-${columns}`}>
-      {lyrics.map((lyric: Lyrics) => (
+      {lyrics.map((lyric: FilteredLyrics) => (
         <LyricCard
           key={lyric.slug}
           title={lyric.title}
           genre={lyric.genre}
           slug={lyric.slug}
           preview={lyric.preview}
+          poet={lyric.poet}
         />
       ))}
     </ul>
