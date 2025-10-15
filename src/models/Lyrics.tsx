@@ -5,12 +5,21 @@ export default interface Lyrics {
   preview: string;
   lyrics?: string;
   slug: string;
-  poet?: {
+  poet: {
     name: string;
-    slug: string;
-  }
+    slug?: string;
+  };
+}
+export interface FilteredLyrics {
+  id: number;
+  title: string;
+  genre: string;
+  preview: string;
+  lyrics?: string;
+  slug: string;
+  poet?: string;
 }
 export interface SuggestionLyrics {
   title: string;
-  icon:string;
+  icon: string;
 }

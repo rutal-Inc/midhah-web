@@ -84,6 +84,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
             preview={lyric.preview}
             key={lyric.slug + index}
             ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
+            poet={lyric.poet?.name}
           />
         ))}
       </ul>
