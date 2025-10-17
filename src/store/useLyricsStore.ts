@@ -1,11 +1,11 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { SuggestionLyrics } from '../models/Lyrics';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { SuggestionLyrics } from "../models/Lyrics";
 
 interface LyricsState {
   recentSearches: SuggestionLyrics[];
   trendingLyrics: SuggestionLyrics[];
-  addRecentSearch: (search: SuggestionLyrics) => void; 
+  addRecentSearch: (search: SuggestionLyrics) => void;
   setTrendingLyrics: () => Promise<void>;
 }
 
@@ -16,8 +16,10 @@ export const useLyricsStore = create<LyricsState>()(
       trendingLyrics: [],
       addRecentSearch: (search) => {
         const prev = get().recentSearches;
-        const updated = [search, ...prev.filter((t) => t.title !== search.title)].slice(0, 3);
-
+        const updated = [
+          search,
+          ...prev.filter((t) => t.title !== search.title),
+        ].slice(0, 3);
 
         set({ recentSearches: updated });
       },
@@ -32,14 +34,14 @@ export const useLyricsStore = create<LyricsState>()(
           title: title,
         }));
 
-
-        set({ trendingLyrics: formatted })},
+        set({ trendingLyrics: formatted });
+      },
     }),
     {
-      name: 'recent-searches',
+      name: "recent-searches",
       partialize: (state) => ({
         recentSearches: state.recentSearches,
       }),
-    }
-  )
+    },
+  ),
 );
