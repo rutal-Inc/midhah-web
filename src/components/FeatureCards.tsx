@@ -7,12 +7,12 @@ import searchScreen from "../assets/screenshots/search-screen.jpeg";
 
 export default function FeatureCards() {
   return (
-    <div className="bg-floral-frame overflow-hidden bg-slate-200">
-      <div className="mx-auto py-10 pt-10 2xl:container md:px-[70px] md:pt-14">
+    <div className="bg-floral-frame overflow-hidden">
+      <div className="mx-auto py-10 pt-10 md:px-[70px] md:pt-14 2xl:container">
         <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">
           Discover Uncharted Devotion
         </h2>
-        <p className="text-normal mb-6 pl-4 md:text-xl ">
+        <p className="text-normal mb-6 pl-4 md:text-xl">
           Dive into diverse, authentic, and immersive lyrical experiences with
           our app
         </p>
@@ -35,7 +35,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="order-2 flex flex-col justify-between bg-primary px-4 pt-4">
+          <div className="bg-primary order-2 flex flex-col justify-between px-4 pt-4">
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">At Your Fingertips</h3>
               <p className="text-normal md:text-xl">
@@ -52,7 +52,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="order-4 flex flex-col justify-between bg-primary px-4 pt-4 lg:order-3">
+          <div className="bg-primary order-4 flex flex-col justify-between px-4 pt-4 lg:order-3">
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">Offline Access</h3>
               <p className="text-normal md:text-xl">

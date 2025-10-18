@@ -18,8 +18,8 @@ export default function Home() {
     <main>
       <Jumbotron />
       <GenreCards />
-      <FeatureCards />
       <TrendingStaffPicksList />
+      <FeatureCards />
     </main>
   );
 }
