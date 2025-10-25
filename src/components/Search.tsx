@@ -17,10 +17,11 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [suggestionList, setSuggestionList] = useState<SuggestionLyrics[]>([]);
-  const { recentSearches, trendingLyrics, setTrendingLyrics } = useLyricsStore();
+  const { recentSearches, trendingLyrics, setTrendingLyrics } =
+    useLyricsStore();
   const [combinedLocalList, setCombinedLocalList] = useState<
     SuggestionLyrics[]
-    >([...recentSearches, ...trendingLyrics]);
+  >([...recentSearches, ...trendingLyrics]);
   const [searchInput, setSearchInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -30,10 +31,8 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   useEffect(() => {
     setCombinedLocalList([...recentSearches, ...trendingLyrics]);
-    
   }, [recentSearches, trendingLyrics]);
 
   useEffect(() => {
@@ -116,7 +115,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
   return (
     <>
       <div
-        className={`relative ${showSearch ? "my-2.5 w-[90%] max-[520px]:flex" : "max-[520px]:hidden"} w-[34%] items-center gap-[2px] rounded-md border border-gray-300 px-2 py-0.5 transition-all focus-within:border-gray-800 min-[520px]:flex min-[520px]:focus-within:w-[62%] md:pr-7 md:focus-within:w-[60%] lg:w-[32%] lg:px-2.5 lg:focus-within:w-[40%] xl:focus-within:w-[45%]`}
+        className={`relative ${showSearch ? "my-2 w-[100%] focus-within:w-screen max-[520px]:flex" : "max-[520px]:hidden"} w-[100%] items-center gap-[2px] rounded-md border border-gray-300 px-1 py-0.5 transition-all focus-within:w-[70%] focus-within:border-gray-800 min-[520px]:flex min-[520px]:w-[64%] md:pr-7 md:focus-within:w-[68%] lg:w-[62%] lg:px-2.5 lg:focus-within:w-[64%] xl:w-[50%] xl:focus-within:w-[60%]`}
       >
         <input
           ref={inputRef}
@@ -126,7 +125,11 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
           placeholder="Search fav madh lyrics..."
           className="w-full border-none bg-inherit focus:border-none focus:ring-0 focus:outline-none"
           onFocus={() => {
-            setTimeout(() => setCombinedLocalList([...recentSearches, ...trendingLyrics]), 150);
+            setTimeout(
+              () =>
+                setCombinedLocalList([...recentSearches, ...trendingLyrics]),
+              150,
+            );
             setListDisplay(true);
           }}
           onBlur={() => {
@@ -205,7 +208,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
                       <i className="bi bi-clock-history"></i>
                     )}
                     <span className="truncate">
-                    {suggestion.title.toLowerCase()}
+                      {suggestion.title.toLowerCase()}
                     </span>
                   </button>
                 </li>
