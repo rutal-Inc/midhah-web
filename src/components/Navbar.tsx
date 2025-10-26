@@ -118,7 +118,11 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <CollectionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      <CollectionDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        collectionType="all"
+      />
       <LoginDialog
         isOpen={isLoginDialogOpen}
         setIsOpen={setIsLoginDialogOpen}
@@ -141,7 +145,7 @@ function ActiveLink({
   inactiveClassName = "hover:bg-slate-100",
 }: Readonly<ActiveLinkProps>) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <Link

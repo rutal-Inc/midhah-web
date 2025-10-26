@@ -1,6 +1,8 @@
 import { useAuthStore } from "@/src/store/useAuthStore";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
+  BookmarkFilledIcon,
+  BookmarkIcon,
   CheckIcon,
   Cross1Icon,
   Cross2Icon,
@@ -12,8 +14,11 @@ import { Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
+  addLyricToUserCollection,
   addNewUserCollection,
   getUserCollections,
+  getUserCollectionsLyric,
+  removeLyricFromUserCollection,
   removeUserCollection,
   updateUserCollection,
 } from "../service/collectionService";
@@ -24,16 +29,22 @@ import Loader from "./Loader";
 type CollectionType = {
   id: string;
   name: string;
+  isInCollection?: boolean;
+  collectionLyricId?: string;
 };
 
 type CollectionDialogProps = {
+  lyricId?: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  collectionType: "all" | "lyric";
 };
 
 export default function CollectionDialog({
+  lyricId,
   isOpen = false,
   setIsOpen,
+  collectionType = "lyric",
 }: Readonly<CollectionDialogProps>) {
   const { authToken } = useAuthStore();
   const { user } = useUserStore();
@@ -43,7 +54,21 @@ export default function CollectionDialog({
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { removeCollectionId } = useCollectionStore();
+  const { setCurrentLyricId, addCollectionId, removeCollectionId, reset } =
+    useCollectionStore();
+
+  useEffect(() => {
+    reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (collectionType === "lyric" && lyricId) {
+      setCurrentLyricId(lyricId);
+      fetchCollections();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lyricId, authToken]);
 
   const handleAdd = () => {
     if (user) {
@@ -73,9 +98,23 @@ export default function CollectionDialog({
     try {
       setLoading(true);
       setCollections([]);
-      const data = await getUserCollections(user!.id, authToken);
+      if (collectionType === "lyric" && lyricId) {
+        const data = await getUserCollectionsLyric(
+          user!.id,
+          lyricId,
+          authToken,
+        );
 
-      setCollections(data);
+        for (const element of data) {
+          if (element.isInCollection) addCollectionId(element.id);
+        }
+
+        setCollections(data);
+      } else {
+        const data = await getUserCollections(user!.id, authToken);
+
+        setCollections(data);
+      }
     } catch (error) {
       console.error("Error fetching collections:", error);
     } finally {
@@ -84,11 +123,11 @@ export default function CollectionDialog({
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && user) {
       fetchCollections();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, user]);
 
   const addNewCollection = async (name: string) => {
     if (!authToken) return;
@@ -138,6 +177,41 @@ export default function CollectionDialog({
     }
   };
 
+  const addLyricToCollection = async (
+    collectionId: string,
+    lyricId: number,
+  ) => {
+    if (!authToken) return;
+    setLoading(true);
+
+    try {
+      const data = await addLyricToUserCollection(
+        collectionId,
+        lyricId,
+        authToken,
+      );
+      addCollectionId(data.collectionId);
+      fetchCollections();
+    } catch (error) {
+      console.error("Error adding lyric to collection:", error);
+    }
+  };
+
+  const removeLyricFromCollection = async (collectionLyricId: string) => {
+    if (!authToken) return;
+    setLoading(true);
+    try {
+      const data = await removeLyricFromUserCollection(
+        collectionLyricId,
+        authToken,
+      );
+      removeCollectionId(Number(data.collectionId));
+      fetchCollections();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Dialog.Root
       open={isOpen}
@@ -151,7 +225,7 @@ export default function CollectionDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-fadeIn fixed inset-0 bg-black/60 backdrop-blur-sm" />
         <Dialog.Content
-          className={`fixed top-1/2 left-1/2 max-h-[60vh] w-[94%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-lg focus:outline-none`}
+          className={`fixed top-1/2 left-1/2 max-h-[60vh] w-[94%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-7 shadow-lg focus:outline-none`}
           aria-describedby={undefined}
         >
           <Flex gap="3" justify="between" align={"start"}>
@@ -164,8 +238,9 @@ export default function CollectionDialog({
               </div>
             </Dialog.Close>
           </Flex>
-          {loading && <Loader />}
+
           <div className="mt-6">
+            {loading && <Loader />}
             {!loading &&
               (collections && collections.length > 0 ? (
                 <ul className="w-full list-none space-y-3">
@@ -175,8 +250,32 @@ export default function CollectionDialog({
                       className={`flex w-full items-center justify-between rounded-md ${editingId !== Number(collection.id) && "hover:bg-gray-100"}`}
                     >
                       <label
-                        className={`flex w-full cursor-pointer items-center space-x-2 md:space-x-3`}
+                        className={`flex w-full items-center space-x-2 md:space-x-3`}
                       >
+                        {collectionType === "lyric" && (
+                          <button
+                            className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              if (loading) return;
+                              if (collection.isInCollection) {
+                                removeLyricFromCollection(
+                                  collection.collectionLyricId!,
+                                );
+                              } else {
+                                addLyricToCollection(collection.id, lyricId!);
+                              }
+                            }}
+                          >
+                            {collection.isInCollection ? (
+                              <BookmarkFilledIcon className="h-6 w-6 cursor-pointer rounded-md p-[3px] font-medium text-gray-700 shadow-inner shadow-white/10 hover:bg-gray-200" />
+                            ) : (
+                              <BookmarkIcon className="h-6 w-6 cursor-pointer rounded-md p-[3px] font-medium text-gray-800 shadow-inner shadow-white/10 hover:bg-gray-200" />
+                            )}
+                          </button>
+                        )}
+
                         {editingId === Number(collection.id) ? (
                           <div className="my-1 flex w-full items-center gap-1">
                             <input
@@ -195,7 +294,9 @@ export default function CollectionDialog({
                                   Number(collection.id),
                                   collection.name,
                                 );
+                                setEditingId(null);
                               }}
+                              title="Update"
                             >
                               <CheckIcon className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-100" />
                             </button>
@@ -207,26 +308,33 @@ export default function CollectionDialog({
                                 setNewName("");
                                 setEditingId(null);
                               }}
+                              title="Cancel"
                             >
                               <Cross2Icon className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-rose-500 shadow-inner shadow-white/10 hover:bg-gray-100" />
                             </button>
                           </div>
                         ) : (
                           <div className="group flex w-full items-center justify-between">
-                            <Link
-                              href={`/collection/${collection.id}`}
-                              className="flex flex-1 cursor-pointer items-center justify-between rounded-md px-4 py-1"
-                              onClick={() => setIsOpen(false)}
-                              title="Click to View All Lyrics"
-                            >
+                            {collectionType === "all" ? (
+                              <Link
+                                href={`/collection/${collection.id}`}
+                                className="flex flex-1 cursor-pointer items-center justify-between rounded-md px-4 py-1"
+                                onClick={() => setIsOpen(false)}
+                                title="Click to View All Lyrics"
+                              >
+                                <Text size="4" className="text-black">
+                                  {collection.name}
+                                </Text>
+                              </Link>
+                            ) : (
                               <Text size="4" className="text-black">
                                 {collection.name}
                               </Text>
-                            </Link>
+                            )}
 
                             <div className="ml-1 flex gap-1 md:hidden md:group-hover:flex">
                               <button
-                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/1 peer-hover:bg-gray-100"
+                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   e.preventDefault();
@@ -234,7 +342,6 @@ export default function CollectionDialog({
                                   setEditingId(Number(collection.id));
                                   inputRef.current?.focus();
                                   setNewName(collection.name);
-                                  setName("");
                                 }}
                                 title="Edit"
                               >
@@ -242,9 +349,10 @@ export default function CollectionDialog({
                               </button>
 
                               <button
-                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 peer-hover:bg-gray-100"
+                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
+                                  if (loading) return;
                                   handleDelete(Number(collection.id));
                                 }}
                                 title="Delete"
