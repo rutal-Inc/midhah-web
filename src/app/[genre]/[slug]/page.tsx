@@ -10,7 +10,24 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
+import LyricsDialogClient from "./LyricsDialogClient";
 import { getLyrics } from "./service";
+
+export async function generateStaticParams() {
+  const lyrics: {
+    data: {
+      genre: string;
+      slug: string;
+    }[];
+  } = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics?page=0&size=5000&sortBy=id&orderBy=asc`,
+  ).then((res) => res.json());
+
+  return lyrics.data.map((lyric) => ({
+    genre: String(lyric.genre),
+    slug: String(lyric.slug),
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -64,10 +81,11 @@ export default async function LyricsPage({
 
   const lyricsChunks = lyric.lyrics ? lyric.lyrics.split("\n\n") : [];
   let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   randomIndex == 1 && ++randomIndex;
 
   return (
-    <div className="container mx-auto w-full md:w-[85%]">
+    <div className="relative container mx-auto w-full md:w-[85%]">
       <div
         className="card relative overflow-hidden md:rounded-[10px]"
         style={{ background: genreInfo?.color }}
@@ -86,12 +104,12 @@ export default async function LyricsPage({
           )}
         </div>
       </div>
-
       <div className="py-10 text-center">
         <BannerAd adSlot="8493724848" adFormat="auto" />
       </div>
-
-      <div className={`${noto_nastaliq_urdu.className} py-10 text-center`}>
+      <div
+        className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
+      >
         {lyricsChunks.map((part, index) => (
           <React.Fragment key={index}>
             <p className="text-2xl leading-10 whitespace-pre-wrap md:text-4xl md:leading-[55px]">
@@ -115,6 +133,7 @@ export default async function LyricsPage({
           </React.Fragment>
         ))}
       </div>
+      <LyricsDialogClient lyricId={lyric.id} />
       <ViewCount
         entityId={lyric.id}
         entityType="LYRICS"
