@@ -103,7 +103,6 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
       )
         .then((res) => res.json())
         .then((res) => {
-          console.log("Suggestions", res.data);
           setSuggestionList(res.data);
           setIsLoading(false);
         });

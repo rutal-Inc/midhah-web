@@ -1,3 +1,4 @@
+import ClientWrapper from "@/src/components/ClientWrapper";
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Theme } from "@radix-ui/themes";
@@ -49,6 +50,7 @@ export default function RootLayout({
         <AdSense />
         <Theme>
           <Suspense fallback={<Loader />}>
+            <ClientWrapper />
             <AdBanner />
             <Navbar />
             {children}

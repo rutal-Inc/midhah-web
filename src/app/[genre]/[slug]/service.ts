@@ -1,4 +1,3 @@
-// lib/getLyrics.ts
 import Lyrics from "@/src/models/Lyrics";
 
 export async function getLyrics(slug: string): Promise<Lyrics | null> {
