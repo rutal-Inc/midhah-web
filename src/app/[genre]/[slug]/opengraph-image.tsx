@@ -1,6 +1,7 @@
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
+import NextImage from "next/image";
 import { Params } from "./@types";
 import { getLyrics } from "./service";
 
@@ -59,8 +60,7 @@ export default async function Image({ params }: Readonly<{ params: Params }>) {
 
         <h4>{lyrics?.title}</h4>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <NextImage
           src={`${WEB_BASE_URL}/images/midhah.svg`}
           alt=""
           height={80}
