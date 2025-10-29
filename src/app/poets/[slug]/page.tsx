@@ -64,7 +64,7 @@ export default async function PoetLyricsPage(props: Params) {
 
       <RenderPoetsLyricsList slug={slug} />
 
-      <ViewCount entityId={poet.id} entityType="POETS" referer={`${referer}`} />
+      <ViewCount entityId={poet.id} entityType="POET" referer={`${referer}`} />
     </div>
   );
 }
