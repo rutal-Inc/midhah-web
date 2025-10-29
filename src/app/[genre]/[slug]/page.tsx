@@ -99,7 +99,7 @@ export default async function LyricsPage({
               href={`/poets/${lyric.poet?.slug}`}
               className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl"
             >
-              {lyric.poet.name}
+              <h2 className="mt-2">{lyric.poet.name}</h2>
             </Link>
           )}
         </div>
