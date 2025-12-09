@@ -38,6 +38,10 @@
   @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
 }
 
+@utility btn-secondary {
+  @apply bg-[#027278] hover:opacity-92 cursor-pointer rounded-sm transition
+}
+
 @utility hero-bg {
   background-image: url("/images/hero-bg.png");
   background-size: cover;

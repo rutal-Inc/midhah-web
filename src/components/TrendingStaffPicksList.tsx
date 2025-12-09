@@ -3,7 +3,7 @@ import RenderFilteredList from "./RenderFilteredList";
 
 export default async function TrendingStaffPicksList() {
   return (
-    <div className="overflow-hidden bg-slate-200 md:grid md:grid-cols-2 md:px-[70px]">
+    <div className="overflow-hidden bg-slate-100 md:grid md:grid-cols-2 md:px-[70px]">
       <div className="container mx-auto py-10 pt-10 md:pt-14">
         <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">Trending</h2>
         <RenderFilteredList size={5} type="trending" columns={1} />

@@ -119,15 +119,13 @@ export default async function LyricsPage({
 
             {index === randomIndex && (
               <>
-                {/* <br />
-                <br /> */}
+                <br />
                 <AppPromoBanner />
               </>
             )}
 
             {index < lyricsChunks.length - 1 && (
               <p>
-                {/* <br /> */}
                 <br />
               </p>
             )}

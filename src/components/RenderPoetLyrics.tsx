@@ -55,7 +55,7 @@ export default async function RenderPoetLyrics({
         <div className="my-3 flex w-full items-center justify-center">
           <Link
             href={`/poets/${poetslug}`}
-            className="mt-6 flex max-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-sm bg-cyan-800 px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
+            className="btn-secondary mt-6 flex max-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
           >
             <h2 className="text-xl text-gray-100">Browse All Lyrics</h2>
           </Link>
