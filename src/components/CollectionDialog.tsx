@@ -95,6 +95,7 @@ export default function CollectionDialog({
   };
 
   const fetchCollections = async () => {
+    if (!user) return;
     try {
       setLoading(true);
       setCollections([]);
