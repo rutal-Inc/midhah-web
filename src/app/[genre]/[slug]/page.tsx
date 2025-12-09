@@ -135,7 +135,7 @@ export default async function LyricsPage({
         ))}
       </div>
       <LyricsDialogClient lyricId={lyric.id} />
-      {lyric.poet && lyric.poet.slug && (
+      {lyric.poet?.slug && (
         <RenderPoetLyrics
           size={6}
           poetname={lyric.poet.name}
