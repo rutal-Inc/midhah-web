@@ -35,7 +35,7 @@ export default async function RenderPoetLyrics({
         <div className="my-3 mt-5 w-full">
           <h2 className="mb-1 text-center text-2xl text-gray-600 md:text-3xl lg:text-4xl">
             <span className="text-lg md:text-xl lg:text-2xl">
-              Popular Picks by
+              Trending from
             </span>{" "}
             <strong>{poetname}</strong>
           </h2>
