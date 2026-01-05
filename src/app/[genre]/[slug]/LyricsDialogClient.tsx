@@ -31,7 +31,7 @@ export default function LyricsDialogClient({
 
             setIsOpen(true);
           }}
-          className="flex max-w-[260px] cursor-pointer items-center justify-center gap-2 rounded-sm bg-cyan-800 px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
+          className="btn-secondary flex max-w-[260px] cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
         >
           {currentlyricId === lyricId && collectionIds.length > 0 ? (
             <>

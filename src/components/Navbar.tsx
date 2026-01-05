@@ -52,12 +52,19 @@ function Navbar() {
           </Link>
 
           <div
-            className={`flex ${showSearch ? "w-[100%] justify-center" : "w-[70%] pl-8 max-[520px]:justify-end"} items-center justify-between gap-3`}
+            className={`flex ${showSearch ? "w-[100%] justify-center" : "w-[70%] pl-8 max-[520px]:justify-end sm:pl-2"} items-center justify-between gap-3`}
           >
             <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+
             <div
-              className={`${showSearch ? "max-[520px]:hidden" : "max-[520px]:block"}`}
+              className={`${showSearch ? "max-[520px]:hidden" : "max-[520px]:block"} flex gap-3`}
             >
+              <div className={`hidden items-center justify-center sm:flex`}>
+                <ActiveLink href="/trending">Trending</ActiveLink>
+                <ActiveLink href="/staff-picks" otherClasses="text-nowrap">
+                  Staff Picks
+                </ActiveLink>
+              </div>
               {authToken && user ? (
                 <Popover className="relative">
                   <PopoverButton
@@ -96,7 +103,7 @@ function Navbar() {
                 </Popover>
               ) : (
                 <button
-                  className="cursor-pointer rounded-sm bg-[#027278] px-2.5 py-1.5 text-white transition hover:opacity-90"
+                  className="btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white"
                   onClick={() => {
                     setIsLoginDialogOpen(true);
                   }}
@@ -108,13 +115,11 @@ function Navbar() {
           </div>
         </div>
         <div className="mt-2 hidden w-[100%] justify-center gap-2.5 align-middle sm:flex">
-          <div className="flex w-[87%] items-center justify-between lg:gap-2 xl:gap-6">
+          <div className="flex w-[87%] items-center justify-between lg:w-3xl lg:gap-2 xl:gap-6">
             <ActiveLink href="/hamd">Hamd e Ta&apos;ala</ActiveLink>
             <ActiveLink href="/naat">Naat e Rasool</ActiveLink>
             <ActiveLink href="/manqbat">Manqbat</ActiveLink>
             <ActiveLink href="/durood-o-salam">Durood o Salam</ActiveLink>
-            <ActiveLink href="/trending">Trending</ActiveLink>
-            <ActiveLink href="/staff-picks">Staff Picks</ActiveLink>
           </div>
         </div>
       </nav>
@@ -136,6 +141,7 @@ interface ActiveLinkProps {
   children: React.ReactNode;
   activeClassName?: string;
   inactiveClassName?: string;
+  otherClasses?: string;
 }
 
 function ActiveLink({
@@ -143,6 +149,7 @@ function ActiveLink({
   children,
   activeClassName = "bg-slate-100",
   inactiveClassName = "hover:bg-slate-100",
+  otherClasses,
 }: Readonly<ActiveLinkProps>) {
   const pathname = usePathname();
   const isActive = pathname === href || pathname.startsWith(`${href}/`);
@@ -152,7 +159,7 @@ function ActiveLink({
       href={href}
       className={`rounded-sm px-2 py-1 text-sm font-normal transition-colors duration-200 md:px-3 md:text-base lg:px-5 lg:text-lg ${
         isActive ? activeClassName : inactiveClassName
-      }`}
+      } ${otherClasses}`}
     >
       {children}
     </Link>

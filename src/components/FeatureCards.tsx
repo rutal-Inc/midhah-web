@@ -69,7 +69,7 @@ export default function FeatureCards() {
             </div>
           </div>
 
-          <div className="order-3 flex flex-col justify-between bg-slate-300 px-4 pt-4 lg:order-4">
+          <div className="order-3 flex flex-col justify-between bg-slate-100 px-4 pt-4 lg:order-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Lyrical Oasis</h3>
               <p className="text-normal md:text-xl">

@@ -1,4 +1,5 @@
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
+import RenderPoetLyrics from "@/src/components/RenderPoetLyrics";
 import ViewCount from "@/src/components/ViewCount";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
@@ -113,12 +114,11 @@ export default async function LyricsPage({
         {lyricsChunks.map((part, index) => (
           <React.Fragment key={index}>
             <p className="text-2xl leading-10 whitespace-pre-wrap md:text-4xl md:leading-[55px]">
-              {part}
+              {part.trim()}
             </p>
 
             {index === randomIndex && (
               <>
-                <br />
                 <br />
                 <AppPromoBanner />
               </>
@@ -127,13 +127,19 @@ export default async function LyricsPage({
             {index < lyricsChunks.length - 1 && (
               <p>
                 <br />
-                <br />
               </p>
             )}
           </React.Fragment>
         ))}
       </div>
       <LyricsDialogClient lyricId={lyric.id} />
+      {lyric.poet?.slug && (
+        <RenderPoetLyrics
+          size={6}
+          poetname={lyric.poet.name}
+          poetslug={lyric.poet.slug}
+        />
+      )}
       <ViewCount
         entityId={lyric.id}
         entityType="LYRICS"
