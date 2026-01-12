@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.midhah.lyrics",
       "sha256_cert_fingerprints": [
-        "61:A2:DA:C8:16:8B:BB:D0:69:75:CE:04:42:50:3A:9C:7E:A5:94:FE:26:D5:8A:72:EC:0C:74:52:97:D3:1F:4C"
+        "61:A2:DA:C8:16:8B:BB:D0:69:75:CE:04:42:50:3A:9C:7E:A5:94:FE:26:D5:8A:72:EC:0C:74:52:97:D3:1F:4C",
+        "5E:E4:C7:3C:DC:2F:6F:9A:FB:C6:09:FD:5D:EF:C4:2A:46:A4:C5:28:EE:67:9C:17:FA:A2:2A:57:6C:5D:1C:69",
       ]
     }
   }
