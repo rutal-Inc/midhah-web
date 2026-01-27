@@ -138,6 +138,7 @@ export default async function LyricsPage({
           size={6}
           poetname={lyric.poet.name}
           poetslug={lyric.poet.slug}
+          exclude={slug}
         />
       )}
       <ViewCount
