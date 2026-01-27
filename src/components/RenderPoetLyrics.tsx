@@ -6,14 +6,16 @@ export default async function RenderPoetLyrics({
   size = 5,
   poetname,
   poetslug,
+  exclude,
 }: Readonly<{
   size: number;
   poetname: string;
   poetslug: string;
+  exclude?: string;
 }>) {
   const lyrics: FilteredLyrics[] = await fetch(
     // `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${poetslug}/lyrics`,
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/poets/${poetslug}?size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/poets/${poetslug}?size=${size}&exclude=${exclude}`,
     {
       method: "GET",
       headers: {
