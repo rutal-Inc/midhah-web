@@ -113,7 +113,7 @@ export default async function LyricsPage({
       >
         {lyricsChunks.map((part, index) => (
           <React.Fragment key={index}>
-            <p className="text-2xl leading-10 whitespace-pre-wrap md:text-4xl md:leading-[55px]">
+            <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-[74px]">
               {part.trim()}
             </p>
 
