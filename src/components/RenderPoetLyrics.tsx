@@ -31,6 +31,8 @@ export default async function RenderPoetLyrics({
     })
     .then((data) => data.data);
 
+  if (lyrics.length === 0) return null;
+
   return (
     <div>
       <div className="mx-auto w-full py-4">
