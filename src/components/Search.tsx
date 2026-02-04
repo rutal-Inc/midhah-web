@@ -2,7 +2,7 @@
 
 import Loader from "@/src/components/Loader";
 import { TrendingUp } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SuggestionLyrics } from "../models/Lyrics";
 import { useLyricsStore } from "../store/useLyricsStore";
@@ -14,7 +14,10 @@ type Props = {
 
 function Search({ showSearch, setShowSearch }: Readonly<Props>) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   const [listDisplay, setListDisplay] = useState<boolean>(false);
   const [suggestionList, setSuggestionList] = useState<SuggestionLyrics[]>([]);
   const { recentSearches, trendingLyrics, setTrendingLyrics } =
@@ -26,10 +29,20 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
+  const query = searchParams.get("query");
+
   useEffect(() => {
     setTrendingLyrics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (query) {
+      setSearchInput(query);
+    } else {
+      setSearchInput("");
+    }
+  }, [query]);
 
   useEffect(() => {
     setCombinedLocalList([...recentSearches, ...trendingLyrics]);
@@ -57,7 +70,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
         e.preventDefault();
         const selected = suggestionList[activeIndex];
         router.push(
-          `/search?query=${selected.title.toLowerCase().replace(/\s/g, "+")}`,
+          `/search?query=${selected.title.toLowerCase().replaceAll(/\s/g, "+")}`,
         );
         setSearchInput(selected.title.toLowerCase());
         setListDisplay(false);
@@ -79,7 +92,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
         e.preventDefault();
         const selected = combinedLocalList[activeIndex];
         router.push(
-          `/search?query=${selected.title.toLowerCase().replace(/\s/g, "+")}`,
+          `/search?query=${selected.title.toLowerCase().replaceAll(/\s/g, "+")}`,
         );
         setSearchInput(selected.title.toLowerCase());
         setListDisplay(false);
@@ -146,7 +159,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
             inputRef.current?.blur();
             if (searchInput.length <= 0) return;
             router.push(
-              `/search?query=${searchInput.toLowerCase().replace(/\s/g, "+")}`,
+              `/search?query=${searchInput.toLowerCase().replaceAll(/\s/g, "+")}`,
             );
           }}
         ></button>
@@ -168,7 +181,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
                       router.push(
                         `/search?query=${suggestion.title
                           .toLowerCase()
-                          .replace(/\s/g, "+")}`,
+                          .replaceAll(/\s/g, "+")}`,
                       );
                       setListDisplay(false);
                       setShowSearch(false);
@@ -195,7 +208,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
                       router.push(
                         `/search?query=${suggestion.title
                           .toLowerCase()
-                          .replace(/\s/g, "+")}`,
+                          .replaceAll(/\s/g, "+")}`,
                       );
                       setListDisplay(false);
                       setShowSearch(false);
