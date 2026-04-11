@@ -6,7 +6,6 @@ import { Flex } from "@radix-ui/themes";
 import axios from "axios";
 import {
   Auth,
-  FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
@@ -53,26 +52,25 @@ export default function LoginDialog({
     router.refresh();
   };
 
-  const handleFacebookLogin = async (): Promise<void> => {
-    const provider = new FacebookAuthProvider();
+  // const handleFacebookLogin = async (): Promise<void> => {
+  //   const provider = new FacebookAuthProvider();
 
-    const result = await signInWithPopup(auth!, provider);
-    console.log(result);
-    const body = {
-      name: result.user.displayName,
-      email: result.user.email,
-      displayPicture: result.user.photoURL,
-      oauthId: result.user.providerData[0]?.uid,
-      oauthProvider: result.user.providerData[0]?.providerId,
-    };
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
-      body,
-    );
-    setAuthToken(response.data.data.token);
-    setIsOpen(false);
-    router.refresh();
-  };
+  //   const result = await signInWithPopup(auth!, provider);
+  //   const body = {
+  //     name: result.user.displayName,
+  //     email: result.user.email,
+  //     displayPicture: result.user.photoURL,
+  //     oauthId: result.user.providerData[0]?.uid,
+  //     oauthProvider: result.user.providerData[0]?.providerId,
+  //   };
+  //   const response = await axios.post(
+  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+  //     body,
+  //   );
+  //   setAuthToken(response.data.data.token);
+  //   setIsOpen(false);
+  //   router.refresh();
+  // };
 
   return (
     <Dialog.Root
@@ -132,5 +130,3 @@ export default function LoginDialog({
     </Dialog.Root>
   );
 }
-
-// TODO: Change Rutal Inc to Rutal Labs in privacy policy page (same as mobile) and add section for data deletion of user
