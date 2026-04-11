@@ -52,6 +52,26 @@ export default function LoginDialog({
     router.refresh();
   };
 
+  // const handleFacebookLogin = async (): Promise<void> => {
+  //   const provider = new FacebookAuthProvider();
+
+  //   const result = await signInWithPopup(auth!, provider);
+  //   const body = {
+  //     name: result.user.displayName,
+  //     email: result.user.email,
+  //     displayPicture: result.user.photoURL,
+  //     oauthId: result.user.providerData[0]?.uid,
+  //     oauthProvider: result.user.providerData[0]?.providerId,
+  //   };
+  //   const response = await axios.post(
+  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+  //     body,
+  //   );
+  //   setAuthToken(response.data.data.token);
+  //   setIsOpen(false);
+  //   router.refresh();
+  // };
+
   return (
     <Dialog.Root
       open={isOpen}
@@ -75,7 +95,7 @@ export default function LoginDialog({
             </Dialog.Close>
           </Flex>
           <div className="mt-6">
-            <div className="mt-2 flex justify-center">
+            <div className="mt-2 flex flex-col justify-center gap-2">
               <button
                 className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2 text-sm/6 font-semibold text-black shadow hover:shadow-black/20"
                 onClick={handleGoogleLogin}
@@ -89,6 +109,20 @@ export default function LoginDialog({
                 />
                 <p>Continue with Google</p>
               </button>
+              {/* <button
+                disabled={true}
+                className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2 text-sm/6 font-semibold text-black shadow hover:shadow-black/20"
+                onClick={handleFacebookLogin}
+              >
+                <Image
+                  src="/svgs/facebook.svg"
+                  alt="Facebook Logo"
+                  className="absolute left-1.5 h-6 w-6 md:h-7 md:w-7"
+                  width={500}
+                  height={500}
+                />
+                <p>Continue with Facebook</p>
+              </button> */}
             </div>
           </div>
         </Dialog.Content>

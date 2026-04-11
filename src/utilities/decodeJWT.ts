@@ -1,19 +1,25 @@
+import { jwtDecode } from "jwt-decode";
+
 export type JwtPayload = {
   id: number;
   name: string;
   email: string;
   displayPicture: string;
+  role: "USER" | "ADMIN" | "SUPERADMIN";
+  exp: number;
+  iat: number;
 };
 
-export default function parseJwt(token: string): JwtPayload {
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split("")
-      .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join(""),
-  );
+export default function parseJwt(token: string): JwtPayload | null {
+  try {
+    const decoded = jwtDecode<JwtPayload>(token);
 
-  return JSON.parse(jsonPayload) as JwtPayload;
+    if (decoded.exp * 1000 < Date.now()) {
+      return null;
+    }
+
+    return decoded;
+  } catch {
+    return null;
+  }
 }

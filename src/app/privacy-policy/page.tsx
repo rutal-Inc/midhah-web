@@ -28,14 +28,14 @@ const Privacy = () => {
           </p>
         </div>
         <p className="fs-6 text-end font-light text-slate-200">
-          <small>Updated December 04, 2022</small>
+          <small>Last Updated April 11, 2026</small>
         </p>
       </div>
 
       <div className="justify-content container p-5">
         <p className="text-normal mb-4 p-1 leading-relaxed">
-          Rutal, Inc. built the Midhah Lyrics app as a Free app. This SERVICE is
-          provided by Rutal, Inc. at no cost and is intended for use as is.
+          Rutal Labs built the Midhah Lyrics app as a Free app. This SERVICE is
+          provided by Rutal Labs at no cost and is intended for use as is.
           <br />
           This page is used to inform visitors regarding my policies with the
           collection, use, and disclosure of Personal Information if anyone
@@ -51,9 +51,18 @@ const Privacy = () => {
           Terms and Conditions, which are accessible at Midhah Lyrics unless
           otherwise defined in this Privacy Policy are following:
         </p>
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">
-            Information Collection and Use
+        <div
+          id="information-collection-and-use"
+          className="mb-4 p-1 leading-relaxed"
+        >
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Information Collection and Use{" "}
+            <a
+              href="#information-collection-and-use"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
           </h3>
 
           <p>
@@ -70,15 +79,26 @@ const Privacy = () => {
           </p>
           <ul className="list-disc pl-10">
             <li>
-              <a href="" className="underline">
+              <a
+                href="https://policies.google.com/privacy"
+                className="underline"
+              >
                 Google Play Services
               </a>
             </li>
           </ul>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">Log Data</h3>
+        <div id="log-data" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Log Data{" "}
+            <a
+              href="#log-data"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
+          </h3>
           <p>
             We want to inform you that whenever you use my Service, in a case of
             an error in the app We collect data and information (through
@@ -89,8 +109,16 @@ const Privacy = () => {
             the Service, and other statistics.
           </p>
         </div>
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">Cookies</h3>
+        <div id="cookies" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Cookies{" "}
+            <a
+              href="#cookies"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
+          </h3>
           <p>
             Cookies are files with a small amount of data that are commonly used
             as anonymous unique identifiers. These are sent to your browser from
@@ -106,8 +134,16 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">Service Providers</h3>
+        <div id="service-providers" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Service Providers{" "}
+            <a
+              href="#service-providers"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
+          </h3>
           <p>
             We may employ third-party companies and individuals due to the
             following reasons:
@@ -127,8 +163,16 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">Security</h3>
+        <div id="security" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Security{" "}
+            <a
+              href="#security"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
+          </h3>
           <p>
             We value your trust in providing us your Personal Information, thus
             we are striving to use commercially acceptable means of protecting
@@ -138,8 +182,16 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">Links to Other Sites</h3>
+        <div id="link-to-other-sites" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            Links to Other Sites{" "}
+            <a
+              href="#link-to-other-sites"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
+          </h3>
           <p>
             This Service may contain links to other sites. If you click on a
             third-party link, you will be directed to that site. Note that these
@@ -150,17 +202,97 @@ const Privacy = () => {
           </p>
         </div>
 
-        <div className="mb-4 p-1 leading-relaxed">
-          <h3 className="mb-2 text-2xl md:text-4xl">
-            Changes to This Privacy Policy
+        <div id="user-data-deletion" className="mb-4 p-1 leading-relaxed">
+          <h3 className="group relative mb-2 text-2xl md:text-4xl">
+            {`User Data Deletion Request (Your "Right to be Forgotten")`}{" "}
+            <a
+              href="#user-data-deletion"
+              className="text-cyan-600 opacity-0 group-hover:opacity-100 hover:underline"
+            >
+              #
+            </a>
           </h3>
+
           <p>
-            We may update our Privacy Policy from time to time. Thus, you are
-            advised to review this page periodically for any changes. We will
-            notify you of any changes by posting the new Privacy Policy on this
-            page.
-            <br />
-            This policy is effective as of 2022-12-04
+            We respect your privacy and your control over your personal
+            information. If you have created an account or submitted any
+            personal data through the Midhah Lyrics website and mobile
+            application, you have the right to request permanent deletion of
+            your data.
+          </p>
+
+          <p className="mt-2">
+            <strong>How to Request Data Deletion:</strong>
+          </p>
+
+          <p>
+            Send a deletion request from your registered email address to our
+            support team at:{" "}
+            <a
+              className="font-semibold"
+              href="mailto:hello@rutal.net?subject=Data%20Deletion%20Request%20-%20Midhah%20Lyrics"
+            >
+              hello@rutal.net
+            </a>
+          </p>
+
+          <p className="mt-2">
+            Please include the following details in your email:
+          </p>
+
+          <ul className="list-disc pl-10">
+            <li>{`Subject Line: "Data Deletion Request - Midhah Lyrics"`}</li>
+            <li>Your registered email address or username</li>
+          </ul>
+
+          <p className="mt-2">
+            <strong>What Happens After You Request:</strong>
+          </p>
+
+          <ul className="list-disc pl-10">
+            <li>
+              Your account and all associated personal data will be permanently
+              deleted from our active databases within 30 days of verification.
+            </li>
+            <li>
+              Any stored preferences, search history, or user-generated
+              collections linked to your account will be removed.
+            </li>
+            <li>
+              We may retain anonymized or aggregated data that cannot be used to
+              identify you personally.
+            </li>
+          </ul>
+
+          <p className="mt-2">
+            <strong>Important Notes:</strong>
+          </p>
+
+          <ul className="list-disc pl-10">
+            <li>Data deletion is permanent and cannot be undone.</li>
+            <li>
+              If you reinstall the app and create a new account, it will be
+              treated as a new user.
+            </li>
+            <li>
+              Some data may remain in backup systems for a limited period (up to
+              90 days) before being fully purged according to our data retention
+              practices.
+            </li>
+          </ul>
+
+          <p className="mt-2">
+            <strong>Contact Us:</strong>
+          </p>
+
+          <p>
+            For any questions or assistance regarding data deletion, contact us
+            at: <a href="mailto:hello@rutal.net">hello@rutal.net</a>
+          </p>
+
+          <p>
+            Response Time: We aim to respond to all deletion requests within 7
+            business days.
           </p>
         </div>
       </div>
