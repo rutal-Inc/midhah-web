@@ -24,7 +24,7 @@ export function generateMetadata(): Metadata {
       description,
     },
     alternates: {
-      canonical: `${WEB_BASE_URL}/trending`,
+      canonical: `${WEB_BASE_URL}/staff-picks`,
     },
   };
 }
