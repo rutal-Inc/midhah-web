@@ -5,6 +5,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
 import Loader from "../components/Loader";
 import AdSense from "../components/scripts/AdSense";
@@ -58,6 +59,7 @@ export default function RootLayout({
           </Suspense>
         </Theme>
       </body>
+      <Toaster />
     </html>
   );
 }

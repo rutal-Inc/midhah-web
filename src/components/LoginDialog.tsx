@@ -7,6 +7,7 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type LoginDialogProps = {
   isOpen: boolean;
@@ -50,6 +51,7 @@ export default function LoginDialog({
       } else if (error instanceof Error) {
         errorMessage = error.message;
       }
+      toast.error(`Login Error: ${errorMessage}`);
 
       setIsOpen(false);
     }
