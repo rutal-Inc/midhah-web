@@ -2,16 +2,12 @@
 
 import Loader from "@/src/components/Loader";
 import LyricCard from "@/src/components/LyricCard";
+import { CollectionType } from "@/src/models/Collection";
 import Lyrics from "@/src/models/Lyrics";
+import { getCollection } from "@/src/service/collectionService";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { notFound, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { getCollection } from "./service";
-type CollectionType = {
-  id: string;
-  name: string;
-  lyrics: Lyrics[];
-};
 
 export default function CollectionPage({
   params,
