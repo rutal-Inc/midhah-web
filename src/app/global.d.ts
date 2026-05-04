@@ -10,5 +10,3 @@ declare global {
     ) => void;
   }
 }
-
-declare module "*.css";
