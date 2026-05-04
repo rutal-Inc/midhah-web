@@ -36,9 +36,12 @@ export default function CollectionPage({
     fetchCollection();
   }, [id, token, router]);
 
-  if (!token) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!token) {
+      router.push("/");
+    }
+  }, [token, router]);
+
   if (loading) {
     return <Loader />;
   }
