@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-type LyricState = {
-  currentlyricId: number | null;
+type CollectionStore = {
+  currentLyricId: number | null;
   collectionIds: number[];
   setCurrentLyricId: (id: number) => void;
   addCollectionId: (id: number) => void;
@@ -9,13 +9,13 @@ type LyricState = {
   reset: () => void;
 };
 
-export const useCollectionStore = create<LyricState>((set) => ({
-  currentlyricId: null,
+export const useCollectionStore = create<CollectionStore>((set) => ({
+  currentLyricId: null,
   collectionIds: [],
 
   setCurrentLyricId: (id) =>
     set({
-      currentlyricId: id,
+      currentLyricId: id,
       collectionIds: [],
     }),
 
@@ -36,7 +36,7 @@ export const useCollectionStore = create<LyricState>((set) => ({
 
   reset: () => {
     set({
-      currentlyricId: null,
+      currentLyricId: null,
       collectionIds: [],
     });
   },
