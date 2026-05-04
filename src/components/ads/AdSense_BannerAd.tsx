@@ -29,7 +29,7 @@ function BannerAd({ adSlot, adFormat }: Readonly<Props>) {
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       data-full-width-responsive="true"
-    ></ins>
+    />
   );
 }
 export default BannerAd;
