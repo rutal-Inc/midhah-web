@@ -22,8 +22,8 @@ const LyricCard = ({
   const genreImage = genresInfo.find((g) => g.path === genre)?.image;
 
   return (
-    <Link href={`/${genre}/${slug}`}>
-      <li className="group relative my-1 flex flex-row hover:block" ref={ref}>
+    <li className="group relative my-1 flex flex-row hover:block" ref={ref}>
+      <Link href={`/${genre}/${slug}`}>
         <div className="flex flex-1 scale-100 cursor-pointer items-center p-4 select-none group-hover:scale-0 hover:bg-gray-50">
           <div className="flex w-full flex-row items-center">
             {genreImage && (
@@ -49,8 +49,8 @@ const LyricCard = ({
         >
           {preview}
         </div>
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 };
 
