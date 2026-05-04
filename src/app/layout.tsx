@@ -41,12 +41,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
+
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <GoogleAnalytics
-          GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
-        />
+        {GA_ID && <GoogleAnalytics GA_TRACKING_ID={GA_ID} />}
         <AdSense />
         <Theme>
           <Suspense fallback={<Loader />}>
