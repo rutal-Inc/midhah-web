@@ -18,7 +18,7 @@ export default function LyricsDialogClient({
   const { authToken } = useAuthStore();
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
-  const { currentlyricId, collectionIds } = useCollectionStore();
+  const { currentLyricId, collectionIds } = useCollectionStore();
   return (
     <>
       <div className="sticky bottom-10 z-10 mb-4 flex w-full justify-center">
@@ -33,7 +33,7 @@ export default function LyricsDialogClient({
           }}
           className="btn-secondary flex max-w-[260px] cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
         >
-          {currentlyricId === lyricId && collectionIds.length > 0 ? (
+          {currentLyricId === lyricId && collectionIds.length > 0 ? (
             <>
               {" "}
               <i className="bi bi-bookmark-check-fill text-xl text-gray-100"></i>
