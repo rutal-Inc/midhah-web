@@ -3,7 +3,6 @@ import { app } from "@/src/utilities/firebase";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Flex } from "@radix-ui/themes";
-import axios from "axios";
 import {
   Auth,
   getAuth,
@@ -35,21 +34,7 @@ export default function LoginDialog({
   const handleGoogleLogin = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
 
-    const result = await signInWithPopup(auth!, provider);
-    const body = {
-      name: result.user.displayName,
-      email: result.user.email,
-      displayPicture: result.user.photoURL,
-      oauthId: result.user.providerData[0]?.uid,
-      oauthProvider: result.user.providerData[0]?.providerId,
-    };
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
-      body,
-    );
-    setAuthToken(response.data.data.token);
-    setIsOpen(false);
-    router.refresh();
+    const result = await signInWithPopup(auth, provider);
   };
 
   // const handleFacebookLogin = async (): Promise<void> => {

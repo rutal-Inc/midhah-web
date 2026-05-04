@@ -1,8 +1,8 @@
 "use client";
 
-import { app } from "@/src/utilities/firebase";
+import { auth } from "@/src/utilities/firebase";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,8 +23,6 @@ function Navbar() {
   const router = useRouter();
   const { reset } = useCollectionStore();
   const handleSignOut = () => {
-    const auth = getAuth(app);
-
     signOut(auth).then(() => {
       clearAuthToken();
       reset();

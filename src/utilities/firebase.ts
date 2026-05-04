@@ -17,4 +17,6 @@ Object.entries(firebaseConfig).forEach(([key, value]) => {
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-export { app };
+const auth = getAuth(app);
+
+export { auth };
