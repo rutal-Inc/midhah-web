@@ -1,38 +1,25 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import parseJwt from "../utilities/decodeJWT";
-import { useUserStore } from "./useUserStore";
+import api from "../lib/axios";
 
 interface AuthState {
-  authToken: string | null;
-  setAuthToken: (token: string | null) => void;
-  clearAuthToken: () => void;
+  accessToken: string | null;
+  isInitialized: boolean; // Tells us if the first-load refresh check is done
+  setAccessToken: (token: string | null) => void;
+  setInitialized: (status: boolean) => void;
+  logout: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      authToken: null,
-      setAuthToken: (token) => {
-        set({ authToken: token });
-
-        if (token) {
-          const decodedUser = parseJwt(token);
-          useUserStore.getState().setUser(decodedUser);
-        } else {
-          useUserStore.getState().setUser(null);
-        }
-      },
-      clearAuthToken: () => {
-        useUserStore.getState().setUser(null);
-        set({ authToken: null });
-      },
-    }),
-    {
-      name: "authToken",
-      partialize: (state) => ({
-        authToken: state.authToken,
-      }),
-    },
-  ),
-);
+export const useAuthStore = create<AuthState>((set) => ({
+  accessToken: null,
+  isInitialized: false,
+  setAccessToken: (token) => set({ accessToken: token }),
+  setInitialized: (status) => set({ isInitialized: status }),
+  logout: async () => {
+    try {
+      await api.post("/auth/logout");
+    } finally {
+      // Clear token and reset initialization if needed
+      set({ accessToken: null });
+    }
+  },
+}));

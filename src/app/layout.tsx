@@ -1,4 +1,3 @@
-import ClientWrapper from "@/src/components/ClientWrapper";
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Theme } from "@radix-ui/themes";
@@ -7,7 +6,9 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
+import ClientWrapper from "../components/ClientWrapper";
 import Loader from "../components/Loader";
+import AuthProvider from "../components/providers/AuthProvider";
 import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
@@ -47,19 +48,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        {GA_ID && <GoogleAnalytics GA_TRACKING_ID={GA_ID} />}
-        <AdSense />
-        <Theme>
-          <Suspense fallback={<Loader />}>
-            <ClientWrapper />
-            <AdBanner />
-            <Navbar />
-            {children}
-            <Footer />
-          </Suspense>
-        </Theme>
+        <AuthProvider>
+          {GA_ID && <GoogleAnalytics GA_TRACKING_ID={GA_ID} />}
+          <AdSense />
+          <Theme>
+            <Suspense fallback={<Loader />}>
+              <ClientWrapper />
+              <AdBanner />
+              <Navbar />
+              {children}
+              <Footer />
+            </Suspense>
+          </Theme>
+        </AuthProvider>
+        <Toaster />
       </body>
-      <Toaster />
     </html>
   );
 }

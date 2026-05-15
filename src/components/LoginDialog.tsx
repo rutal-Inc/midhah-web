@@ -18,7 +18,7 @@ export default function LoginDialog({
   isOpen = false,
   setIsOpen,
 }: Readonly<LoginDialogProps>) {
-  const { setAuthToken } = useAuthStore();
+  const { setAccessToken } = useAuthStore();
   const router = useRouter();
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -36,8 +36,9 @@ export default function LoginDialog({
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
         body,
+        { withCredentials: true },
       );
-      setAuthToken(response.data.data.token);
+      setAccessToken(response.data.accessToken);
       setIsOpen(false);
       router.refresh();
     } catch (error: unknown) {
@@ -67,11 +68,12 @@ export default function LoginDialog({
   //     oauthId: result.user.providerData[0]?.uid,
   //     oauthProvider: result.user.providerData[0]?.providerId,
   //   };
-  //   const response = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
-  //     body,
-  //   );
-  //   setAuthToken(response.data.data.token);
+  // const response = await axios.post(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+  //   body,
+  //   { withCredentials: true },
+  // );
+  //   setAccessToken(response.data.accessToken);
   //   setIsOpen(false);
   //   router.refresh();
   // };

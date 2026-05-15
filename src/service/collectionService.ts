@@ -1,4 +1,5 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import api from "../lib/axios";
 import { CollectionType } from "../models/Collection";
 
 const handleError = (error: AxiosError, functionName: string) => {
@@ -9,16 +10,9 @@ const handleError = (error: AxiosError, functionName: string) => {
 
 export async function getCollection(
   id: string,
-  token: string,
 ): Promise<CollectionType | null> {
-  const response = await axios.get(
+  const response = await api.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/${id}/lyrics`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": `${token}`,
-      },
-    },
   );
   return response.data.data ?? null;
 }
@@ -26,36 +20,20 @@ export async function getCollection(
 export const getUserCollectionsLyric = async (
   userId: number | null,
   lyricId: number,
-  authToken: string | null,
 ) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/user/${userId}?lyricId=${lyricId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": authToken,
-        },
-      },
     );
     return response.data.data;
   } catch (error) {
     handleError(error as AxiosError, "getUserCollectionsLyric");
   }
 };
-export const getUserCollections = async (
-  userId: number | null,
-  authToken: string | null,
-) => {
+export const getUserCollections = async (userId: number | null) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/userId/${userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": authToken,
-        },
-      },
     );
     return response.data?.data || [];
   } catch (error) {
@@ -66,18 +44,11 @@ export const getUserCollections = async (
 export const addNewUserCollection = async (
   name: string,
   userId: number | null,
-  authToken: string | null,
 ) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection`,
       { name, userId },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": `${authToken}`,
-        },
-      },
     );
     return response.data?.data;
   } catch (error) {
@@ -89,18 +60,11 @@ export const updateUserCollection = async (
   name: string,
   collectionId: number,
   userId: number | null,
-  authToken: string | null,
 ) => {
   try {
-    const response = await axios.patch(
+    const response = await api.patch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/${collectionId}`,
       { name, userId },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": `${authToken}`,
-        },
-      },
     );
     return response.data?.data;
   } catch (error) {
@@ -111,17 +75,10 @@ export const updateUserCollection = async (
 export const removeUserCollection = async (
   collectionLyricId: number,
   userId: number | null,
-  authToken: string | null,
 ) => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/${collectionLyricId}?userId=${userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": `${authToken}`,
-        },
-      },
     );
     return response.data?.data;
   } catch (error) {
@@ -132,18 +89,11 @@ export const removeUserCollection = async (
 export const addLyricToUserCollection = async (
   collectionId: string,
   lyricId: number,
-  token: string,
 ) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/lyric`,
       { collectionId, lyricId },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-      },
     );
 
     return response.data?.data;
@@ -154,17 +104,10 @@ export const addLyricToUserCollection = async (
 
 export const removeLyricFromUserCollection = async (
   collectionLyricId: string,
-  token: string,
 ) => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/collection/lyric/${collectionLyricId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-      },
     );
 
     return response.data?.data;

@@ -242,7 +242,7 @@ const Privacy = () => {
 
           <ul className="list-disc pl-10">
             <li>{`Subject Line: "Data Deletion Request - Midhah Lyrics"`}</li>
-            <li>Your registered email address or username</li>
+            <li>Your registered email address</li>
           </ul>
 
           <p className="mt-2">
@@ -252,7 +252,7 @@ const Privacy = () => {
           <ul className="list-disc pl-10">
             <li>
               Your account and all associated personal data will be permanently
-              deleted from our active databases within 30 days of verification.
+              deleted from our active databases within 30 days of grace period.
             </li>
             <li>
               Any stored preferences, search history, or user-generated
@@ -301,3 +301,4 @@ const Privacy = () => {
 };
 
 export default Privacy;
+// TODO: Add top line

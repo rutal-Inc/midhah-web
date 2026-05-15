@@ -15,7 +15,7 @@ export default function LyricsDialogClient({
   lyricId,
 }: Readonly<LyricsDialogClientProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { authToken } = useAuthStore();
+  const { accessToken } = useAuthStore();
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const { currentLyricId, collectionIds } = useCollectionStore();
@@ -24,7 +24,7 @@ export default function LyricsDialogClient({
       <div className="sticky bottom-10 z-10 mb-4 flex w-full justify-center">
         <button
           onClick={() => {
-            if (!authToken) {
+            if (!accessToken) {
               setIsLoginDialogOpen(true);
               return;
             }
