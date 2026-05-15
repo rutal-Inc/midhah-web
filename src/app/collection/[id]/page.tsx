@@ -13,7 +13,7 @@ export default function CollectionPage({
   params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
   const { id } = React.use(params);
-  const token = useAuthStore((state) => state.authToken);
+  const token = useAuthStore((state) => state.accessToken);
   const [collection, setCollection] = useState<CollectionType | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function CollectionPage({
         return;
       }
       setLoading(true);
-      const data = await getCollection(id, token);
+      const data = await getCollection(id);
       setCollection(data);
       setLoading(false);
     };
