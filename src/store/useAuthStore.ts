@@ -1,5 +1,5 @@
+import axios from "axios";
 import { create } from "zustand";
-import api from "../lib/axios";
 
 interface AuthState {
   accessToken: string | null;
@@ -16,9 +16,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   setInitialized: (status) => set({ isInitialized: status }),
   logout: async () => {
     try {
-      await api.post("/auth/logout");
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/logout`,
+        {},
+        { withCredentials: true },
+      );
+    } catch (error) {
+      console.error("Logout error:", error);
     } finally {
-      // Clear token and reset initialization if needed
       set({ accessToken: null });
     }
   },

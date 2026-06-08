@@ -4,7 +4,7 @@ import { CollectionType } from "../models/Collection";
 
 const handleError = (error: AxiosError, functionName: string) => {
   const message = error.response?.data || error.message;
-  console.error(`Service Error [${functionName}]:`, message);
+  // console.error(`Service Error [${functionName}]:`, message);
   throw error;
 };
 

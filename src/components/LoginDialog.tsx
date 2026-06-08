@@ -34,7 +34,7 @@ export default function LoginDialog({
         oauthProvider: result.user.providerData[0]?.providerId,
       };
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
         body,
         { withCredentials: true },
       );

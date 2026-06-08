@@ -10,12 +10,6 @@ export type JwtPayload = {
   iat: number;
 };
 
-export type DecodeAccessToken = {
-  token: string;
-  exp: number;
-  iat: number;
-};
-
 export default function parseJwt(token: string): JwtPayload | null {
   try {
     const decoded = jwtDecode<JwtPayload>(token);

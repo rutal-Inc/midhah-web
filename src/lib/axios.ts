@@ -1,13 +1,26 @@
-import { useAuthStore } from "@/src/store/useAuthStore"; // Import your Zustand store
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+
+import { useAuthStore } from "@/src/store/useAuthStore";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   withCredentials: true,
 });
 
-// --- REQUEST INTERCEPTOR ---
-// This runs BEFORE every request is sent
+let isRefreshing = false;
+let failedQueue: {
+  resolve: (token: string) => void;
+  reject: (err: unknown) => void;
+}[] = [];
+
+const processQueue = (error: unknown, token: string | null = null) => {
+  failedQueue.forEach(({ resolve, reject }) => {
+    if (error) reject(error);
+    else resolve(token!);
+  });
+  failedQueue = [];
+};
+
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
   if (token) {
@@ -16,44 +29,64 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// --- RESPONSE INTERCEPTOR ---
-// This runs AFTER every response (or error)
 api.interceptors.response.use(
-  (response) => response, // If the request succeeds, just return the response
+  (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest: AxiosRequestConfig & { _retry?: boolean } =
+      error.config;
 
-    // Check if the error is 401 (Unauthorized) and we haven't retried yet
+    const originalUrl = originalRequest.url;
+
     if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers = {
+              ...originalRequest.headers,
+              Authorization: `Bearer ${token}`,
+            };
+            originalRequest.url = originalUrl;
+            return api(originalRequest);
+          })
+          .catch(Promise.reject.bind(Promise));
+      }
+
       originalRequest._retry = true;
+      isRefreshing = true;
 
       try {
-        // 1. Call the refresh token endpoint
-        // Note: Use 'api' itself or a separate axios call.
-        // The browser automatically sends the refreshToken cookie.
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh`,
           {},
           { withCredentials: true },
         );
 
-        // 2. Extract new access token (based on your Express res.formatter structure)
-        const newAccessToken = res.data.accessToken;
+        const newAccessToken =
+          res.data?.data?.accessToken ?? res.data?.accessToken;
+        if (!newAccessToken)
+          throw new Error("No access token in refresh response");
 
-        // 3. Update Zustand store with the new token
         useAuthStore.getState().setAccessToken(newAccessToken);
+        processQueue(null, newAccessToken);
 
-        // 4. Update the failed request's header and retry it
-        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        originalRequest.url = originalUrl;
+        originalRequest.headers = {
+          ...originalRequest.headers,
+          Authorization: `Bearer ${newAccessToken}`,
+        };
         return api(originalRequest);
       } catch (refreshError) {
-        // If refresh fails (e.g., refresh token also expired), log out the user
+        processQueue(refreshError, null);
         useAuthStore.getState().logout();
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 
-    throw error;
+    return Promise.reject(error);
   },
 );
 
