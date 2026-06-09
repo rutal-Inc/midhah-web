@@ -3,20 +3,16 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { promoLines } from "../utilities/constants";
 import GooglePlayBadge from "./GooglePlayBadge";
 
 function Footer() {
   const today = new Date();
   const year = today.getFullYear();
-  const [selectedPromo, setSelectedPromo] = useState<string>("");
-
-  useEffect(() => {
-    const randomLine =
-      promoLines[Math.floor(Math.random() * promoLines.length)];
-    setSelectedPromo(randomLine);
-  }, []);
+  const [selectedPromo] = useState(
+    () => promoLines[Math.floor(Math.random() * promoLines.length)],
+  );
 
   return (
     <div>

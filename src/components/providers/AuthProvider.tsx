@@ -1,6 +1,7 @@
 "use client";
 
 import api from "@/src/lib/axios";
+import { logout } from "@/src/service/auth";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { useCollectionStore } from "@/src/store/useCollectionStore";
 import { useUserStore } from "@/src/store/useUserStore";
@@ -26,7 +27,7 @@ export default function AuthProvider({
   const fullLogout = useCallback(async () => {
     try {
       await signOut(firebaseAuth);
-      await api.post("/auth/logout").catch(() => null);
+      logout();
     } finally {
       clearAuth();
       setUser(null);

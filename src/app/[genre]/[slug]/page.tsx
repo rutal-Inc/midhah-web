@@ -1,9 +1,9 @@
+import { getLyricsViaGenreSlug } from "@/src/app/[genre]/[slug]/service";
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
 import RenderPoetLyrics from "@/src/components/RenderPoetLyrics";
 import ViewCount from "@/src/components/ViewCount";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import Lyrics from "@/src/models/Lyrics";
-import { getLyrics } from "@/src/service/lyricsService";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
@@ -45,7 +45,7 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug, genre } = await params;
-  const lyric = await getLyrics(slug);
+  const lyric = await getLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();
@@ -80,7 +80,7 @@ export default async function LyricsPage({
 }: Readonly<{ params: Params }>) {
   const { slug, genre } = await params;
   const genreInfo = getPageGenre(genre);
-  const lyric = await getLyrics(slug);
+  const lyric = await getLyricsViaGenreSlug(slug, genre);
 
   const headersList = headers();
   const referer = (await headersList).get("referer");
@@ -150,11 +150,7 @@ export default async function LyricsPage({
           exclude={slug}
         />
       )}
-      <ViewCount
-        entityId={lyric.id}
-        entityType="LYRICS"
-        referer={`${referer}`}
-      />
+      <ViewCount entityId={lyric.id} entityType="LYRICS" referer={referer} />
     </div>
   );
 }

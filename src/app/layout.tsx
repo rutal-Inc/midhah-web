@@ -3,13 +3,14 @@ import Navbar from "@/src/components/Navbar";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
+import Script from "next/script";
+import NextTopLoader from "nextjs-toploader";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
 import ClientWrapper from "../components/ClientWrapper";
 import Loader from "../components/Loader";
 import AuthProvider from "../components/providers/AuthProvider";
-import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
 import { montserrat } from "./fonts";
@@ -43,14 +44,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const GA_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
+  const { NEXT_PUBLIC_GA_TRACKING_ID } = process.env;
 
   return (
     <html lang="en">
+      <Script
+        async
+        crossOrigin="anonymous"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9810490020982461"
+        strategy="beforeInteractive"
+      />
       <body className={montserrat.className}>
+        <NextTopLoader
+          color="#256279"
+          height={4}
+          showSpinner={false}
+          shadow="0 0 20px #000000"
+        />
         <AuthProvider>
-          {GA_ID && <GoogleAnalytics GA_TRACKING_ID={GA_ID} />}
-          <AdSense />
+          {NEXT_PUBLIC_GA_TRACKING_ID && (
+            <GoogleAnalytics GA_TRACKING_ID={NEXT_PUBLIC_GA_TRACKING_ID} />
+          )}
           <Theme>
             <Suspense fallback={<Loader />}>
               <ClientWrapper />

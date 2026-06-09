@@ -1,4 +1,4 @@
-import { getLyrics } from "@/src/service/lyricsService";
+import { getLyrics } from "@/src/app/[genre]/[slug]/service";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";

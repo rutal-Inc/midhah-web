@@ -10,7 +10,7 @@ export default function ViewCount({
 }: {
   entityId: number;
   entityType: "LYRICS" | "POET";
-  referer: string;
+  referer: string | null;
 }) {
   const pathname = usePathname();
 
@@ -26,7 +26,7 @@ export default function ViewCount({
         body: JSON.stringify({
           entityId,
           entityType,
-          referrer: referer.includes(pathname) ? undefined : referer,
+          referrer: referer?.includes(pathname) ? undefined : referer,
           client: "WEB",
         }),
       });

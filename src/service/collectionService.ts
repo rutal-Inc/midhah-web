@@ -2,9 +2,7 @@ import { AxiosError } from "axios";
 import api from "../lib/axios";
 import { CollectionType } from "../models/Collection";
 
-const handleError = (error: AxiosError, functionName: string) => {
-  const message = error.response?.data || error.message;
-  console.error(`Service Error [${functionName}]:`, message);
+const handleError = (error: AxiosError) => {
   throw error;
 };
 
@@ -27,7 +25,7 @@ export const getUserCollectionsLyric = async (
     );
     return response.data.data;
   } catch (error) {
-    handleError(error as AxiosError, "getUserCollectionsLyric");
+    handleError(error as AxiosError);
   }
 };
 export const getUserCollections = async (userId: number | null) => {
@@ -37,7 +35,7 @@ export const getUserCollections = async (userId: number | null) => {
     );
     return response.data?.data || [];
   } catch (error) {
-    handleError(error as AxiosError, "getUserCollections");
+    handleError(error as AxiosError);
   }
 };
 
@@ -52,7 +50,7 @@ export const addNewUserCollection = async (
     );
     return response.data?.data;
   } catch (error) {
-    handleError(error as AxiosError, "addNewUserCollection");
+    handleError(error as AxiosError);
   }
 };
 
@@ -68,7 +66,7 @@ export const updateUserCollection = async (
     );
     return response.data?.data;
   } catch (error) {
-    handleError(error as AxiosError, "updateUserCollection");
+    handleError(error as AxiosError);
   }
 };
 
@@ -82,7 +80,7 @@ export const removeUserCollection = async (
     );
     return response.data?.data;
   } catch (error) {
-    handleError(error as AxiosError, "removeUserCollection");
+    handleError(error as AxiosError);
   }
 };
 
@@ -98,7 +96,7 @@ export const addLyricToUserCollection = async (
 
     return response.data?.data;
   } catch (error) {
-    handleError(error as AxiosError, "addLyricToUserCollection");
+    handleError(error as AxiosError);
   }
 };
 
@@ -112,6 +110,6 @@ export const removeLyricFromUserCollection = async (
 
     return response.data?.data;
   } catch (error) {
-    handleError(error as AxiosError, "removeLyricFromUserCollection");
+    handleError(error as AxiosError);
   }
 };

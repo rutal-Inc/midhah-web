@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { montserrat } from "../app/fonts";
 import { promoLines } from "../utilities/constants";
 import GooglePlayBadge from "./GooglePlayBadge";
 
 export const AppPromoBanner = () => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const [selectedPromo, setSelectedPromo] = useState<string>("");
-
-  useEffect(() => {
-    const randomLine =
-      promoLines[Math.floor(Math.random() * promoLines.length)];
-    setSelectedPromo(randomLine);
-  }, []);
+  const [selectedPromo] = useState(
+    () => promoLines[Math.floor(Math.random() * promoLines.length)],
+  );
 
   const handleClose = () => {
     setIsVisible(false);
@@ -33,7 +29,7 @@ export const AppPromoBanner = () => {
 
             <button
               onClick={handleClose}
-              className="absolute right-1 top-1 flex h-7 w-7 items-center justify-center rounded-full bg-transparent text-white ring-0 ring-white hover:text-gray-300"
+              className="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-full bg-transparent text-white ring-0 ring-white hover:text-gray-300"
               aria-label="Close banner"
               title="Close banner"
             >
