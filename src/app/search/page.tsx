@@ -4,7 +4,7 @@ import Loader from "@/src/components/Loader";
 import LyricCard from "@/src/components/LyricCard";
 import { FilteredLyrics } from "@/src/models/Lyrics";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLyricsStore } from "../../store/useLyricsStore";
 
 export default function Search() {
@@ -15,19 +15,20 @@ export default function Search() {
   const [isLoading, setIsLoading] = useState(true);
   const { addRecentSearch } = useLyricsStore();
 
-  const addSearchLyric = (query: string) => {
-    const newItem = { icon: "search", title: query };
+  const addSearchLyric = useCallback(
+    (query: string) => {
+      const newItem = { icon: "search", title: query };
 
-    addRecentSearch(newItem);
-  };
-
+      addRecentSearch(newItem);
+    },
+    [addRecentSearch],
+  );
   useEffect(() => {
     if (!query) return;
     addSearchLyric(query);
 
     setLyrics([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [addSearchLyric, query, setLyrics]);
 
   useEffect(() => {
     if (!query) return;

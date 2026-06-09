@@ -1,11 +1,8 @@
+import { getLyrics } from "@/src/service/lyricsService";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
-import NextImage from "next/image";
 import { Params } from "./@types";
-import { getLyrics } from "./service";
-
-export const runtime = "edge";
 
 export const size = {
   width: 1200,
@@ -60,7 +57,8 @@ export default async function Image({ params }: Readonly<{ params: Params }>) {
 
         <h4>{lyrics?.title}</h4>
 
-        <NextImage
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={`${WEB_BASE_URL}/images/midhah.svg`}
           alt=""
           height={80}

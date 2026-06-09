@@ -1,18 +1,13 @@
 import { useAuthStore } from "@/src/store/useAuthStore";
-import { app } from "@/src/utilities/firebase";
+import { auth } from "@/src/utilities/firebase";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Flex } from "@radix-ui/themes";
 import axios from "axios";
-import {
-  Auth,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type LoginDialogProps = {
   isOpen: boolean;
@@ -23,35 +18,45 @@ export default function LoginDialog({
   isOpen = false,
   setIsOpen,
 }: Readonly<LoginDialogProps>) {
-  const { setAuthToken } = useAuthStore();
-  const [auth, setAuth] = useState<Auth | null>(null);
+  const { setAccessToken } = useAuthStore();
   const router = useRouter();
 
-  useEffect(() => {
-    const authInstance = getAuth(app);
-    setAuth(authInstance);
-  }, []);
-
   const handleGoogleLogin = async (): Promise<void> => {
-    const provider = new GoogleAuthProvider();
+    try {
+      const provider = new GoogleAuthProvider();
 
-    const result = await signInWithPopup(auth!, provider);
-    const body = {
-      name: result.user.displayName,
-      email: result.user.email,
-      displayPicture: result.user.photoURL,
-      oauthId: result.user.providerData[0]?.uid,
-      oauthProvider: result.user.providerData[0]?.providerId,
-    };
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
-      body,
-    );
-    setAuthToken(response.data.data.token);
-    setIsOpen(false);
-    router.refresh();
+      const result = await signInWithPopup(auth, provider);
+      const body = {
+        name: result.user.displayName,
+        email: result.user.email,
+        displayPicture: result.user.photoURL,
+        oauthId: result.user.providerData[0]?.uid,
+        oauthProvider: result.user.providerData[0]?.providerId,
+      };
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+        body,
+        { withCredentials: true },
+      );
+      setAccessToken(response.data.accessToken);
+      setIsOpen(false);
+      router.refresh();
+    } catch (error: unknown) {
+      let errorMessage = "An unexpected error occurred during login.";
+
+      if (axios.isAxiosError(error)) {
+        errorMessage =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(`Login Error: ${errorMessage}`);
+
+      setIsOpen(false);
+    }
   };
-
   // const handleFacebookLogin = async (): Promise<void> => {
   //   const provider = new FacebookAuthProvider();
 
@@ -63,11 +68,12 @@ export default function LoginDialog({
   //     oauthId: result.user.providerData[0]?.uid,
   //     oauthProvider: result.user.providerData[0]?.providerId,
   //   };
-  //   const response = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
-  //     body,
-  //   );
-  //   setAuthToken(response.data.data.token);
+  // const response = await axios.post(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login/user`,
+  //   body,
+  //   { withCredentials: true },
+  // );
+  //   setAccessToken(response.data.accessToken);
   //   setIsOpen(false);
   //   router.refresh();
   // };

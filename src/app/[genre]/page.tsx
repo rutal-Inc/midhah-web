@@ -34,15 +34,15 @@ type Params = {
 };
 export default async function GenreListPage(props: Params) {
   const params = await props.params;
-  const genre = params.genre;
+  const genreSlug = params.genre;
 
-  const genreInfo = getPageGenre(params.genre);
+  const genreInfo = getPageGenre(genreSlug);
 
   if (!genreInfo) {
-    const res = await searchGenre(params.genre);
+    const res = await searchGenre(genreSlug);
 
     if (res) {
-      permanentRedirect(`/${res.genre}/${params.genre}`);
+      permanentRedirect(`/${res.genre}/${genreSlug}`);
     } else {
       notFound();
     }
@@ -61,27 +61,35 @@ export default async function GenreListPage(props: Params) {
         </div>
       </div>
 
-      <RenderLyricsList genre={genre} />
+      <RenderLyricsList genre={genreSlug} />
     </div>
   );
 }
 
 async function searchGenre(genre: string): Promise<{ genre: string } | null> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/search/genre/${genre}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/search/genre/${genre}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        next: { revalidate: 3600 },
       },
-      cache: "no-store",
-    },
-  ).then((response) => {
-    return response.json();
-  });
+    );
 
-  if (res.data) {
-    return res.data;
+    if (!response.ok) {
+      console.warn(`Search failed for ${genre}: ${response.status}`);
+      return null;
+    }
+
+    const res = await response.json();
+
+    if (res.data) {
+      return res.data;
+    }
+  } catch (error) {
+    console.warn(`Fetch error in searchGenre: ${error}`);
   }
+
   return null;
 }

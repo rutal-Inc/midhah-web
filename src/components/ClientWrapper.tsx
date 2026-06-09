@@ -5,17 +5,17 @@ import { useUserStore } from "../store/useUserStore";
 import parseJwt from "../utilities/decodeJWT";
 
 export default function ClientWrapper() {
-  const { authToken } = useAuthStore();
+  const { accessToken } = useAuthStore();
   const { setUser } = useUserStore();
 
   useEffect(() => {
-    if (authToken) {
-      const decodedUser = parseJwt(authToken);
+    if (accessToken) {
+      const decodedUser = parseJwt(accessToken);
       setUser(decodedUser);
     } else {
       setUser(null);
     }
-  }, [authToken, setUser]);
+  }, [accessToken, setUser]);
 
   return null;
 }

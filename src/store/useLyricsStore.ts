@@ -24,17 +24,30 @@ export const useLyricsStore = create<LyricsState>()(
         set({ recentSearches: updated });
       },
       setTrendingLyrics: async () => {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/trending?size=7`,
-        );
-        const data = await res.json();
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/trending?size=7`,
+          );
 
-        const formatted = data.data.map(({ title }: { title: string }) => ({
-          icon: "trend",
-          title: title,
-        }));
+          if (!res.ok) {
+            throw new Error(`Server responded with ${res.status}`);
+          }
 
-        set({ trendingLyrics: formatted });
+          const data = await res.json();
+
+          const formatted = data.data.map(({ title }: { title: string }) => ({
+            icon: "trend",
+            title: title,
+          }));
+
+          set({ trendingLyrics: formatted });
+        } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            console.error("Trending Lyrics Error:", error);
+          }
+
+          set({ trendingLyrics: [] });
+        }
       },
     }),
     {

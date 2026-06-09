@@ -10,11 +10,19 @@ export type JwtPayload = {
   iat: number;
 };
 
+export type DecodeAccessToken = {
+  token: string;
+  exp: number;
+  iat: number;
+};
+
 export default function parseJwt(token: string): JwtPayload | null {
   try {
     const decoded = jwtDecode<JwtPayload>(token);
 
-    if (decoded.exp * 1000 < Date.now()) {
+    const currentTime = Date.now() / 1000;
+
+    if (decoded.exp < currentTime) {
       return null;
     }
 

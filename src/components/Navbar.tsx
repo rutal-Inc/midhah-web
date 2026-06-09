@@ -1,8 +1,8 @@
 "use client";
 
-import { app } from "@/src/utilities/firebase";
+import { auth } from "@/src/utilities/firebase";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -17,16 +17,16 @@ import Search from "./Search";
 function Navbar() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const { authToken, clearAuthToken } = useAuthStore();
-  const { user } = useUserStore();
+  const { accessToken, logout } = useAuthStore();
+  const { user, setUser } = useUserStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const { reset } = useCollectionStore();
-  const handleSignOut = () => {
-    const auth = getAuth(app);
 
+  const handleSignOut = () => {
     signOut(auth).then(() => {
-      clearAuthToken();
+      logout();
+      setUser(null);
       reset();
     });
 
@@ -65,7 +65,7 @@ function Navbar() {
                   Staff Picks
                 </ActiveLink>
               </div>
-              {authToken && user ? (
+              {accessToken && user ? (
                 <Popover className="relative">
                   <PopoverButton
                     className="align-middle focus-within:outline-0"

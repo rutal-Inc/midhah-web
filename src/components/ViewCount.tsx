@@ -33,8 +33,7 @@ export default function ViewCount({
     } catch (error) {
       console.error("API call failed:", error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entityId, pathname, referer]);
+  }, [entityId, entityType, pathname, referer]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

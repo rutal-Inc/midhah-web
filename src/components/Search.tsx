@@ -33,8 +33,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
 
   useEffect(() => {
     setTrendingLyrics();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setTrendingLyrics]);
 
   useEffect(() => {
     if (query) {

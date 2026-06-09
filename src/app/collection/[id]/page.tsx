@@ -2,22 +2,18 @@
 
 import Loader from "@/src/components/Loader";
 import LyricCard from "@/src/components/LyricCard";
+import { CollectionType } from "@/src/models/Collection";
 import Lyrics from "@/src/models/Lyrics";
+import { getCollection } from "@/src/service/collectionService";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { notFound, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { getCollection } from "./service";
-type CollectionType = {
-  id: string;
-  name: string;
-  lyrics: Lyrics[];
-};
 
 export default function CollectionPage({
   params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
   const { id } = React.use(params);
-  const token = useAuthStore((state) => state.authToken);
+  const token = useAuthStore((state) => state.accessToken);
   const [collection, setCollection] = useState<CollectionType | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -29,16 +25,19 @@ export default function CollectionPage({
         return;
       }
       setLoading(true);
-      const data = await getCollection(id, token);
+      const data = await getCollection(id);
       setCollection(data);
       setLoading(false);
     };
     fetchCollection();
   }, [id, token, router]);
 
-  if (!token) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!token) {
+      router.push("/");
+    }
+  }, [token, router]);
+
   if (loading) {
     return <Loader />;
   }

@@ -1,4 +1,3 @@
-import { useAuthStore } from "@/src/store/useAuthStore";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   BookmarkFilledIcon,
@@ -12,7 +11,12 @@ import {
 } from "@radix-ui/react-icons";
 import { Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import {
+  CollectionDialogProps,
+  CollectionModalType,
+} from "../models/Collection";
 import {
   addLyricToUserCollection,
   addNewUserCollection,
@@ -26,30 +30,16 @@ import { useCollectionStore } from "../store/useCollectionStore";
 import { useUserStore } from "../store/useUserStore";
 import Loader from "./Loader";
 
-type CollectionType = {
-  id: string;
-  name: string;
-  isInCollection?: boolean;
-  collectionLyricId?: string;
-};
-
-type CollectionDialogProps = {
-  lyricId?: number;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  collectionType: "all" | "lyric";
-};
-
 export default function CollectionDialog({
   lyricId,
   isOpen = false,
   setIsOpen,
   collectionType = "lyric",
 }: Readonly<CollectionDialogProps>) {
-  const { authToken } = useAuthStore();
   const { user } = useUserStore();
-  const [collections, setCollections] = useState<CollectionType[]>([]);
+  const [collections, setCollections] = useState<CollectionModalType[]>([]);
   const [name, setName] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -58,17 +48,39 @@ export default function CollectionDialog({
     useCollectionStore();
 
   useEffect(() => {
-    reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!loading && error) {
+      toast.error(error);
 
-  useEffect(() => {
-    if (collectionType === "lyric" && lyricId) {
-      setCurrentLyricId(lyricId);
-      fetchCollections();
+      setError(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lyricId, authToken]);
+  }, [error, loading, setError]);
+
+  const fetchCollections = useCallback(async () => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      setCollections([]);
+      setError(null);
+      if (collectionType === "lyric" && lyricId) {
+        const data = await getUserCollectionsLyric(user.id, lyricId);
+
+        for (const element of data) {
+          if (element.isInCollection) addCollectionId(element.id);
+        }
+
+        setCollections(data);
+      } else {
+        const data = await getUserCollections(user.id);
+
+        setCollections(data);
+      }
+      setLoading(false);
+    } catch (error) {
+      setError(error as string);
+    } finally {
+      setLoading(false);
+    }
+  }, [user, collectionType, lyricId, addCollectionId]);
 
   const handleAdd = () => {
     if (user) {
@@ -94,51 +106,17 @@ export default function CollectionDialog({
     }
   };
 
-  const fetchCollections = async () => {
-    if (!user) return;
-    try {
-      setLoading(true);
-      setCollections([]);
-      if (collectionType === "lyric" && lyricId) {
-        const data = await getUserCollectionsLyric(
-          user!.id,
-          lyricId,
-          authToken,
-        );
-
-        for (const element of data) {
-          if (element.isInCollection) addCollectionId(element.id);
-        }
-
-        setCollections(data);
-      } else {
-        const data = await getUserCollections(user!.id, authToken);
-
-        setCollections(data);
-      }
-    } catch (error) {
-      console.error("Error fetching collections:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen && user) {
-      fetchCollections();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, user]);
-
   const addNewCollection = async (name: string) => {
-    if (!authToken) return;
     setLoading(true);
+    setError(null);
     try {
-      await addNewUserCollection(name, user!.id, authToken);
+      await addNewUserCollection(name, user!.id);
       fetchCollections();
       setName("");
     } catch (error) {
-      console.error(error);
+      setError(error as string);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -147,15 +125,17 @@ export default function CollectionDialog({
     collectionId: number,
     userId: number,
   ) => {
-    if (!authToken) return;
     setLoading(true);
     try {
-      await updateUserCollection(name, collectionId, userId, authToken);
+      await updateUserCollection(name, collectionId, userId);
       fetchCollections();
       setEditingId(null);
       setNewName("");
+      setError(null);
     } catch (error) {
-      console.error(error);
+      setError(error as string);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -163,18 +143,16 @@ export default function CollectionDialog({
     collectionLyricId: number,
     userId: number,
   ) => {
-    if (!authToken) return;
     setLoading(true);
     try {
-      const data = await removeUserCollection(
-        collectionLyricId,
-        userId,
-        authToken,
-      );
+      const data = await removeUserCollection(collectionLyricId, userId);
       removeCollectionId(data.id);
       fetchCollections();
+      setError(null);
     } catch (error) {
-      console.error(error);
+      setError(error as string);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,36 +160,50 @@ export default function CollectionDialog({
     collectionId: string,
     lyricId: number,
   ) => {
-    if (!authToken) return;
     setLoading(true);
+    setError(null);
 
     try {
-      const data = await addLyricToUserCollection(
-        collectionId,
-        lyricId,
-        authToken,
-      );
+      const data = await addLyricToUserCollection(collectionId, lyricId);
       addCollectionId(data.collectionId);
       fetchCollections();
     } catch (error) {
-      console.error("Error adding lyric to collection:", error);
+      setError(error as string);
+    } finally {
+      setLoading(false);
     }
   };
 
   const removeLyricFromCollection = async (collectionLyricId: string) => {
-    if (!authToken) return;
     setLoading(true);
+    setError(null);
     try {
-      const data = await removeLyricFromUserCollection(
-        collectionLyricId,
-        authToken,
-      );
+      const data = await removeLyricFromUserCollection(collectionLyricId);
       removeCollectionId(Number(data.collectionId));
       fetchCollections();
     } catch (error) {
-      console.error(error);
+      setError(error as string);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    reset();
+  }, [reset]);
+
+  useEffect(() => {
+    if (collectionType === "lyric" && lyricId) {
+      setCurrentLyricId(lyricId);
+      fetchCollections();
+    }
+  }, [lyricId, collectionType, setCurrentLyricId, fetchCollections]);
+
+  useEffect(() => {
+    if (isOpen && user) {
+      fetchCollections();
+    }
+  }, [fetchCollections, isOpen, user]);
 
   return (
     <Dialog.Root

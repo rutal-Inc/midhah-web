@@ -1,12 +1,14 @@
-import ClientWrapper from "@/src/components/ClientWrapper";
 import Footer from "@/src/components/Footer";
 import Navbar from "@/src/components/Navbar";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
+import ClientWrapper from "../components/ClientWrapper";
 import Loader from "../components/Loader";
+import AuthProvider from "../components/providers/AuthProvider";
 import AdSense from "../components/scripts/AdSense";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
@@ -41,22 +43,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
+
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <GoogleAnalytics
-          GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID as string}
-        />
-        <AdSense />
-        <Theme>
-          <Suspense fallback={<Loader />}>
-            <ClientWrapper />
-            <AdBanner />
-            <Navbar />
-            {children}
-            <Footer />
-          </Suspense>
-        </Theme>
+        <AuthProvider>
+          {GA_ID && <GoogleAnalytics GA_TRACKING_ID={GA_ID} />}
+          <AdSense />
+          <Theme>
+            <Suspense fallback={<Loader />}>
+              <ClientWrapper />
+              <AdBanner />
+              <Navbar />
+              {children}
+              <Footer />
+            </Suspense>
+          </Theme>
+        </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

@@ -1,11 +1,23 @@
-import { FirebaseOptions, initializeApp } from "firebase/app";
+import { FirebaseOptions, getApp, getApps, initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN as string,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID as string,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
-const app = initializeApp(firebaseConfig);
 
-export { app };
+Object.entries(firebaseConfig).forEach(([key, value]) => {
+  if (!value) {
+    throw new Error(
+      `Firebase Initialization Error: ${key} is missing. check your .env.local file.`,
+    );
+  }
+});
+
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+export { auth };

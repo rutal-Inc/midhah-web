@@ -2,6 +2,8 @@ import { AppPromoBanner } from "@/src/components/AppPromoBanner";
 import RenderPoetLyrics from "@/src/components/RenderPoetLyrics";
 import ViewCount from "@/src/components/ViewCount";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
+import Lyrics from "@/src/models/Lyrics";
+import { getLyrics } from "@/src/service/lyricsService";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";
@@ -12,22 +14,29 @@ import React from "react";
 import { noto_nastaliq_urdu } from "../../fonts";
 import { Params } from "./@types";
 import LyricsDialogClient from "./LyricsDialogClient";
-import { getLyrics } from "./service";
 
 export async function generateStaticParams() {
-  const lyrics: {
-    data: {
-      genre: string;
-      slug: string;
-    }[];
-  } = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics?page=0&size=5000&sortBy=id&orderBy=asc`,
-  ).then((res) => res.json());
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics?page=0&size=5000&sortBy=id&orderBy=asc`,
+    );
 
-  return lyrics.data.map((lyric) => ({
-    genre: String(lyric.genre),
-    slug: String(lyric.slug),
-  }));
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch lyrics: ${res.status} ${res.statusText}`,
+      );
+    }
+    const lyrics = await res.json();
+
+    return lyrics.data.map((lyric: Lyrics) => ({
+      genre: String(lyric.genre),
+      slug: String(lyric.slug),
+    }));
+  } catch (error) {
+    console.error("Critical error in generateStaticParams:", error);
+
+    throw error;
+  }
 }
 
 export async function generateMetadata({
@@ -112,7 +121,7 @@ export default async function LyricsPage({
         className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
       >
         {lyricsChunks.map((part, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={Number(index)}>
             <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-[74px]">
               {part.trim()}
             </p>
