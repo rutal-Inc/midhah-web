@@ -301,4 +301,3 @@ const Privacy = () => {
 };
 
 export default Privacy;
-// TODO: Add top line
