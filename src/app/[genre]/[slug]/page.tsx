@@ -1,9 +1,9 @@
+import { getLyricsViaGenreSlug } from "@/src/app/[genre]/[slug]/service";
 import { AppPromoBanner } from "@/src/components/AppPromoBanner";
 import RenderPoetLyrics from "@/src/components/RenderPoetLyrics";
 import ViewCount from "@/src/components/ViewCount";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import Lyrics from "@/src/models/Lyrics";
-import { getLyricsViaGenreSlug } from "@/src/service/lyricsService";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize, getPageGenre } from "@/src/utilities/helpers";
 import { Metadata } from "next";

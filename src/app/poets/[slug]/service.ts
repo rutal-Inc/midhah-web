@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { Poet } from "../models/Poet";
+import { Poet } from "../../../models/Poet";
 
 export const fetchPoet = cache(async (slug: string): Promise<Poet | null> => {
   try {

@@ -1,7 +1,7 @@
+import { fetchPoet } from "@/src/app/poets/[slug]/service";
 import BannerAd from "@/src/components/ads/AdSense_BannerAd";
 import RenderPoetsLyricsList from "@/src/components/RenderPoetsLyricsList";
 import ViewCount from "@/src/components/ViewCount";
-import { fetchPoet } from "@/src/service/poetService";
 import { WEB_BASE_URL } from "@/src/utilities/constants";
 import { capitalize } from "@/src/utilities/helpers";
 import { Metadata } from "next";
