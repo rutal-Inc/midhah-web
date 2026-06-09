@@ -27,6 +27,7 @@
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.544.0",
     "next": "^15.5.15",
+    "nextjs-toploader": "^3.9.17",
     "react-hot-toast": "^2.6.0",
     "zustand": "^5.0.8"
   },
