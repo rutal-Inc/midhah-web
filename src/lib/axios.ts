@@ -41,16 +41,14 @@ api.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            originalRequest.headers = {
-              ...originalRequest.headers,
-              Authorization: `Bearer ${token}`,
-            };
-            originalRequest.url = originalUrl;
-            return api(originalRequest);
-          })
-          .catch(Promise.reject.bind(Promise));
+        }).then((token) => {
+          originalRequest.headers = {
+            ...originalRequest.headers,
+            Authorization: `Bearer ${token}`,
+          };
+          originalRequest.url = originalUrl;
+          return api(originalRequest);
+        });
       }
 
       originalRequest._retry = true;
@@ -80,13 +78,13 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         useAuthStore.getState().logout();
-        return Promise.reject(refreshError);
+        throw refreshError;
       } finally {
         isRefreshing = false;
       }
     }
 
-    return Promise.reject(error);
+    throw error;
   },
 );
 
