@@ -76,7 +76,7 @@ export default function CollectionDialog({
       }
       setLoading(false);
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -114,7 +114,7 @@ export default function CollectionDialog({
       fetchCollections();
       setName("");
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -133,7 +133,7 @@ export default function CollectionDialog({
       setNewName("");
       setError(null);
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -150,7 +150,7 @@ export default function CollectionDialog({
       fetchCollections();
       setError(null);
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -168,7 +168,7 @@ export default function CollectionDialog({
       addCollectionId(data.collectionId);
       fetchCollections();
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -182,7 +182,7 @@ export default function CollectionDialog({
       removeCollectionId(Number(data.collectionId));
       fetchCollections();
     } catch (error) {
-      setError(error as string);
+      setError(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
