@@ -150,11 +150,7 @@ export default async function LyricsPage({
           exclude={slug}
         />
       )}
-      <ViewCount
-        entityId={lyric.id}
-        entityType="LYRICS"
-        referer={`${referer}`}
-      />
+      <ViewCount entityId={lyric.id} entityType="LYRICS" referer={referer} />
     </div>
   );
 }
