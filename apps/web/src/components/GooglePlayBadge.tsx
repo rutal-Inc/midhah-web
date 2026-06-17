@@ -3,9 +3,11 @@
 import Image from "next/image";
 import googlePlayBadge from "../assets/google-play-badge.png";
 
-export default function GooglePlayBadge({ location }: { location: string }) {
+export default function GooglePlayBadge({
+  location,
+}: Readonly<{ location: string }>) {
   const handleClick = () => {
-    window.gtag("event", "google_play_badge_click", {
+    window.gtag?.("event", "google_play_badge_click", {
       location,
     });
   };
