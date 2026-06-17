@@ -1,4 +1,0 @@
-# Allow all crawlers
-User-agent: *
-Allow: /
-Sitemap: https://lyrics.midhah.com/sitemap.xml
