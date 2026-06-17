@@ -1,0 +1,22 @@
+"use client";
+
+import { QueryClient, QueryClientProvider as QCProvider } from "react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchInterval: false,
+    },
+  },
+});
+
+export default function QueryClientProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <QCProvider client={queryClient}>{children}</QCProvider>;
+}

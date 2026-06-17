@@ -1,0 +1,35 @@
+{
+  "name": "@midhah/admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@midhah/utils": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-data-table-component": "^8.3.0",
+    "react-dom": "catalog:",
+    "react-hook-form": "^7.79.0",
+    "react-query": "^3.39.3",
+    "react-select": "^5.10.2",
+    "slug": "^11.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/slug": "^5.0.9",
+    "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
