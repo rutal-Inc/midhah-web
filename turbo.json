@@ -6,11 +6,12 @@
       "outputs": [".next/**", "dist/**"],
       "env": [
         "CLIENT_BASE_URL",
+        "ENABLE_EXPERIMENTAL_COREPACK",
+        "NEXT_PUBLIC_API_BASE_URL",
         "NEXT_PUBLIC_FIREBASE_API_KEY",
-        "NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN",
-        "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
         "NEXT_PUBLIC_FIREBASE_APP_ID",
-        "NEXT_PUBLIC_API_BASE_URL"
+        "NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN",
+        "NEXT_PUBLIC_FIREBASE_PROJECT_ID"
       ]
     },
     "type-check": {
