@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Your custom theme colors */
+  --color-primary: #237c9c;
+  --color-primary-dark: #036b67;
+  --color-grey: #9ca3af;
+  --color-grey-light: #f3f4f6;
+  --color-brown: #8b4513;
+  --color-red: #ef4444;
+  --color-backround-hover: #f6f5f5;
+  --color-background-active: #f6f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.primary-btn {
+  @apply rounded-[40px] px-6 py-3 text-white;
+  background-color: var(--color-primary);
+}
+
+.secondary-btn {
+  @apply rounded-[40px] px-6 py-3;
+  background-color: var(--color-grey);
+}
+
+.accent-btn {
+  @apply flex items-center justify-center rounded-[40px] px-6 py-3 text-white;
+  background-color: var(--color-brown);
+}
+
+.warning-btn {
+  @apply flex items-center justify-center rounded-[40px] px-6 py-3 text-white;
+  background-color: var(--color-red);
+}
+
+.input-field {
+  @apply w-full rounded-[40px] px-4 py-3 text-black;
+  background-color: var(--color-grey-light);
+}
+
+.drop-down {
+  @apply rounded-[40px] px-2 py-2.5 text-black;
+  background-color: var(--color-grey-light);
+}
+
+.filter-btn {
+  @apply rounded-[20px] px-6 py-2.5 text-white;
+  background-color: var(--color-primary);
+}
+
+.input-field.error {
+  border-color: var(--color-red);
+}
+
+/* Rest of your CSS remains the same below */
+
+.icon-field-container {
+  @apply flex h-auto flex-col items-center justify-center py-12;
+}
+
+.icon-field-text {
+  @apply mb-2 text-sm text-black;
+}
+
+.icon-field-label {
+  @apply flex flex-col items-center justify-center pt-5 pb-6;
+}
+
+.selected {
+  position: relative;
+}
+
+.selected::after {
+  content: "";
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  width: 100%;
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.rounded-custom {
+  border-radius: 20px;
+}
+
+.custom-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.bVhUbT {
+  justify-content: left !important;
+}
+
+.coDjSU {
+  justify-content: left !important;
+}
+
+.ilXFdd {
+  margin-left: 36px;
+}
+
+.ibMKni {
+  font-size: 14px;
+}
+
+.dEQuyi {
+  background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  opacity: 0.3;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: lightBlue;
+  border-radius: 5px;
+}
+
+.css-13cymwt-control {
+  border: none;
+  border-color: transparent !important;
+  background-color: none !important;
+  outline: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  box-sizing: content-box;
+  border-width: 0px;
+}
+
+.css-13cymwt-control:hover {
+  border: none !important;
+  border-color: transparent !important;
+  background-color: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-style: none !important;
+  box-sizing: content-box;
+  border-width: 0px;
+}
+
+.css-art2ul-ValueContainer2 {
+  box-sizing: content-box;
+}
+
+/* text editor*/
+.rs-picker-default .rs-picker-toggle.rs-btn {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 282px;
+}
+
+/* picked date align */
+.rs-picker-default .rs-picker-toggle {
+  position: relative;
+  z-index: 5;
+  padding-right: 67px;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  color: #575757;
+  border: 1px solid #e5e5ea;
+  padding-left: 44px;
+}
+
+/* calander align */
+.rs-picker-toggle-caret {
+  display: inline-block;
+  margin-right: 240px;
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-weight: normal;
+  color: #8e8e93;
+}
+
+/* ok button style */
+.rs-picker-toolbar-right-btn-ok {
+  text-align: center;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 30px;
+  color: #fff;
+  background-color: #3498ff;
+  width: 100px;
+}
+
+/* range style */
+.rs-picker-menu .rs-calendar .rs-calendar-table-cell-content {
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 21px;
+  display: inline-block;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  background-color: white;
+  z-index: 20;
+  width: 170px;
+  right: 5px;
+}

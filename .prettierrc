@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    "prettier-plugin-organize-imports",
-    "prettier-plugin-tailwindcss"
-  ],
-  "tailwindPreserveWhitespace": false,
-  "tailwindPreserveDuplicates": false
-}

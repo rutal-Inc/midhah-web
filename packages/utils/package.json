@@ -1,0 +1,20 @@
+{
+  "name": "@midhah/utils",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./firebase": "./src/firebase.ts",
+    "./axios": "./src/axios.ts",
+    "./decodeJWT": "./src/decodeJWT.ts",
+    "./useAuthStore": "./src/useAuthStore.ts",
+    "./useUserStore": "./src/useUserStore.ts",
+    "./fonts": "./src/fonts.ts"
+  },
+  "dependencies": {
+    "axios": "catalog:",
+    "firebase": "catalog:",
+    "jwt-decode": "^4.0.0",
+    "next": "catalog:",
+    "zustand": "catalog:"
+  }
+}
