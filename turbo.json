@@ -5,6 +5,7 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"],
       "env": [
+        "CLIENT_BASE_URL",
         "NEXT_PUBLIC_FIREBASE_API_KEY",
         "NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN",
         "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
