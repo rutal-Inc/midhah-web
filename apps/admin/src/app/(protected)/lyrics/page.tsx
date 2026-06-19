@@ -1,23 +1,23 @@
 "use client";
-import React, { useState } from "react";
-import DataTable, { TableColumn } from "react-data-table-component";
-import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { APIResponse, Lyric } from "@/src/@types";
+import LyricsFilter from "@/src/app/(protected)/lyrics/components/LyricsFilter";
 import ActionButtons from "@/src/components/ActionButton";
 import Loader from "@/src/components/Loader";
-import LyricsFilter from "@/src/app/(protected)/lyrics/components/LyricsFilter";
 import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
-import { APIResponse, Lyric } from "@/src/@types";
-import { AxiosError } from "axios";
-import { logoutUser } from "@/src/utils/logout";
+import Add from "@/src/icons/Add";
 import {
   deleteLyric,
   fetchLyrics,
   updateIsLyricPublished,
 } from "@/src/services/lyrics";
+import { logoutUser } from "@/src/utils/logout";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
-import Add from "@/src/icons/Add";
+import { AxiosError } from "axios";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
+import DataTable, { TableColumn } from "react-data-table-component";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 
 const Lyrics: React.FC = () => {
   const router = useRouter();
@@ -95,7 +95,7 @@ const Lyrics: React.FC = () => {
       center: true,
       cell: (row) => (
         <div
-          className={`line-clamp-2 leading-7 p-2 max-w-fit whitespace-pre-wrap text-wrap text-sm text-gray-600 ${noto_nastaliq_urdu.className}`}
+          className={`line-clamp-2 max-w-fit p-2 text-sm leading-7 text-wrap whitespace-pre-wrap text-gray-600 ${noto_nastaliq_urdu.className}`}
           dir="auto"
           title={row.preview?.trim()}
         >
@@ -135,7 +135,7 @@ const Lyrics: React.FC = () => {
             onChange={() => handleTogglePublish(row)}
             className="peer sr-only"
           />
-          <div className="h-6 w-11 rounded-full bg-gray-200 transition after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-primary peer-checked:after:translate-x-full" />
+          <div className="peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 transition after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:after:translate-x-full" />
         </label>
       ),
     },
@@ -282,16 +282,16 @@ const Lyrics: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-end mb-3">
+      <div className="mb-3 flex justify-end">
         <button
           onClick={() => {
             router.push(`/lyrics/create`);
           }}
-          className="group cursor-pointer flex flex-row items-center gap-x-2 rounded-md border-2 border-background bg-primary px-3 py-2 text-background hover:border-text hover:bg-background-hover hover:text-text"
+          className="group border-background bg-primary text-background hover:border-text hover:bg-background-hover hover:text-text flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-2 px-3 py-2"
         >
           <Add
             fill="text-primary-dark"
-            className="group-hover:fill-current group-hover:text-text"
+            className="group-hover:text-text group-hover:fill-current"
           />
           <span className="text-sm">Add Lyrics</span>
         </button>

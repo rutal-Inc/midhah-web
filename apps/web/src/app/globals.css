@@ -39,7 +39,7 @@
 }
 
 @utility btn-secondary {
-  @apply bg-[#027278] hover:opacity-92 cursor-pointer rounded-sm transition
+  @apply cursor-pointer rounded-sm bg-[#027278] transition hover:opacity-92;
 }
 
 @utility hero-bg {

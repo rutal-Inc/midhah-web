@@ -3,7 +3,7 @@ import { SvgIconProps } from "./@types";
 function Lyrics({ fill }: Readonly<SvgIconProps>) {
   return (
     <svg
-      className="menu-icon w-5 h-5"
+      className="menu-icon h-5 w-5"
       width="123"
       height="92"
       viewBox="0 0 123 92"

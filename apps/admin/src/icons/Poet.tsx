@@ -3,7 +3,7 @@ import { SvgIconProps } from "./@types";
 function Poet({ fill }: SvgIconProps) {
   return (
     <svg
-      className="menu-icon w-5 h-5"
+      className="menu-icon h-5 w-5"
       width="20"
       height="20"
       viewBox="0 0 45 38"

@@ -1,27 +1,27 @@
 "use client";
-import React, { useEffect } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
-import { z } from "zod";
-import Select, { MultiValue, SingleValue } from "react-select";
-import { toast } from "react-hot-toast";
-import axios from "axios";
-import slugCreater from "slug";
-import { fetchPoets } from "@/src/services/poet";
-import { fetchLanguages } from "@/src/services/languages";
-import { logoutUser } from "@/src/utils/logout";
-import { editLyricSchema, lyricSchema } from "@/src/schemas/lyrics/schema";
+import { genreOptions } from "@/src/@types";
 import { capitalizeFirstLetter } from "@/src/helpers";
+import { extractError } from "@/src/lib/error";
+import { editLyricSchema, lyricSchema } from "@/src/schemas/lyrics/schema";
+import { fetchLanguages } from "@/src/services/languages";
 import {
-  fetchTranliterate,
   createLyric,
   editLyric,
+  fetchTranliterate,
 } from "@/src/services/lyrics";
-import { genreOptions } from "@/src/@types";
+import { fetchPoets } from "@/src/services/poet";
+import { logoutUser } from "@/src/utils/logout";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import * as Dialog from "@radix-ui/react-dialog";
-import { extractError } from "@/src/lib/error";
+import axios from "axios";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import Select, { MultiValue, SingleValue } from "react-select";
+import slugCreater from "slug";
+import { z } from "zod";
 
 type CreateFormValues = z.infer<typeof lyricSchema>;
 type EditFormValues = z.infer<typeof editLyricSchema>;
@@ -224,20 +224,18 @@ const LyricForm: React.FC<LyricFormProps> = ({
               }
             }}
             disabled={activeStep === 1 || !canGoBackToStep1}
-            className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold border-b-2 transition-colors
-            ${
+            className={`flex items-center gap-2 border-b-2 px-4 py-2 text-sm font-semibold transition-colors ${
               activeStep === 1
                 ? "border-primary text-primary"
                 : "border-transparent text-gray-400"
-            }
-            ${
+            } ${
               activeStep !== 1 && canGoBackToStep1
                 ? "cursor-pointer hover:text-gray-600"
                 : "cursor-default"
             }`}
           >
             <span
-              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold bg-primary text-white`}
+              className={`bg-primary inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white`}
             >
               1
             </span>
@@ -255,21 +253,18 @@ const LyricForm: React.FC<LyricFormProps> = ({
               }
             }}
             disabled={activeStep === 2 || !canAccessStep2}
-            className={`flex  items-center gap-2 px-4 py-2 text-sm font-semibold border-b-2 transition-colors
-            ${
+            className={`flex items-center gap-2 border-b-2 px-4 py-2 text-sm font-semibold transition-colors ${
               activeStep === 2
                 ? "border-primary text-primary"
                 : "border-transparent text-gray-400"
-            }
-            ${
+            } ${
               activeStep !== 2 && canAccessStep2
                 ? "cursor-pointer hover:text-gray-600"
                 : "cursor-not-allowed opacity-40"
             }`}
           >
             <span
-              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold
-              ${activeStep === 2 ? "bg-primary text-white" : "bg-gray-200 text-gray-600"}`}
+              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${activeStep === 2 ? "bg-primary text-white" : "bg-gray-200 text-gray-600"}`}
             >
               2
             </span>
@@ -300,7 +295,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                 <div className="flex items-center justify-end">
                   <label
                     htmlFor="isPublished"
-                    className="mr-4 block text-sm font-medium leading-6 text-gray-900"
+                    className="mr-4 block text-sm leading-6 font-medium text-gray-900"
                   >
                     Publish
                   </label>
@@ -311,7 +306,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       {...register("isPublished")}
                       className="peer sr-only"
                     />
-                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white" />
+                    <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
                   </label>
                 </div>
               </div>
@@ -321,7 +316,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="title"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Title
                     </label>
@@ -343,7 +338,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                             );
                           }
                         }}
-                        className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                        className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                       />
                       {errors.title && (
                         <p className="mt-2 text-sm text-red-600">
@@ -356,7 +351,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="slug"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Slug (Only lowercase letters, numbers, and hyphens)
                     </label>
@@ -376,7 +371,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                                 });
                                 field.onChange(collapsed);
                               }}
-                              className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                              className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                             />
                           )}
                         />
@@ -388,7 +383,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                               slugCreater(getValues("title"), { lower: true }),
                             )
                           }
-                          className="hover:bg-primary-hover cursor-pointer rounded-md bg-primary px-2.5 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                          className="hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-2.5 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
                         >
                           <i className="bi bi-arrow-clockwise text-base" />
                         </button>
@@ -404,7 +399,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="genre"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Genre
                     </label>
@@ -433,7 +428,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-6">
                     <label
                       htmlFor="lyrics"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Lyrics
                     </label>
@@ -441,7 +436,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       <textarea
                         id="lyrics"
                         {...register("lyrics")}
-                        className={`block h-58 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-lg sm:leading-8 ${noto_nastaliq_urdu.className}`}
+                        className={`focus:ring-primary block h-58 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-lg sm:leading-8 ${noto_nastaliq_urdu.className}`}
                         dir="auto"
                       />
                       {errors.lyrics && (
@@ -455,7 +450,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="languageIDs"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Languages
                     </label>
@@ -483,7 +478,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="poetID"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm leading-6 font-medium text-gray-900"
                     >
                       Poet
                     </label>
@@ -516,14 +511,14 @@ const LyricForm: React.FC<LyricFormProps> = ({
                         reset();
                         router.push("/lyrics");
                       }}
-                      className="text-sm font-semibold cursor-pointer leading-6 text-gray-900"
+                      className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`hover:bg-primary-hover cursor-pointer rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-60 ${isSubmitting && "cursor-not-allowed"}`}
+                      className={`hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60 ${isSubmitting && "cursor-not-allowed"}`}
                     >
                       {isSubmitting
                         ? "Saving…"
@@ -552,10 +547,10 @@ const LyricForm: React.FC<LyricFormProps> = ({
               <div className="mt-4 grid grid-cols-1 place-items-center sm:col-span-6 sm:grid-cols-6">
                 <div className="grid w-3/4 grid-cols-1 gap-x-6 gap-y-8 sm:col-span-6 sm:grid-cols-6">
                   <div className="sm:col-span-6">
-                    <div className="flex justify-between items-end">
+                    <div className="flex items-end justify-between">
                       <label
                         htmlFor="transliteratedContent"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm leading-6 font-medium text-gray-900"
                       >
                         Transliterated Lyrics
                       </label>
@@ -566,7 +561,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                           onClick={() =>
                             fetchTransliterateLyric(defaultValues.id!)
                           }
-                          className="hover:bg-primary-hover cursor-pointer rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-60 flex items-center gap-2"
+                          className="hover:bg-primary-hover bg-primary focus:ring-primary flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60"
                         >
                           {loading && (
                             <svg
@@ -599,7 +594,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       <textarea
                         id="transliteratedContent"
                         {...register("transliteratedContent")}
-                        className="block h-64 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                        className="focus:ring-primary block h-64 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                       />
                       {errors.transliteratedContent && (
                         <p className="mt-2 text-sm text-red-600">
@@ -614,14 +609,14 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       <button
                         type="button"
                         onClick={() => router.push("/lyrics")}
-                        className="text-sm cursor-pointer font-semibold leading-6 text-gray-900"
+                        className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
                       >
                         {isEditMode ? "Cancel" : "Skip & Finish"}
                       </button>
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="hover:bg-primary-hover cursor-pointer rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-60"
+                        className="hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60"
                       >
                         {isSubmitting ? "Saving…" : "Save"}
                       </button>
@@ -639,12 +634,12 @@ const LyricForm: React.FC<LyricFormProps> = ({
           <Dialog.Content
             className={`fixed top-1/2 left-1/2 max-h-[60vh] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-lg focus:outline-none md:w-full`}
           >
-            <div className="flex flex-col justify-between items-start gap-4">
+            <div className="flex flex-col items-start justify-between gap-4">
               <Dialog.Title className="mx-1 w-full text-start text-xl font-bold">
                 Alert
               </Dialog.Title>
               <Dialog.Description>
-                <div className="text-start ">
+                <div className="text-start">
                   Lyrics have been changed. Do you want to update the
                   transliteration?
                 </div>

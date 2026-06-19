@@ -11,7 +11,8 @@
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "start": "turbo run start preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format": "prettier --write ."
   },
   "lint-staged": {
     "apps/web/**/*.{js,jsx,ts,tsx}": "pnpm --filter @midhah/web exec eslint --fix",
@@ -23,23 +24,20 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "turbo": "^2.9.18",
     "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
-    "prettier-plugin-organize-imports": "catalog:"
-  },
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.17",
-    "axios": "^1.18.0",
-    "bootstrap-icons": "^1.13.1",
-    "firebase": "^12.14.0",
-    "lucide-react": "^1.18.0",
-    "nextjs-toploader": "^3.9.17",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "react-hot-toast": "^2.6.0"
+    "tailwindcss": "catalog:",
+    "turbo": "^2.9.18",
+    "typescript": "catalog:"
   }
 }

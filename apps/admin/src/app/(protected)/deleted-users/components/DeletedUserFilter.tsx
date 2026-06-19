@@ -1,6 +1,6 @@
 import MultiSelect from "@/src/components/MultiSelect";
-import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 interface Option {
   label: string;
@@ -52,7 +52,7 @@ const DeletedUserFilter = () => {
   };
 
   return (
-    <div className="mb-8 mt-3 flex w-full flex-col gap-5">
+    <div className="mt-3 mb-8 flex w-full flex-col gap-5">
       <div className="flex flex-col flex-wrap items-end justify-start gap-3 sm:flex-row sm:items-center">
         {filterConfigs.map((config) => (
           <MultiSelect
@@ -74,7 +74,7 @@ const DeletedUserFilter = () => {
         <button
           type="button"
           onClick={applyFilters}
-          className="rounded-md border-2 cursor-pointer border-background bg-primary px-3 py-2 text-background hover:border-text hover:bg-background-hover hover:text-text"
+          className="border-background bg-primary text-background hover:border-text hover:bg-background-hover hover:text-text cursor-pointer rounded-md border-2 px-3 py-2"
         >
           Apply Filters
         </button>

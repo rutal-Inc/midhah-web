@@ -1,17 +1,17 @@
 "use client";
+import { APIResponse, Language } from "@/src/@types";
+import ActionButtons from "@/src/components/ActionButton";
+import Loader from "@/src/components/Loader";
+import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
+import Add from "@/src/icons/Add";
+import { deleteLanguage, fetchLanguages } from "@/src/services/languages";
+import { logoutUser } from "@/src/utils/logout";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
-import { useRouter } from "next/navigation";
-import { deleteLanguage, fetchLanguages } from "@/src/services/languages";
-import ActionButtons from "@/src/components/ActionButton";
-import Loader from "@/src/components/Loader";
-import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
-import { AxiosError } from "axios";
-import { logoutUser } from "@/src/utils/logout";
-import { APIResponse, Language } from "@/src/@types";
-import Add from "@/src/icons/Add";
 
 const Languages: React.FC = () => {
   const router = useRouter();
@@ -102,16 +102,16 @@ const Languages: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-end mb-3">
+      <div className="mb-3 flex justify-end">
         <button
           onClick={() => {
             router.push(`/languages/create`);
           }}
-          className="group cursor-pointer flex flex-row items-center gap-x-2 rounded-md border-2 border-background bg-primary px-3 py-2 text-background hover:border-text hover:bg-background-hover hover:text-text"
+          className="group border-background bg-primary text-background hover:border-text hover:bg-background-hover hover:text-text flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-2 px-3 py-2"
         >
           <Add
             fill="text-primary-dark"
-            className="group-hover:fill-current group-hover:text-text"
+            className="group-hover:text-text group-hover:fill-current"
           />
           <span className="text-sm">Add Languages</span>
         </button>

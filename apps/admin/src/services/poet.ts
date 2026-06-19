@@ -1,5 +1,5 @@
-import api from "@midhah/utils/axios";
 import { APIResponse, Poet, PoetFormData, PoetIdName } from "@/src/@types";
+import api from "@midhah/utils/axios";
 import { extractError } from "../lib/error";
 
 const fetchPoets = async (
@@ -77,11 +77,11 @@ const deletePoet = async (slug: string) => {
 };
 
 export {
-  fetchPoets,
-  fetchAllPoets,
   createPoet,
-  updateIsPoetPublished,
   deletePoet,
-  fetchSinglePoet,
   editPoet,
+  fetchAllPoets,
+  fetchPoets,
+  fetchSinglePoet,
+  updateIsPoetPublished,
 };

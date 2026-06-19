@@ -15,7 +15,7 @@ const ActionButtons = ({
     <>
       {handleEdit && (
         <>
-          <button onClick={handleEdit} className="pr-2 cursor-pointer">
+          <button onClick={handleEdit} className="cursor-pointer pr-2">
             <Image src={"/assets/edit.svg"} width={20} height={20} alt="Edit" />
           </button>
           <div className="bg-gray h-5 w-px"></div>
@@ -26,7 +26,7 @@ const ActionButtons = ({
           title={deleteButtonDisabled ? "Not Allowed" : ""}
           disabled={deleteButtonDisabled}
           onClick={confirmDelete}
-          className="pl-2 cursor-pointer"
+          className="cursor-pointer pl-2"
         >
           <Image
             src={"/assets/trash.svg"}

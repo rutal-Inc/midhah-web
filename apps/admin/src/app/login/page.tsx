@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import parseJwt from "@midhah/utils/decodeJWT";
+import { auth } from "@midhah/utils/firebase";
+import { useAuthStore } from "@midhah/utils/useAuthStore";
+import { useUserStore } from "@midhah/utils/useUserStore";
 import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useAuthStore } from "@midhah/utils/useAuthStore";
-import { auth } from "@midhah/utils/firebase";
-import parseJwt from "@midhah/utils/decodeJWT";
-import { useUserStore } from "@midhah/utils/useUserStore";
 
 const LoginPage = () => {
   const { setAccessToken } = useAuthStore();
@@ -71,7 +71,7 @@ const LoginPage = () => {
         <div>
           <button
             onClick={handleGoogleLogin}
-            className="mx-auto cursor-pointer mb-4 flex w-full max-w-xs items-center justify-center rounded-md border px-10 py-3 font-semibold hover:bg-gray-50 transition-colors"
+            className="mx-auto mb-4 flex w-full max-w-xs cursor-pointer items-center justify-center rounded-md border px-10 py-3 font-semibold transition-colors hover:bg-gray-50"
           >
             <Image
               src="/assets/google.svg"

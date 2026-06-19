@@ -1,14 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import DataTable, { TableColumn } from "react-data-table-component";
-import { useQuery } from "react-query";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  fetchDeletedUsers,
-  restoreUserfromDeletion,
-} from "@/src/services/users";
-import Loader from "@/src/components/Loader";
-import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
 import {
   APIResponse,
   DeletedUser,
@@ -17,11 +7,21 @@ import {
   UserFilters,
 } from "@/src/@types";
 import ActionButtons from "@/src/components/ActionButton";
-import toast from "react-hot-toast";
-import { AxiosError } from "axios";
+import Loader from "@/src/components/Loader";
+import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
+import {
+  fetchDeletedUsers,
+  restoreUserfromDeletion,
+} from "@/src/services/users";
 import { logoutUser } from "@/src/utils/logout";
-import DeletedUserFilter from "./components/DeletedUserFilter";
+import { AxiosError } from "axios";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
+import DataTable, { TableColumn } from "react-data-table-component";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import DeletedUserFilter from "./components/DeletedUserFilter";
 
 const DeletedUsers: React.FC = () => {
   const router = useRouter();

@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { poetSchema } from "@/src/schemas/poets/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-import { poetSchema } from "@/src/schemas/poets/schema";
 
 export type PoetFormValues = z.infer<typeof poetSchema>;
 
@@ -61,7 +60,7 @@ const PoetForm: React.FC<PoetFormProps> = ({
             <div className="flex items-center justify-end">
               <label
                 htmlFor="isPublished"
-                className="mr-4 block text-sm font-medium leading-6 text-gray-900"
+                className="mr-4 block text-sm leading-6 font-medium text-gray-900"
               >
                 Publish
               </label>
@@ -72,7 +71,7 @@ const PoetForm: React.FC<PoetFormProps> = ({
                   {...register("isPublished")}
                   className="peer sr-only"
                 />
-                <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white" />
+                <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
               </label>
             </div>
           </div>
@@ -82,7 +81,7 @@ const PoetForm: React.FC<PoetFormProps> = ({
               <div className="sm:col-span-3">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   Name
                 </label>
@@ -92,7 +91,7 @@ const PoetForm: React.FC<PoetFormProps> = ({
                     id="name"
                     {...register("name")}
                     placeholder="Muhammad Tahir"
-                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                    className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                   />
                   {errors.name && (
                     <p className="mt-2 text-sm text-red-600">
@@ -109,14 +108,14 @@ const PoetForm: React.FC<PoetFormProps> = ({
                     reset();
                     router.push("/poets");
                   }}
-                  className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
+                  className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="rounded-md cursor-pointer bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-60"
+                  className="bg-primary hover:bg-primary-dark focus-visible:outline-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-offset-2 disabled:opacity-60"
                 >
                   {isSubmitting ? "Saving…" : "Save"}
                 </button>

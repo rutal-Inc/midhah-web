@@ -11,25 +11,31 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@midhah/utils": "workspace:*",
+    "@radix-ui/react-dialog": "catalog:",
+    "axios": "catalog:",
+    "bootstrap-icons": "catalog:",
+    "firebase": "catalog:",
     "next": "catalog:",
+    "nextjs-toploader": "^3.9.17",
     "react": "catalog:",
     "react-data-table-component": "^8.3.0",
     "react-dom": "catalog:",
     "react-hook-form": "^7.79.0",
+    "react-hot-toast": "catalog:",
     "react-query": "^3.39.3",
     "react-select": "^5.10.2",
     "slug": "^11.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@types/slug": "^5.0.9",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
   }
 }

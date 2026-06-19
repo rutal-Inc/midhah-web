@@ -1,10 +1,8 @@
 @import "tailwindcss";
-@import "bootstrap-icons/font/bootstrap-icons.css";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  
 }
 
 @theme {
@@ -22,8 +20,6 @@
   --color-red: #ef4444;
   --color-backround-hover: #f6f5f5;
   --color-background-active: #f6f5f5;
-
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,7 +34,6 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
-
 
 .primary-btn {
   @apply rounded-[40px] px-6 py-3 text-white;
@@ -90,7 +85,7 @@ body {
 }
 
 .icon-field-label {
-  @apply flex flex-col items-center justify-center pb-6 pt-5;
+  @apply flex flex-col items-center justify-center pt-5 pb-6;
 }
 
 .selected {

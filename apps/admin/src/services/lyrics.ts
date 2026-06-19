@@ -1,5 +1,5 @@
-import api from "@midhah/utils/axios";
 import { APIResponse, Filters, Lyric, LyricFormData } from "@/src/@types";
+import api from "@midhah/utils/axios";
 import { extractError } from "../lib/error";
 
 const fetchLyricsSlug = async (slug: string) => {
@@ -114,12 +114,12 @@ const fetchTranliterate = async (lyricId: number) => {
 };
 
 export {
-  fetchLyrics,
   createLyric,
-  updateIsLyricPublished,
-  editLyric,
-  fetchSingleLyrics,
   deleteLyric,
+  editLyric,
+  fetchLyrics,
   fetchLyricsSlug,
+  fetchSingleLyrics,
   fetchTranliterate,
+  updateIsLyricPublished,
 };

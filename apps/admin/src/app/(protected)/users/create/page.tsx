@@ -1,14 +1,14 @@
 "use client";
+import { deleteUserSchema } from "@/src/schemas/users/schema";
+import { createDataforDeletion } from "@/src/services/users";
+import { logoutUser } from "@/src/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
-import { createDataforDeletion } from "@/src/services/users";
-import { logoutUser } from "@/src/utils/logout";
-import { deleteUserSchema } from "@/src/schemas/users/schema";
 
 type DeleteUserFormValues = z.infer<typeof deleteUserSchema>;
 
@@ -65,7 +65,7 @@ const AddUserForDeletion: React.FC = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="userId"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   User Id
                 </label>
@@ -74,7 +74,7 @@ const AddUserForDeletion: React.FC = () => {
                     id="userId"
                     type="number"
                     {...register("userId", { valueAsNumber: true })}
-                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                    className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                   />
                   {errors.userId && (
                     <p className="mt-2 text-sm text-red-600">
@@ -87,7 +87,7 @@ const AddUserForDeletion: React.FC = () => {
               <div className="sm:col-span-6">
                 <label
                   htmlFor="reason"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   Reason
                 </label>
@@ -95,7 +95,7 @@ const AddUserForDeletion: React.FC = () => {
                   <textarea
                     id="reason"
                     {...register("reason")}
-                    className="block h-12 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                    className="focus:ring-primary block h-12 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                   />
                   {errors.reason && (
                     <p className="mt-2 text-sm text-red-600">
@@ -108,7 +108,7 @@ const AddUserForDeletion: React.FC = () => {
               <div className="sm:col-span-6">
                 <label
                   htmlFor="scheduledDeleteAt"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   Delete At
                 </label>
@@ -118,7 +118,7 @@ const AddUserForDeletion: React.FC = () => {
                     min={tomorrow.toLocaleDateString("sv-SE")}
                     type="date"
                     {...register("scheduledDeleteAt", { valueAsDate: true })}
-                    className="block h-12 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                    className="focus:ring-primary block h-12 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                   />
                   {errors.scheduledDeleteAt && (
                     <p className="mt-2 text-sm text-red-600">
@@ -135,13 +135,13 @@ const AddUserForDeletion: React.FC = () => {
                     reset();
                     router.push("/users");
                   }}
-                  className="text-sm cursor-pointer font-semibold leading-6 text-gray-900"
+                  className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="hover:bg-primary-hover cursor-pointer rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
                 >
                   Save
                 </button>

@@ -1,8 +1,8 @@
 "use client";
 
+import { APIResponse, LyricSlugs } from "@/src/@types";
 import { useState } from "react";
 import Select from "react-select";
-import { APIResponse, LyricSlugs } from "@/src/@types";
 
 interface MultiSelectProps<T> {
   arrayData: T[];
@@ -35,7 +35,7 @@ function MultiSelect<T>({
     }));
 
   return (
-    <div className="w-full border sm:w-60 rounded-sm">
+    <div className="w-full rounded-sm border sm:w-60">
       <Select
         closeMenuOnSelect={false}
         isMulti
@@ -45,7 +45,7 @@ function MultiSelect<T>({
           onChange(Array.isArray(selected) ? selected : [])
         }
         placeholder={placeholder}
-        className="text-sm cursor-pointer "
+        className="cursor-pointer text-sm"
         classNamePrefix="react-select"
       />
     </div>
@@ -70,7 +70,7 @@ export function MultiSelectWithLiveFetch({
   const [data, setData] = useState<OptionType[]>([]);
 
   return (
-    <div className="w-full border sm:w-60 rounded-sm">
+    <div className="w-full rounded-sm border sm:w-60">
       <Select
         closeMenuOnSelect={false}
         isMulti
@@ -92,7 +92,7 @@ export function MultiSelectWithLiveFetch({
           }
         }}
         placeholder={placeholder}
-        className="text-sm "
+        className="text-sm"
         classNamePrefix="react-select"
       />
     </div>

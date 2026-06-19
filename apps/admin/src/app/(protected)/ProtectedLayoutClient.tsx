@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, Suspense } from "react";
-import Sidebar from "@/src/components/Sidebar";
-import Navbar from "@/src/components/Navbar";
 import Loader from "@/src/components/Loader";
+import Navbar from "@/src/components/Navbar";
+import Sidebar from "@/src/components/Sidebar";
+import { Suspense, useState } from "react";
 
 export default function ProtectedLayoutClient({
   children,
@@ -21,7 +21,7 @@ export default function ProtectedLayoutClient({
       <div
         className={`${
           isSidebarCollapse ? "w-20" : "w-60"
-        } bg-dark-purple text-white transition-all duration-300 shrink-0`}
+        } bg-dark-purple shrink-0 text-white transition-all duration-300`}
       >
         <Sidebar
           isCollapse={isSidebarCollapse}

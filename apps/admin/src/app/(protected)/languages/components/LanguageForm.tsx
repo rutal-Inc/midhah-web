@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { languageSchema } from "@/src/schemas/languages/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { languageSchema } from "@/src/schemas/languages/schema";
 
 export type LanguageFormValues = z.infer<typeof languageSchema>;
 
@@ -60,7 +60,7 @@ const LanguageForm: React.FC<LanguageFormProps> = ({
               <div className="sm:col-span-3">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   Name
                 </label>
@@ -69,7 +69,7 @@ const LanguageForm: React.FC<LanguageFormProps> = ({
                     id="name"
                     {...register("name")}
                     placeholder="Language..."
-                    className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                    className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
                   />
                   {errors.name && (
                     <p className="mt-2 text-sm text-red-600">
@@ -86,14 +86,14 @@ const LanguageForm: React.FC<LanguageFormProps> = ({
                     reset();
                     router.push("/languages");
                   }}
-                  className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
+                  className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="rounded-md cursor-pointer bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-60"
+                  className="bg-primary hover:bg-primary-dark focus-visible:outline-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60"
                 >
                   {isSubmitting ? "Saving…" : "Save"}
                 </button>

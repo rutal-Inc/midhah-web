@@ -1,16 +1,16 @@
 "use client";
+import { APIResponse, User, UserFilters, UserRole } from "@/src/@types";
+import ActionButtons from "@/src/components/ActionButton";
+import Loader from "@/src/components/Loader";
+import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
+import { fetchUsers } from "@/src/services/users";
+import { AxiosError } from "axios";
+import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { useQuery } from "react-query";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { fetchUsers } from "@/src/services/users";
-import Loader from "@/src/components/Loader";
 import UsersFilter from "./components/UsersFilter";
-import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
-import { APIResponse, User, UserFilters, UserRole } from "@/src/@types";
-import ActionButtons from "@/src/components/ActionButton";
-import { AxiosError } from "axios";
-import Image from "next/image";
 
 const Users: React.FC = () => {
   const router = useRouter();
@@ -132,7 +132,7 @@ const Users: React.FC = () => {
             checked={row.isActive}
             className="peer sr-only disabled:cursor-none"
           />
-          <div className="h-6 w-11 rounded-full bg-gray-200 transition after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-primary peer-checked:after:translate-x-full" />
+          <div className="peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 transition after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:after:translate-x-full" />
         </label>
       ),
     },

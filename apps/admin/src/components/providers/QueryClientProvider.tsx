@@ -1,6 +1,6 @@
 "use client";
 
-import { QueryClient, QueryClientProvider as QCProvider } from "react-query";
+import { QueryClientProvider as QCProvider, QueryClient } from "react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {

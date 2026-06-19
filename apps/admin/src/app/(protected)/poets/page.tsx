@@ -1,21 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import DataTable, { TableColumn } from "react-data-table-component";
-import { toast } from "react-hot-toast";
-import { useQuery } from "react-query";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { APIResponse, Poet } from "@/src/@types";
+import ActionButtons from "@/src/components/ActionButton";
+import Loader from "@/src/components/Loader";
+import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
+import Add from "@/src/icons/Add";
 import {
   deletePoet,
   fetchPoets,
   updateIsPoetPublished,
 } from "@/src/services/poet";
-import ActionButtons from "@/src/components/ActionButton";
-import Loader from "@/src/components/Loader";
-import { DATA_TABLE_STYLES, ROWS_PER_PAGE_OPTIONS } from "@/src/constants";
-import { APIResponse, Poet } from "@/src/@types";
-import { AxiosError } from "axios";
 import { logoutUser } from "@/src/utils/logout";
-import Add from "@/src/icons/Add";
+import { AxiosError } from "axios";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
+import DataTable, { TableColumn } from "react-data-table-component";
+import { toast } from "react-hot-toast";
+import { useQuery } from "react-query";
 
 const Poets: React.FC = () => {
   const router = useRouter();
@@ -175,7 +175,7 @@ const Poets: React.FC = () => {
             onChange={() => handleTogglePublish(row)}
             className="peer sr-only"
           />
-          <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+          <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
         </label>
       ),
     },
@@ -209,16 +209,16 @@ const Poets: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-end mb-3">
+      <div className="mb-3 flex justify-end">
         <button
           onClick={() => {
             router.push(`/poets/create`);
           }}
-          className="group cursor-pointer flex flex-row items-center gap-x-2 rounded-md border-2 border-background bg-primary px-3 py-2 text-background hover:border-text hover:bg-background-hover hover:text-text"
+          className="group border-background bg-primary text-background hover:border-text hover:bg-background-hover hover:text-text flex cursor-pointer flex-row items-center gap-x-2 rounded-md border-2 px-3 py-2"
         >
           <Add
             fill="text-primary-dark"
-            className="group-hover:fill-current group-hover:text-text"
+            className="group-hover:text-text group-hover:fill-current"
           />
           <span className="text-sm">Add Poets</span>
         </button>

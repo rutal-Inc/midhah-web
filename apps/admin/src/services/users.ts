@@ -81,7 +81,7 @@ const restoreUserfromDeletion = async (userId: number) => {
 
 export {
   createDataforDeletion,
-  restoreUserfromDeletion,
-  fetchUsers,
   fetchDeletedUsers,
+  fetchUsers,
+  restoreUserfromDeletion,
 };

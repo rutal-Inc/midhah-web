@@ -3,7 +3,7 @@ import { SvgIconProps } from "./@types";
 function Language({ fill }: SvgIconProps) {
   return (
     <svg
-      className="menu-icon w-5 h-5"
+      className="menu-icon h-5 w-5"
       width="46"
       height="46"
       viewBox="0 0 46 46"

@@ -1,13 +1,13 @@
 "use client";
-import { signOut } from "firebase/auth";
-import { useEffect, useCallback } from "react";
+import api from "@midhah/utils/axios";
+import parseJwt from "@midhah/utils/decodeJWT";
+import { auth as firebaseAuth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
-import api from "@midhah/utils/axios";
-import { auth as firebaseAuth } from "@midhah/utils/firebase";
-import parseJwt from "@midhah/utils/decodeJWT";
-import Loader from "../Loader";
+import { signOut } from "firebase/auth";
+import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
+import Loader from "../Loader";
 
 export default function AuthProvider({
   children,

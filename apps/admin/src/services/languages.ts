@@ -52,9 +52,9 @@ const deleteLanguage = async (id: number) => {
 };
 
 export {
+  createLanguage,
+  deleteLanguage,
+  editLanguage,
   fetchLanguages,
   fetchSingleLanguage,
-  createLanguage,
-  editLanguage,
-  deleteLanguage,
 };

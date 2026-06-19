@@ -1,15 +1,15 @@
 "use client";
 
-import { signOut } from "firebase/auth";
-import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import toast from "react-hot-toast";
-import { SidebarLinks } from "../constants";
+import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
-import { auth } from "@midhah/utils/firebase";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { SidebarLinks } from "../constants";
 
 interface SidebarProps {
   isCollapse: boolean;
@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
   };
 
   return (
-    <div className="fixed text-foreground flex h-full flex-col justify-between border-2 border-background-active bg-background py-3 text-text">
+    <div className="text-foreground border-background-active bg-background text-text fixed flex h-full flex-col justify-between border-2 py-3">
       <div
         className={`relative flex h-screen flex-col ${
           isCollapse ? "w-20" : "w-60"
@@ -49,8 +49,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
         <button
           type="button"
           onClick={onCollapseToggle}
-          className={`w-13 absolute  top-6 cursor-pointer rounded-full ${
-            isCollapse ? "rotate-180 -right-2.5" : "-right-10"
+          className={`absolute top-6 w-13 cursor-pointer rounded-full ${
+            isCollapse ? "-right-2.5 rotate-180" : "-right-10"
           }`}
         >
           <Image
@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
                 ? "/assets/midhah-square-logo.svg"
                 : "/assets/midhah-lyrics-logo.svg"
             }
-            className={`duration-400 cursor-pointer transition-all ${
+            className={`cursor-pointer transition-all duration-400 ${
               isCollapse ? "h-12 w-12" : "h-20 w-auto"
             }`}
           />
@@ -88,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
                 <li
                   key={link.id}
                   title={link.title}
-                  className={`group my-1 rounded-md  bg-background hover:bg-background-hover hover:text-primary ${
+                  className={`group bg-background hover:bg-background-hover hover:text-primary my-1 rounded-md ${
                     isActive ? "bg-background-active text-primary" : ""
                   }`}
                 >
@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
                   >
                     <Linksrc
                       fill="text-primary-dark"
-                      className="group-hover:fill-current  group-hover:text-primary"
+                      className="group-hover:text-primary group-hover:fill-current"
                     />
                     {!isCollapse && (
                       <span className="text-sm">{link.title}</span>

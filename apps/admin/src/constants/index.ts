@@ -1,6 +1,6 @@
 import Language from "@/src/icons/Language";
-import Poet from "@/src/icons/Poet";
 import Lyrics from "@/src/icons/Lyrics";
+import Poet from "@/src/icons/Poet";
 
 export const SidebarLinks = [
   {

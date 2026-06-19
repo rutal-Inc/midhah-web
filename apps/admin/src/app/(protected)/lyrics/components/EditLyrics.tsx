@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
-import { z } from "zod";
+import { editLyricSchema } from "@/src/schemas/lyrics/schema";
 import { fetchSingleLyrics } from "@/src/services/lyrics";
 import { logoutUser } from "@/src/utils/logout";
-import { editLyricSchema } from "@/src/schemas/lyrics/schema";
+import { AxiosError } from "axios";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { z } from "zod";
 import LyricForm from "./LyricForm";
 
 type LyricFormValues = z.infer<typeof editLyricSchema>;
