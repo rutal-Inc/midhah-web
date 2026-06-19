@@ -205,9 +205,6 @@ settings:
 
 catalogs:
   default:
-    '@radix-ui/react-dialog':
-      specifier: ^1.1.17
-      version: 1.1.17
     '@tailwindcss/postcss':
       specifier: ^4.1.13
       version: 4.3.1
@@ -220,25 +217,10 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.1.9
       version: 19.2.3
-    axios:
-      specifier: ^1.18.0
-      version: 1.18.0
-    bootstrap-icons:
-      specifier: ^1.13.1
-      version: 1.13.1
     eslint:
       specifier: ^9.39.4
       version: 9.39.4
     eslint-config-next:
-      specifier: 16.2.9
-      version: 16.2.9
-    firebase:
-      specifier: ^12.14.0
-      version: 12.14.0
-    lucide-react:
-      specifier: ^1.21.0
-      version: 1.21.0
-    next:
       specifier: 16.2.9
       version: 16.2.9
     prettier:
@@ -250,32 +232,17 @@ catalogs:
     prettier-plugin-tailwindcss:
       specifier: ^0.6.14
       version: 0.6.14
-    react:
-      specifier: 19.2.4
-      version: 19.2.4
-    react-dom:
-      specifier: 19.2.4
-      version: 19.2.4
-    react-hot-toast:
-      specifier: ^2.6.0
-      version: 2.6.0
     tailwindcss:
       specifier: ^4.1.13
       version: 4.3.1
     typescript:
       specifier: ^6.0.3
       version: 6.0.3
-    zustand:
-      specifier: ^5.0.14
-      version: 5.0.14
 
 importers:
 
   .:
     devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3.3.5
-        version: 3.3.5
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.3.1
@@ -293,7 +260,7 @@ importers:
         version: 9.39.4(jiti@2.7.0)
       eslint-config-next:
         specifier: 'catalog:'
-        version: 16.2.9(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3)
+        version: 16.2.9(@typescript-eslint/parser@8.61.0(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
