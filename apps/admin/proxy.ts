@@ -2,16 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const accessToken = request.cookies.get("refreshToken")?.value;
+  const token = request.cookies.get("refreshToken")?.value;
 
   const isPublicRoute = pathname === "/login";
 
-  if (!accessToken && !isPublicRoute) {
+  if (!token && !isPublicRoute) {
     const loginUrl = new URL("/login", request.url);
     return NextResponse.redirect(loginUrl);
   }
 
-  if (accessToken && isPublicRoute) {
+  if (token && isPublicRoute) {
     const homeUrl = new URL("/", request.url);
     return NextResponse.redirect(homeUrl);
   }
