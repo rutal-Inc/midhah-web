@@ -249,7 +249,9 @@ const DeletedUsers: React.FC = () => {
         <Loader />
       ) : (
         <>
-          {error && (error as AxiosError).status !== 404 ? (
+          {error &&
+          (error as AxiosError).message !==
+            "The requested resource could not be found" ? (
             <div>Error fetching data: {(error as AxiosError).message}</div>
           ) : (
             <DataTable
