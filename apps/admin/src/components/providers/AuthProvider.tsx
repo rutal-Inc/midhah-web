@@ -31,7 +31,7 @@ export default function AuthProvider({
   useEffect(() => {
     const initializeAuth = async () => {
       const hasLegacyToken =
-        typeof window !== "undefined" &&
+        globalThis.window !== undefined &&
         (localStorage.getItem("token") || localStorage.getItem("authToken"));
 
       if (hasLegacyToken) {

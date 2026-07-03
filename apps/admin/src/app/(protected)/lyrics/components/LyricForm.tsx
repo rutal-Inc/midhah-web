@@ -94,7 +94,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
     defaultValues: {
       title: "",
       slug: "",
-      lyrics: "",
+      content: "",
       transliteratedContent: "",
       genre: "",
       languageIDs: [],
@@ -173,7 +173,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
         await editLyric(data, urlSlug);
         toast.success("Lyrics edited successfully!");
         reset(data);
-        if (activeStep === 1 && defaultValues?.lyrics !== data.lyrics) {
+        if (activeStep === 1 && defaultValues?.content !== data.content) {
           setIsOpen(true);
         } else {
           router.push(`/lyrics`);
@@ -430,18 +430,18 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       htmlFor="lyrics"
                       className="block text-sm leading-6 font-medium text-gray-900"
                     >
-                      Lyrics
+                      Lyrics Content
                     </label>
                     <div className="mt-2">
                       <textarea
-                        id="lyrics"
-                        {...register("lyrics")}
+                        id="content"
+                        {...register("content")}
                         className={`focus:ring-primary block h-58 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-lg sm:leading-8 ${noto_nastaliq_urdu.className}`}
                         dir="auto"
                       />
-                      {errors.lyrics && (
+                      {errors.content && (
                         <p className="mt-2 text-sm text-red-600">
-                          {errors.lyrics.message}
+                          {errors.content.message}
                         </p>
                       )}
                     </div>

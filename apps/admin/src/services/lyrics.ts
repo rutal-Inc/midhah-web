@@ -62,7 +62,7 @@ const createLyric = async (formData: LyricFormData) => {
     const response = await api.post("/lyrics", {
       title: formData.title.trim(),
       slug: formData.slug,
-      lyrics: formData.lyrics.trim(),
+      content: formData.content.trim(),
       genre: formData.genre,
       poetID: formData.poetID,
       isPublished: formData.isPublished,
@@ -79,7 +79,7 @@ const editLyric = async (formData: LyricFormData, slug: string) => {
     const response = await api.put(`/lyrics/${slug}`, {
       title: formData.title.trim(),
       slug: formData.slug,
-      lyrics: formData.lyrics.trim(),
+      content: formData.content.trim(),
       transliteratedContent:
         formData.transliteratedContent?.trim() || undefined,
       genre: formData.genre,

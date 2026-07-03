@@ -26,7 +26,7 @@ const EditLyrics: React.FC = () => {
         const {
           id,
           title,
-          lyrics,
+          content,
           slug,
           genre,
           isPublished,
@@ -38,7 +38,7 @@ const EditLyrics: React.FC = () => {
           id,
           title,
           slug,
-          lyrics: lyrics ?? "",
+          content: content ?? "",
           genre,
           isPublished,
           poetID: poetID || undefined,

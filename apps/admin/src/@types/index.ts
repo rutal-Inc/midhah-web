@@ -2,7 +2,7 @@ export type Lyric = {
   id: number;
   title: string;
   preview?: string;
-  lyrics?: string;
+  content?: string;
   genre: string;
   slug: string;
   isPublished: boolean;
@@ -20,7 +20,7 @@ export type LyricSlugs = {
 export type LyricFormData = {
   title: string;
   slug: string;
-  lyrics: string;
+  content: string;
   transliteratedContent?: string;
   genre: string;
   poetID?: number;

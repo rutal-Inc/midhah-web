@@ -3,10 +3,10 @@ import { z } from "zod";
 export const lyricSchema = z.object({
   title: z.string().min(1, "Title is required").max(100, "Title is too long"),
   slug: z.string().min(1, "Slug is required").max(100, "Slug is too long"),
-  lyrics: z
+  content: z
     .string()
-    .min(1, "Lyrics is required")
-    .max(100000, "Lyrics is too long"),
+    .min(1, "Lyrics content is required")
+    .max(100000, "Lyrics content is too long"),
   genre: z.string().min(1, "Genre is required").max(100, "Genre is too long"),
   languageIDs: z.array(z.number()).min(1, "Select at least one language"),
   poetID: z.number().optional(),
@@ -18,10 +18,10 @@ export const editLyricSchema = z.object({
   id: z.number().min(1, "ID is required").optional(),
   title: z.string().min(1, "Title is required").max(100, "Title is too long"),
   slug: z.string().min(1, "Slug is required").max(100, "Slug is too long"),
-  lyrics: z
+  content: z
     .string()
-    .min(1, "Lyrics is required")
-    .max(100000, "Lyrics is too long"),
+    .min(1, "Lyrics content is required")
+    .max(100000, "Lyrics content is too long"),
   transliteratedContent: z
     .string()
     .min(1, "Transliterated lyrics is required")
