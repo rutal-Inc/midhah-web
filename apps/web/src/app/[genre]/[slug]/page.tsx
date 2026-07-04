@@ -89,7 +89,7 @@ export default async function LyricsPage({
     notFound();
   }
 
-  const lyricsChunks = lyric.lyrics ? lyric.lyrics.split("\n\n") : [];
+  const lyricsChunks = lyric.content ? lyric.content.split("\n\n") : [];
   // eslint-disable-next-line react-hooks/purity
   let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
   if (randomIndex === 1) {

@@ -3,7 +3,7 @@ export default interface Lyrics {
   title: string;
   genre: string;
   preview: string;
-  lyrics?: string;
+  content?: string;
   slug: string;
   poet: {
     name: string;
@@ -15,7 +15,7 @@ export interface FilteredLyrics {
   title: string;
   genre: string;
   preview: string;
-  lyrics?: string;
+  content?: string;
   slug: string;
   poet?: string;
 }
