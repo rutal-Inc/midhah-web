@@ -4,6 +4,8 @@ import { getPageGenre } from "@/src/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
 import { Params } from "./@types";
 
+export const runtime = "edge";
+
 export const size = {
   width: 1200,
   height: 630,
