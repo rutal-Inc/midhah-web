@@ -6,6 +6,7 @@ let failedQueue: {
   resolve: (token: string) => void;
   reject: (err: unknown) => void;
 }[] = [];
+let hasRedirected = false;
 
 const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
@@ -33,16 +34,19 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const isRefreshCall = originalRequest.url?.includes("/auth/refresh");
+    const hadToken = Boolean(useAuthStore.getState().accessToken);
 
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      !isRefreshCall
+      !isRefreshCall &&
+      hadToken
     ) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         }).then((token) => {
+          originalRequest._retry = true;
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
           return api(originalRequest);
         });
@@ -66,7 +70,10 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         useAuthStore.getState().setAccessToken(null);
-        globalThis.location.href = "/login";
+        if (!hasRedirected) {
+          hasRedirected = true;
+          globalThis.location.href = "/login";
+        }
         throw refreshError;
       } finally {
         isRefreshing = false;
