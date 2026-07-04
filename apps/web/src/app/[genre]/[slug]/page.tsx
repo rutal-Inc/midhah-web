@@ -64,10 +64,12 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      siteName: "Midhah Lyrics",
     },
     twitter: {
       title,
       description,
+      card: "summary_large_image",
     },
     alternates: {
       canonical: `${WEB_BASE_URL}/${genre}/${slug}`,
