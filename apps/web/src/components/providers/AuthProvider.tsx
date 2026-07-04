@@ -1,6 +1,5 @@
 "use client";
 
-import { logout } from "@/src/service/auth";
 import { useCollectionStore } from "@/src/store/useCollectionStore";
 import api from "@midhah/utils/axios";
 import { auth as firebaseAuth } from "@midhah/utils/firebase";
@@ -27,13 +26,13 @@ export default function AuthProvider({
   const fullLogout = useCallback(async () => {
     try {
       await signOut(firebaseAuth);
-      logout();
-    } finally {
       clearAuth();
+    } finally {
+      setAccessToken(null);
       setUser(null);
       reset();
     }
-  }, [clearAuth, setUser, reset]);
+  }, [clearAuth, setAccessToken, setUser, reset]);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -55,7 +54,7 @@ export default function AuthProvider({
         }
       } catch {
         setUser(null);
-        clearAuth();
+        setAccessToken(null);
       } finally {
         setInitialized(true);
       }

@@ -37,6 +37,7 @@ export default function AuthProvider({
       if (hasLegacyToken) {
         localStorage.removeItem("token");
         toast.error("Unauthorized profile detected. Please log in.");
+        await fullLogout();
       }
 
       try {
@@ -53,7 +54,7 @@ export default function AuthProvider({
         }
       } catch {
         setUser(null);
-        logout();
+        setAccessToken(null);
       } finally {
         setInitialized(true);
       }
