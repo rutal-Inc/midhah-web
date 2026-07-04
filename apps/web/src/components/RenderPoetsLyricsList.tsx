@@ -20,7 +20,11 @@ export default async function RenderPoetsLyricsList({
     .then((response) => {
       return response.json();
     })
-    .then((data) => data.data);
+    .then((data) => data.data)
+    .catch((error) => {
+      console.error("Error fetching lyrics:", error);
+      return [];
+    });
 
   const groupedLyrics: { letter: string; lyrics: Lyrics[] }[] = [];
 
