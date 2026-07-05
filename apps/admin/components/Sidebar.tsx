@@ -6,7 +6,7 @@ import { useUserStore } from "@midhah/utils/useUserStore";
 import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { SidebarLinks } from "../constants";
@@ -21,8 +21,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, setUser } = useUserStore();
   const { logout } = useAuthStore();
-
-  if (!user) redirect("/login");
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
