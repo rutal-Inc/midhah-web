@@ -1,5 +1,5 @@
+import heroBg from "@/public/images/hero-bg.png";
 import Image from "next/image";
-import heroBg from "../assets/images/hero-bg.jpg";
 import GooglePlayBadge from "./GooglePlayBadge";
 
 const Jumbotron = () => {
