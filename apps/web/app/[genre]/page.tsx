@@ -3,6 +3,7 @@ import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize, getPageGenre } from "@/utilities/helpers";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
+import { preload } from "react-dom";
 
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
@@ -32,7 +33,10 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
 type Params = {
   readonly params: Promise<{ genre: string }>;
 };
+
 export default async function GenreListPage(props: Params) {
+  preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
+
   const params = await props.params;
   const genreSlug = params.genre;
 
@@ -54,7 +58,7 @@ export default async function GenreListPage(props: Params) {
         className="card relative mb-5 overflow-hidden md:rounded-[10px]"
         style={{ background: genreInfo?.color }}
       >
-        <div className="py-[60px] text-center md:py-[150px]">
+        <div className="py-15 text-center md:py-37.5">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">
             {genreInfo?.title}
           </h1>

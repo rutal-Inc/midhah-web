@@ -11,6 +11,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
+import { preload } from "react-dom";
 import { Params } from "./@types";
 import LyricsDialogClient from "./LyricsDialogClient";
 
@@ -79,6 +80,8 @@ export async function generateMetadata({
 export default async function LyricsPage({
   params,
 }: Readonly<{ params: Params }>) {
+  preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
+
   const { slug, genre } = await params;
   const genreInfo = getPageGenre(genre);
   const lyric = await getLyricsViaGenreSlug(slug, genre);
