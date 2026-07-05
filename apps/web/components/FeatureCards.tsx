@@ -8,7 +8,7 @@ import searchScreen from "../assets/screenshots/search-screen.jpeg";
 export default function FeatureCards() {
   return (
     <div className="bg-floral-frame overflow-hidden">
-      <div className="mx-auto py-10 pt-10 md:px-[70px] md:pt-14 2xl:container">
+      <div className="mx-auto py-10 pt-10 md:px-17.5 md:pt-14 2xl:container">
         <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">
           Discover Uncharted Devotion
         </h2>
