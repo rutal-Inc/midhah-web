@@ -36,7 +36,7 @@
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
     "tailwindcss": "catalog:",
-    "turbo": "^2.9.18",
+    "turbo": "^2.10.3",
     "typescript": "catalog:"
   }
 }
