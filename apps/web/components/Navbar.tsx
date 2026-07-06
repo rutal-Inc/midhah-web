@@ -17,7 +17,7 @@ import Search from "./Search";
 function Navbar() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const { accessToken, logout } = useAuthStore();
+  const { accessToken, logout, isInitialized } = useAuthStore();
   const { user, setUser } = useUserStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -66,10 +66,11 @@ function Navbar() {
                 </ActiveLink>
               </div>
               {accessToken && user ? (
-                <Popover className="relative">
+                <Popover className={`relative`}>
                   <PopoverButton
-                    className="align-middle focus-within:outline-0"
+                    className={`align-middle focus-within:outline-0 ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
                     title={`${user.name}`}
+                    disabled={!isInitialized}
                   >
                     <Image
                       src={user.displayPicture}
@@ -103,10 +104,11 @@ function Navbar() {
                 </Popover>
               ) : (
                 <button
-                  className="btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white"
+                  className={`btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
                   onClick={() => {
                     setIsLoginDialogOpen(true);
                   }}
+                  disabled={!isInitialized}
                 >
                   Login
                 </button>

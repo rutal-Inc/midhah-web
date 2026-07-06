@@ -7,19 +7,13 @@ import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
 import { signOut } from "firebase/auth";
 import { useCallback, useEffect } from "react";
-import Loader from "../Loader";
 
 export default function AuthProvider({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {
-    setAccessToken,
-    logout: clearAuth,
-    isInitialized,
-    setInitialized,
-  } = useAuthStore();
+  const { setAccessToken, logout: clearAuth, setInitialized } = useAuthStore();
   const { setUser } = useUserStore();
   const { reset } = useCollectionStore();
 
@@ -62,10 +56,6 @@ export default function AuthProvider({
 
     initializeAuth();
   }, [setAccessToken, setUser, clearAuth, fullLogout, setInitialized]);
-
-  if (!isInitialized) {
-    return <Loader />;
-  }
 
   return <>{children}</>;
 }
