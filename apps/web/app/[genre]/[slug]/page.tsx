@@ -1,5 +1,6 @@
 import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/service";
 import { AppPromoBanner } from "@/components/AppPromoBanner";
+import Loader from "@/components/Loader";
 import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import ViewCount from "@/components/ViewCount";
 import BannerAd from "@/components/ads/AdSense_BannerAd";
@@ -10,7 +11,7 @@ import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import { preload } from "react-dom";
 import { Params } from "./@types";
 import LyricsDialogClient from "./LyricsDialogClient";
@@ -147,12 +148,14 @@ export default async function LyricsPage({
       </div>
       <LyricsDialogClient lyricId={lyric.id} />
       {lyric.poet?.slug && (
-        <RenderPoetLyrics
-          size={6}
-          poetname={lyric.poet.name}
-          poetslug={lyric.poet.slug}
-          exclude={slug}
-        />
+        <Suspense fallback={<Loader />}>
+          <RenderPoetLyrics
+            size={6}
+            poetname={lyric.poet.name}
+            poetslug={lyric.poet.slug}
+            exclude={slug}
+          />
+        </Suspense>
       )}
       <ViewCount entityId={lyric.id} entityType="LYRICS" />
     </div>

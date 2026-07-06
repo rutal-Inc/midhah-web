@@ -6,11 +6,9 @@ import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
-import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
 import ClientWrapper from "../components/ClientWrapper";
-import Loader from "../components/Loader";
 import AuthProvider from "../components/providers/AuthProvider";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
@@ -66,13 +64,11 @@ export default function RootLayout({
             <GoogleAnalytics GA_TRACKING_ID={NEXT_PUBLIC_GA_TRACKING_ID} />
           )}
           <Theme>
-            <Suspense fallback={<Loader />}>
-              <ClientWrapper />
-              <AdBanner />
-              <Navbar />
-              {children}
-              <Footer />
-            </Suspense>
+            <ClientWrapper />
+            <AdBanner />
+            <Navbar />
+            {children}
+            <Footer />
           </Theme>
         </AuthProvider>
         <Toaster />

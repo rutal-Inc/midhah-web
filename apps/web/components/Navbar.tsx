@@ -8,7 +8,7 @@ import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useCollectionStore } from "../store/useCollectionStore";
 import CollectionDialog from "./CollectionDialog";
 import LoginDialog from "./LoginDialog";
@@ -17,7 +17,7 @@ import Search from "./Search";
 function Navbar() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const { accessToken, logout } = useAuthStore();
+  const { accessToken, logout, isInitialized } = useAuthStore();
   const { user, setUser } = useUserStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -54,7 +54,9 @@ function Navbar() {
           <div
             className={`flex ${showSearch ? "w-full justify-center" : "w-[70%] pl-8 max-[520px]:justify-end sm:pl-2"} items-center justify-between gap-3`}
           >
-            <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+            <Suspense fallback={null}>
+              <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+            </Suspense>
 
             <div
               className={`${showSearch ? "max-[520px]:hidden" : "max-[520px]:block"} flex gap-3`}
@@ -66,10 +68,11 @@ function Navbar() {
                 </ActiveLink>
               </div>
               {accessToken && user ? (
-                <Popover className="relative">
+                <Popover className={`relative`}>
                   <PopoverButton
-                    className="align-middle focus-within:outline-0"
+                    className={`align-middle focus-within:outline-0 ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
                     title={`${user.name}`}
+                    disabled={!isInitialized}
                   >
                     <Image
                       src={user.displayPicture}
@@ -103,10 +106,11 @@ function Navbar() {
                 </Popover>
               ) : (
                 <button
-                  className="btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white"
+                  className={`btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
                   onClick={() => {
                     setIsLoginDialogOpen(true);
                   }}
+                  disabled={!isInitialized}
                 >
                   Login
                 </button>

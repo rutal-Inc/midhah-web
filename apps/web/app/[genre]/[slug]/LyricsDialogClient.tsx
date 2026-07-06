@@ -15,7 +15,7 @@ export default function LyricsDialogClient({
   lyricId,
 }: Readonly<LyricsDialogClientProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { accessToken } = useAuthStore();
+  const { accessToken, isInitialized } = useAuthStore();
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const { currentLyricId, collectionIds } = useCollectionStore();
@@ -31,7 +31,8 @@ export default function LyricsDialogClient({
 
             setIsOpen(true);
           }}
-          className="btn-secondary flex max-w-65 cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2"
+          disabled={!isInitialized}
+          className={`btn-secondary flex max-w-65 cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2 ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
         >
           {currentLyricId === lyricId && collectionIds.length > 0 ? (
             <>

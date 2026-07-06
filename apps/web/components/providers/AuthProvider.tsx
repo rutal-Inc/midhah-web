@@ -7,19 +7,20 @@ import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
 import { signOut } from "firebase/auth";
 import { useCallback, useEffect } from "react";
-import Loader from "../Loader";
+
+function hasSessionCookie(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c.startsWith("hasSession=true"));
+}
 
 export default function AuthProvider({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {
-    setAccessToken,
-    logout: clearAuth,
-    isInitialized,
-    setInitialized,
-  } = useAuthStore();
+  const { setAccessToken, logout: clearAuth, setInitialized } = useAuthStore();
   const { setUser } = useUserStore();
   const { reset } = useCollectionStore();
 
@@ -44,6 +45,13 @@ export default function AuthProvider({
         fullLogout();
       }
 
+      if (!hasSessionCookie()) {
+        setAccessToken(null);
+        setUser(null);
+        setInitialized(true);
+        return;
+      }
+
       try {
         const res = await api.post("/auth/refresh");
 
@@ -62,10 +70,6 @@ export default function AuthProvider({
 
     initializeAuth();
   }, [setAccessToken, setUser, clearAuth, fullLogout, setInitialized]);
-
-  if (!isInitialized) {
-    return <Loader />;
-  }
 
   return <>{children}</>;
 }

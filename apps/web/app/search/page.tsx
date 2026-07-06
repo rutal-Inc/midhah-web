@@ -4,10 +4,10 @@ import Loader from "@/components/Loader";
 import LyricCard from "@/components/LyricCard";
 import { FilteredLyrics } from "@/models/Lyrics";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useLyricsStore } from "../../store/useLyricsStore";
 
-export default function Search() {
+function SearchInner() {
   const searchParams = useSearchParams();
 
   const query = searchParams.get("query");
@@ -73,5 +73,13 @@ export default function Search() {
         {isLoading && <Loader />}
       </main>
     </div>
+  );
+}
+
+export default function Search() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <SearchInner />
+    </Suspense>
   );
 }
