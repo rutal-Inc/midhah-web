@@ -6,7 +6,7 @@ import { useUserStore } from "@midhah/utils/useUserStore";
 import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { SidebarLinks } from "../constants";
@@ -21,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, setUser } = useUserStore();
   const { logout } = useAuthStore();
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -29,9 +30,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      await logout();
       setUser(null);
-      logout();
-      globalThis.location.href = "/login";
+      router.push("/login");
     } catch (error) {
       toast.error(`Logout failed: ${error}`);
     }

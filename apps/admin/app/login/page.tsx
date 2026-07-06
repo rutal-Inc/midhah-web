@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/Loader";
 import parseJwt from "@midhah/utils/decodeJWT";
 import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
@@ -8,13 +9,20 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
-  const { setAccessToken } = useAuthStore();
+  const { setAccessToken, accessToken, isInitialized } = useAuthStore();
   const { setUser } = useUserStore();
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (isInitialized && accessToken) {
+      router.replace("/");
+    }
+  }, [isInitialized, accessToken, router]);
 
   const handleGoogleLogin = async (): Promise<void> => {
     try {
@@ -54,6 +62,10 @@ const LoginPage = () => {
       toast.error(`Login Error: ${errorMessage}`);
     }
   };
+
+  if (!isInitialized || accessToken) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex items-center justify-center">
