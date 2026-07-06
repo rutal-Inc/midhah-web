@@ -9,6 +9,13 @@ import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 import Loader from "../Loader";
 
+function hasSessionCookie(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c.startsWith("hasSession=true"));
+}
+
 export default function AuthProvider({
   children,
 }: Readonly<{
@@ -38,6 +45,13 @@ export default function AuthProvider({
         localStorage.removeItem("token");
         toast.error("Unauthorized profile detected. Please log in.");
         await fullLogout();
+      }
+
+      if (!hasSessionCookie()) {
+        setAccessToken(null);
+        setUser(null);
+        setInitialized(true);
+        return;
       }
 
       try {

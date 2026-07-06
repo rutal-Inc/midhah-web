@@ -8,6 +8,13 @@ import { useUserStore } from "@midhah/utils/useUserStore";
 import { signOut } from "firebase/auth";
 import { useCallback, useEffect } from "react";
 
+function hasSessionCookie(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c.startsWith("hasSession=true"));
+}
+
 export default function AuthProvider({
   children,
 }: Readonly<{
@@ -36,6 +43,13 @@ export default function AuthProvider({
       ) {
         localStorage.removeItem("authToken");
         fullLogout();
+      }
+
+      if (!hasSessionCookie()) {
+        setAccessToken(null);
+        setUser(null);
+        setInitialized(true);
+        return;
       }
 
       try {
