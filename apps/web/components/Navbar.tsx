@@ -8,7 +8,7 @@ import { signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useCollectionStore } from "../store/useCollectionStore";
 import CollectionDialog from "./CollectionDialog";
 import LoginDialog from "./LoginDialog";
@@ -54,7 +54,9 @@ function Navbar() {
           <div
             className={`flex ${showSearch ? "w-full justify-center" : "w-[70%] pl-8 max-[520px]:justify-end sm:pl-2"} items-center justify-between gap-3`}
           >
-            <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+            <Suspense fallback={null}>
+              <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+            </Suspense>
 
             <div
               className={`${showSearch ? "max-[520px]:hidden" : "max-[520px]:block"} flex gap-3`}
