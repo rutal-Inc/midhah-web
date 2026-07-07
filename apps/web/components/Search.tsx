@@ -125,7 +125,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
   return (
     <>
       <div
-        className={`relative ${showSearch ? "my-2 w-[100%] focus-within:w-screen max-[520px]:flex" : "max-[520px]:hidden"} w-[100%] items-center gap-[2px] rounded-md border border-gray-300 px-1 py-0.5 transition-all focus-within:w-[70%] focus-within:rounded-t-md focus-within:border-gray-800 min-[520px]:flex min-[520px]:w-[64%] md:pr-7 md:focus-within:w-[68%] lg:w-[62%] lg:px-2.5 lg:focus-within:w-[64%] xl:w-[50%] xl:focus-within:w-[60%]`}
+        className={`relative ${showSearch ? "my-2 w-full focus-within:w-screen max-[520px]:flex" : "max-[520px]:hidden"} w-full items-center gap-0.5 rounded-md border border-gray-300 px-1 py-0.5 transition-all focus-within:w-[70%] focus-within:rounded-t-md focus-within:border-gray-800 min-[520px]:flex min-[520px]:w-[64%] md:pr-7 md:focus-within:w-[68%] lg:w-[62%] lg:px-2.5 lg:focus-within:w-[64%] xl:w-[50%] xl:focus-within:w-[60%]`}
       >
         <input
           ref={inputRef}
@@ -162,7 +162,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
           }}
         ></button>
         <ul
-          className={`${listDisplay ? "absolute" : "hidden"} top-11.5 left-[1px] z-9999 w-full rounded-b-md border border-gray-800 bg-white`}
+          className={`${listDisplay ? "absolute" : "hidden"} top-11.5 left-px z-9999 w-full rounded-b-md border border-gray-800 bg-white`}
         >
           {searchInput.length > 0 ? (
             <>

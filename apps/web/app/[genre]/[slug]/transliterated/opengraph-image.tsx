@@ -1,9 +1,9 @@
 import { getLyrics } from "@/app/[genre]/[slug]/_lib/service";
 import { getPageGenre } from "@/utilities/helpers";
-import OgImage from "./_components/OgImage";
-import { Params } from "./_lib/types";
+import OgImage from "../_components/OgImage";
+import { Params } from "../_lib/types";
 
-export { OG_IMAGE_SIZE as size } from "./_components/OgImage";
+export { OG_IMAGE_SIZE as size } from "../_components/OgImage";
 
 export const runtime = "edge";
 export const contentType = "image/png";

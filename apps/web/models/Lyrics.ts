@@ -23,3 +23,16 @@ export interface SuggestionLyrics {
   title: string;
   icon: string;
 }
+
+export interface TransliteratedLyrics {
+  id: number;
+  title: string;
+  genre: string;
+  preview: string;
+  transliteratedContent?: string;
+  slug: string;
+  poet: {
+    name: string;
+    slug?: string;
+  };
+}

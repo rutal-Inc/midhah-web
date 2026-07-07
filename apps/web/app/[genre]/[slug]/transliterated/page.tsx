@@ -1,12 +1,12 @@
-import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/service";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
-import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
+import { montserrat } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import LyricsChunks from "./_components/LyricsChunks";
-import { getLyricsStaticParams } from "./_lib/generateStaticParams";
-import { Params } from "./_lib/types";
+import LyricsChunks from "../_components/LyricsChunks";
+import { getLyricsStaticParams } from "../_lib/generateStaticParams";
+import { getTransliteratedLyricsViaGenreSlug } from "../_lib/service";
+import { Params } from "../_lib/types";
 
 export async function generateStaticParams() {
   return getLyricsStaticParams();
@@ -18,13 +18,13 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug, genre } = await params;
-  const lyric = await getLyricsViaGenreSlug(slug, genre);
+  const lyric = await getTransliteratedLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();
   }
 
-  const title = `${lyric.title.trim()} in Urdu (${capitalize(
+  const title = `${lyric.title.trim()} in Roman Urdu (${capitalize(
     lyric.genre,
     "-",
   )}) | Midhah Lyrics`;
@@ -45,7 +45,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     alternates: {
-      canonical: `${WEB_BASE_URL}/${genre}/${slug}`,
+      canonical: `${WEB_BASE_URL}/${genre}/${slug}/transliterated`,
     },
   };
 }
@@ -54,13 +54,15 @@ export default async function LyricsPage({
   params,
 }: Readonly<{ params: Params }>) {
   const { slug, genre } = await params;
-  const lyric = await getLyricsViaGenreSlug(slug, genre);
+  const lyric = await getTransliteratedLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();
   }
 
-  const lyricsChunks = lyric.content ? lyric.content.split("\n\n") : [];
+  const lyricsChunks = lyric.transliteratedContent
+    ? lyric.transliteratedContent.split("\n\n")
+    : [];
   // eslint-disable-next-line react-hooks/purity
   let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
   if (randomIndex === 1) {
@@ -69,9 +71,9 @@ export default async function LyricsPage({
 
   return (
     <LyricsChunks
-      content={lyric.content}
-      className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
-      textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
+      content={lyric.transliteratedContent}
+      className={`${montserrat.className} py-10 pb-16 text-center`}
+      textClassName="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5"
     />
   );
 }
