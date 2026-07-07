@@ -1,21 +1,21 @@
-import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/lyricsService";
+import { getTransliteratedLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/transliteratedLyricsService";
+import BannerAd from "@/components/ads/AdSense_BannerAd";
 import { AppPromoBanner } from "@/components/AppPromoBanner";
 import Loader from "@/components/Loader";
 import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import ViewCount from "@/components/ViewCount";
-import BannerAd from "@/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize, getPageGenre } from "@/utilities/helpers";
-import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
+import { montserrat } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 import { preload } from "react-dom";
-import LyricsDialogClient from "./LyricsDialogClient";
-import LyricsViewToggle from "./LyricsViewToggle";
-import { getLyricsStaticParams } from "./_lib/generateStaticParams";
-import { Params } from "./types";
+import { getLyricsStaticParams } from "../_lib/generateStaticParams";
+import LyricsDialogClient from "../LyricsDialogClient";
+import LyricsViewToggle from "../LyricsViewToggle";
+import { Params } from "../types";
 
 export async function generateStaticParams() {
   return getLyricsStaticParams();
@@ -27,13 +27,13 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug, genre } = await params;
-  const lyric = await getLyricsViaGenreSlug(slug, genre);
+  const lyric = await getTransliteratedLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();
   }
 
-  const title = `${lyric.title.trim()} in Urdu (${capitalize(
+  const title = `${lyric.title.trim()} in Roman Urdu (${capitalize(
     lyric.genre,
     "-",
   )}) | Midhah Lyrics`;
@@ -54,7 +54,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     alternates: {
-      canonical: `${WEB_BASE_URL}/${genre}/${slug}`,
+      canonical: `${WEB_BASE_URL}/${genre}/${slug}/transliterated`,
     },
   };
 }
@@ -66,13 +66,15 @@ export default async function LyricsPage({
 
   const { slug, genre } = await params;
   const genreInfo = getPageGenre(genre);
-  const lyric = await getLyricsViaGenreSlug(slug, genre);
+  const lyric = await getTransliteratedLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();
   }
 
-  const lyricsChunks = lyric.content ? lyric.content.split("\n\n") : [];
+  const lyricsChunks = lyric.transliteratedContent
+    ? lyric.transliteratedContent.split("\n\n")
+    : [];
   // eslint-disable-next-line react-hooks/purity
   let randomIndex = Math.floor(Math.random() * (lyricsChunks.length - 1));
   if (randomIndex === 1) {
@@ -100,16 +102,15 @@ export default async function LyricsPage({
           )}
         </div>
       </div>
-      <LyricsViewToggle genre={genre} slug={slug} active="lyrics" />
+      <LyricsViewToggle genre={genre} slug={slug} active="transliterated" />
+
       <div className="py-10 text-center">
         <BannerAd adSlot="8493724848" adFormat="auto" />
       </div>
-      <div
-        className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
-      >
+      <div className={`${montserrat.className} py-10 pb-16 text-center`}>
         {lyricsChunks.map((part, index) => (
           <React.Fragment key={Number(index)}>
-            <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5">
+            <p className="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5">
               {part.trim()}
             </p>
 

@@ -2,7 +2,7 @@ import { getLyrics } from "@/app/[genre]/[slug]/_lib/lyricsService";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { getPageGenre } from "@/utilities/helpers";
 import { ImageResponse } from "@vercel/og";
-import { Params } from "./types";
+import { Params } from "../types";
 
 export const runtime = "edge";
 
