@@ -1,21 +1,13 @@
 import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/lyricsService";
 import { AppPromoBanner } from "@/components/AppPromoBanner";
-import Loader from "@/components/Loader";
-import RenderPoetLyrics from "@/components/RenderPoetLyrics";
-import ViewCount from "@/components/ViewCount";
-import BannerAd from "@/components/ads/AdSense_BannerAd";
 import { WEB_BASE_URL } from "@/utilities/constants";
-import { capitalize, getPageGenre } from "@/utilities/helpers";
+import { capitalize } from "@/utilities/helpers";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { Suspense } from "react";
-import { preload } from "react-dom";
-import LyricsDialogClient from "./LyricsDialogClient";
-import LyricsViewToggle from "./LyricsViewToggle";
+import { Fragment } from "react";
 import { getLyricsStaticParams } from "./_lib/generateStaticParams";
-import { Params } from "./types";
+import { Params } from "./_lib/types";
 
 export async function generateStaticParams() {
   return getLyricsStaticParams();
@@ -62,10 +54,7 @@ export async function generateMetadata({
 export default async function LyricsPage({
   params,
 }: Readonly<{ params: Params }>) {
-  preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
-
   const { slug, genre } = await params;
-  const genreInfo = getPageGenre(genre);
   const lyric = await getLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
@@ -80,66 +69,27 @@ export default async function LyricsPage({
   }
 
   return (
-    <div className="relative container mx-auto w-full md:w-[85%]">
-      <div
-        className="card relative overflow-hidden md:rounded-[10px]"
-        style={{ background: genreInfo?.color }}
-      >
-        <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">
-            {lyric.title}
-          </h1>
-          {lyric.poet && (
-            <Link
-              href={`/poets/${lyric.poet?.slug}`}
-              prefetch={false}
-              className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl"
-            >
-              <h2 className="mt-2">{lyric.poet.name}</h2>
-            </Link>
+    <div className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}>
+      {lyricsChunks.map((part, index) => (
+        <Fragment key={Number(index)}>
+          <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5">
+            {part.trim()}
+          </p>
+
+          {index === randomIndex && (
+            <>
+              <br />
+              <AppPromoBanner />
+            </>
           )}
-        </div>
-      </div>
-      <LyricsViewToggle genre={genre} slug={slug} active="lyrics" />
-      <div className="py-10 text-center">
-        <BannerAd adSlot="8493724848" adFormat="auto" />
-      </div>
-      <div
-        className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
-      >
-        {lyricsChunks.map((part, index) => (
-          <React.Fragment key={Number(index)}>
-            <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5">
-              {part.trim()}
+
+          {index < lyricsChunks.length - 1 && (
+            <p>
+              <br />
             </p>
-
-            {index === randomIndex && (
-              <>
-                <br />
-                <AppPromoBanner />
-              </>
-            )}
-
-            {index < lyricsChunks.length - 1 && (
-              <p>
-                <br />
-              </p>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-      <LyricsDialogClient lyricId={lyric.id} />
-      {lyric.poet?.slug && (
-        <Suspense fallback={<Loader />}>
-          <RenderPoetLyrics
-            size={6}
-            poetname={lyric.poet.name}
-            poetslug={lyric.poet.slug}
-            exclude={slug}
-          />
-        </Suspense>
-      )}
-      <ViewCount entityId={lyric.id} entityType="LYRICS" />
+          )}
+        </Fragment>
+      ))}
     </div>
   );
 }

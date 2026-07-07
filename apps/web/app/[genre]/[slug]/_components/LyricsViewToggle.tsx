@@ -1,14 +1,19 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function LyricsViewToggle({
   genre,
   slug,
-  active,
 }: Readonly<{
   genre: string;
   slug: string;
-  active: "lyrics" | "transliterated";
 }>) {
+  const pathname = usePathname();
+  const active = pathname.endsWith("/transliterated")
+    ? "transliterated"
+    : "lyrics";
+
   const tabs = [
     { key: "lyrics", label: "Urdu Version", href: `/${genre}/${slug}` },
     {
@@ -25,6 +30,7 @@ export default function LyricsViewToggle({
           key={tab.key}
           href={tab.href}
           prefetch={false}
+          scroll={false}
           className={`w-full px-5 py-2 text-center text-sm font-medium transition ${index === 0 ? "md:rounded-l-lg" : "md:rounded-r-lg"} ${
             active === tab.key
               ? "bg-teal-700 text-white"
