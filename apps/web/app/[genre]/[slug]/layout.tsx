@@ -1,4 +1,3 @@
-import { getTransliteratedLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/transliteratedLyricsService";
 import BannerAd from "@/components/ads/AdSense_BannerAd";
 import Loader from "@/components/Loader";
 import RenderPoetLyrics from "@/components/RenderPoetLyrics";
@@ -10,6 +9,7 @@ import React, { Suspense } from "react";
 import { preload } from "react-dom";
 import LyricsDialogClient from "./_components/LyricsDialogClient";
 import LyricsViewToggle from "./_components/LyricsViewToggle";
+import { getLyricsViaGenreSlug } from "./_lib/service";
 import { Params } from "./_lib/types";
 
 export default async function Layout({
@@ -23,7 +23,7 @@ export default async function Layout({
 
   const { slug, genre } = await params;
   const genreInfo = getPageGenre(genre);
-  const lyric = await getTransliteratedLyricsViaGenreSlug(slug, genre);
+  const lyric = await getLyricsViaGenreSlug(slug, genre);
 
   if (!lyric) {
     notFound();

@@ -1,4 +1,4 @@
-import { getLyrics } from "@/app/[genre]/[slug]/_lib/lyricsService";
+import { getLyrics } from "@/app/[genre]/[slug]/_lib/service";
 import { getPageGenre } from "@/utilities/helpers";
 import OgImage from "./_components/OgImage";
 import { Params } from "./_lib/types";

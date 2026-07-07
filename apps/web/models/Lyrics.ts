@@ -24,7 +24,7 @@ export interface SuggestionLyrics {
   icon: string;
 }
 
-export default interface TransliteratedLyrics {
+export interface TransliteratedLyrics {
   id: number;
   title: string;
   genre: string;

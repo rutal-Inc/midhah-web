@@ -1,11 +1,10 @@
-import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/lyricsService";
-import { AppPromoBanner } from "@/components/AppPromoBanner";
+import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/service";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Fragment } from "react";
+import LyricsChunks from "./_components/LyricsChunks";
 import { getLyricsStaticParams } from "./_lib/generateStaticParams";
 import { Params } from "./_lib/types";
 
@@ -69,27 +68,10 @@ export default async function LyricsPage({
   }
 
   return (
-    <div className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}>
-      {lyricsChunks.map((part, index) => (
-        <Fragment key={Number(index)}>
-          <p className="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5">
-            {part.trim()}
-          </p>
-
-          {index === randomIndex && (
-            <>
-              <br />
-              <AppPromoBanner />
-            </>
-          )}
-
-          {index < lyricsChunks.length - 1 && (
-            <p>
-              <br />
-            </p>
-          )}
-        </Fragment>
-      ))}
-    </div>
+    <LyricsChunks
+      content={lyric.content}
+      className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
+      textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
+    />
   );
 }

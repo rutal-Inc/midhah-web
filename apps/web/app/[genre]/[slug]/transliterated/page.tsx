@@ -1,12 +1,11 @@
-import { getTransliteratedLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/transliteratedLyricsService";
-import { AppPromoBanner } from "@/components/AppPromoBanner";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 import { montserrat } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Fragment } from "react";
+import LyricsChunks from "../_components/LyricsChunks";
 import { getLyricsStaticParams } from "../_lib/generateStaticParams";
+import { getTransliteratedLyricsViaGenreSlug } from "../_lib/service";
 import { Params } from "../_lib/types";
 
 export async function generateStaticParams() {
@@ -71,27 +70,10 @@ export default async function LyricsPage({
   }
 
   return (
-    <div className={`${montserrat.className} py-10 pb-16 text-center`}>
-      {lyricsChunks.map((part, index) => (
-        <Fragment key={Number(index)}>
-          <p className="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5">
-            {part.trim()}
-          </p>
-
-          {index === randomIndex && (
-            <>
-              <br />
-              <AppPromoBanner />
-            </>
-          )}
-
-          {index < lyricsChunks.length - 1 && (
-            <p>
-              <br />
-            </p>
-          )}
-        </Fragment>
-      ))}
-    </div>
+    <LyricsChunks
+      content={lyric.transliteratedContent}
+      className={`${montserrat.className} py-10 pb-16 text-center`}
+      textClassName="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5"
+    />
   );
 }
