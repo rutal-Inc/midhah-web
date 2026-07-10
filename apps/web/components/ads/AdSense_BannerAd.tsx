@@ -13,8 +13,7 @@ function BannerAd({ adSlot, adFormat }: Readonly<Props>) {
 
   useEffect(() => {
     try {
-      const adsbygoogle = window.adsbygoogle || [];
-      adsbygoogle.push({});
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (error) {
       console.error("Error while loading banner ad", error);
     }
