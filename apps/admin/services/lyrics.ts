@@ -2,9 +2,11 @@ import { APIResponse, Filters, Lyric, LyricFormData } from "@/@types";
 import api from "@midhah/utils/axios";
 import { extractError } from "../lib/error";
 
-const fetchLyricsSlug = async (slug: string) => {
+const fetchLyricsSlug = async (slug: string, lyricToExclude?: string) => {
   try {
-    const response = await api.get(`/lyrics/slugs/${slug}`);
+    const response = await api.get(
+      `/lyrics/slugs/${slug}?exclude=${lyricToExclude}`,
+    );
     return response.data;
   } catch (error) {
     throw new Error(extractError(error));
@@ -86,6 +88,8 @@ const editLyric = async (formData: LyricFormData, slug: string) => {
       poetID: formData.poetID,
       isPublished: formData.isPublished,
       languageIDs: formData.languageIDs,
+      redirectTo:
+        formData.redirectTo === null ? null : formData.redirectTo || undefined,
     });
     return response.data;
   } catch (error) {

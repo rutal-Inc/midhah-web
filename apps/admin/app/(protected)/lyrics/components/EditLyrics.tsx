@@ -33,6 +33,7 @@ const EditLyrics: React.FC = () => {
           poetID,
           languages,
           transliteratedContent,
+          redirectTo,
         } = response.data;
         setDefaultValues({
           id,
@@ -44,6 +45,7 @@ const EditLyrics: React.FC = () => {
           poetID: poetID || undefined,
           languageIDs: languages?.map((lang: { id: number }) => lang.id) ?? [],
           transliteratedContent: transliteratedContent ?? "",
+          redirectTo: redirectTo ?? "",
         });
       } catch (error) {
         if ((error as AxiosError).status === 401) {
