@@ -18,11 +18,13 @@ export default function LyricsViewToggle({
     {
       key: "original",
       label: "Original",
+      mobileLabel: "Original",
       href: `/${genre}/${slug}`,
     },
     {
       key: "transliterated",
-      label: "Transliterated",
+      label: "Transliterated (Roman English) Version",
+      mobileLabel: "Roman English",
       href: `/${genre}/${slug}/transliterated`,
     },
   ] as const;
@@ -41,7 +43,10 @@ export default function LyricsViewToggle({
               : "bg-gray-100 text-teal-700 hover:bg-gray-200"
           }`}
         >
-          <p>{tab.label}</p>
+          <p>
+            <span className="sm:hidden">{tab.mobileLabel}</span>
+            <span className="hidden sm:inline">{tab.label}</span>
+          </p>
         </Link>
       ))}
     </div>
