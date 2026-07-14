@@ -1,13 +1,10 @@
 import BannerAd from "@/components/ads/AdSense_BannerAd";
-import Loader from "@/components/Loader";
-import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import ViewCount from "@/components/ViewCount";
 import { getPageGenre } from "@/utilities/helpers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { Suspense } from "react";
+import React from "react";
 import { preload } from "react-dom";
-import LyricsDialogClient from "./_components/LyricsDialogClient";
 import LyricsViewToggle from "./_components/LyricsViewToggle";
 import { getLyricsViaGenreSlug } from "./_lib/service";
 import { Params } from "./_lib/types";
@@ -22,6 +19,7 @@ export default async function Layout({
   preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
 
   const { slug, genre } = await params;
+
   const genreInfo = getPageGenre(genre);
   const lyric = await getLyricsViaGenreSlug(slug, genre);
 
@@ -56,17 +54,6 @@ export default async function Layout({
         <BannerAd adSlot="8493724848" adFormat="auto" />
       </div>
       {children}
-      <LyricsDialogClient lyricId={lyric.id} />
-      {lyric.poet?.slug && (
-        <Suspense fallback={<Loader />}>
-          <RenderPoetLyrics
-            size={6}
-            poetname={lyric.poet.name}
-            poetslug={lyric.poet.slug}
-            exclude={slug}
-          />
-        </Suspense>
-      )}
       <ViewCount entityId={lyric.id} entityType="LYRICS" />
     </div>
   );

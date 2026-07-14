@@ -4,7 +4,12 @@ import { capitalizeFirstLetter } from "@/helpers";
 import { extractError } from "@/lib/error";
 import { editLyricSchema, lyricSchema } from "@/schemas/lyrics/schema";
 import { fetchLanguages } from "@/services/languages";
-import { createLyric, editLyric, fetchTranliterate } from "@/services/lyrics";
+import {
+  createLyric,
+  editLyric,
+  fetchLyricsSlug,
+  fetchTranliterate,
+} from "@/services/lyrics";
 import { fetchPoets } from "@/services/poet";
 import { logoutUser } from "@/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,6 +33,11 @@ interface LyricFormProps {
   title: string;
   defaultValues?: Partial<EditFormValues>;
   mode: "create" | "edit";
+}
+
+interface OptionType {
+  label: string;
+  value: string;
 }
 
 const selectStyles = {
@@ -76,6 +86,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
   const [loading, setLoading] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [createdSlug] = React.useState<string | undefined>(undefined);
+  const [data, setData] = React.useState<OptionType[]>([]);
 
   const {
     register,
@@ -96,6 +107,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
       languageIDs: [],
       poetID: undefined,
       isPublished: true,
+      redirectTo: null,
       ...defaultValues,
     },
   });
@@ -110,8 +122,21 @@ const LyricForm: React.FC<LyricFormProps> = ({
   useEffect(() => {
     if (defaultValues && Object.keys(defaultValues).length > 0) {
       reset(defaultValues);
+      if (defaultValues.redirectTo) {
+        const redirect = defaultValues.redirectTo.split("/");
+        const label = `${redirect[1]} - (${redirect[0]})`;
+        const value = `${redirect[0]}/${redirect[1]}`;
+        setValue("redirectTo", value);
+
+        setData((prev) => {
+          const alreadyExists = prev.some((option) => option.value === value);
+          return alreadyExists
+            ? prev
+            : [{ label: label, value: value }, ...prev];
+        });
+      }
     }
-  }, [defaultValues, reset]);
+  }, [defaultValues, reset, setValue]);
 
   useEffect(() => {
     const loadFormData = async () => {
@@ -421,6 +446,35 @@ const LyricForm: React.FC<LyricFormProps> = ({
                     </div>
                   </div>
 
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="poetID"
+                      className="block text-sm leading-6 font-medium text-gray-900"
+                    >
+                      Poet
+                    </label>
+                    <div className="mt-2">
+                      <Select
+                        id="poetID"
+                        options={poetSelectOptions}
+                        onChange={handlePoetChange}
+                        value={
+                          poetSelectOptions.find(
+                            (o) => o.value === currentPoetID,
+                          ) ?? null
+                        }
+                        classNamePrefix="react-select"
+                        className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
+                        styles={selectStyles}
+                      />
+                      {errors.poetID && (
+                        <p className="mt-2 text-sm text-red-600">
+                          {errors.poetID.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="sm:col-span-6">
                     <label
                       htmlFor="lyrics"
@@ -473,28 +527,65 @@ const LyricForm: React.FC<LyricFormProps> = ({
 
                   <div className="sm:col-span-3">
                     <label
-                      htmlFor="poetID"
+                      htmlFor="redirectTo"
                       className="block text-sm leading-6 font-medium text-gray-900"
                     >
-                      Poet
+                      Redirect To{" "}
+                      {defaultValues?.redirectTo && (
+                        <small className="ml-1 font-normal text-gray-400">
+                          (click x to remove)
+                        </small>
+                      )}
                     </label>
                     <div className="mt-2">
-                      <Select
-                        id="poetID"
-                        options={poetSelectOptions}
-                        onChange={handlePoetChange}
-                        value={
-                          poetSelectOptions.find(
-                            (o) => o.value === currentPoetID,
-                          ) ?? null
-                        }
-                        classNamePrefix="react-select"
-                        className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
-                        styles={selectStyles}
+                      <Controller
+                        name="redirectTo"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            isClearable
+                            closeMenuOnSelect={false}
+                            options={data}
+                            value={
+                              data.find(
+                                (option) => option.value === field.value,
+                              ) || null
+                            }
+                            onChange={(selected) =>
+                              field.onChange(selected ? selected.value : null)
+                            }
+                            onBlur={field.onBlur}
+                            onInputChange={(inputValue) => {
+                              if (inputValue.length > 0) {
+                                fetchLyricsSlug(inputValue, urlSlug).then(
+                                  (response: {
+                                    data: {
+                                      id: number;
+                                      slug: string;
+                                      genre: string;
+                                    }[];
+                                  }) => {
+                                    setData(
+                                      Object.values(response.data).map(
+                                        (item) => ({
+                                          label: `${item.slug} - (${item.genre})`,
+                                          value: `${item.genre}/${item.slug}`,
+                                        }),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            }}
+                            placeholder="Slug to redirect"
+                            className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
+                            styles={selectStyles}
+                          />
+                        )}
                       />
-                      {errors.poetID && (
+                      {errors.redirectTo && (
                         <p className="mt-2 text-sm text-red-600">
-                          {errors.poetID.message}
+                          {errors.redirectTo.message}
                         </p>
                       )}
                     </div>

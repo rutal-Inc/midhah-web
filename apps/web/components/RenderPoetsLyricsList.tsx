@@ -9,7 +9,7 @@ export default async function RenderPoetsLyricsList({
   slug,
 }: Readonly<Params>) {
   const lyrics: Lyrics[] = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${slug}/lyrics`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${slug}/lyrics?preview=original`,
     {
       method: "GET",
       headers: {
@@ -55,6 +55,7 @@ export default async function RenderPoetsLyricsList({
                 genre={lyric.genre}
                 slug={lyric.slug}
                 preview={lyric.preview}
+                preference="original"
               />
             ))}
           </Fragment>

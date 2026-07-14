@@ -7,7 +7,7 @@ export default async function RenderFilteredList({
   columns = 2,
 }: Readonly<{ size: number; type: string; columns?: number }>) {
   const lyrics: FilteredLyrics[] = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/${type}?size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/${type}?size=${size}&preview=original`,
     {
       method: "GET",
       headers: {
@@ -31,6 +31,7 @@ export default async function RenderFilteredList({
           slug={lyric.slug}
           preview={lyric.preview}
           poet={lyric.poet}
+          preference="original"
         />
       ))}
     </ul>

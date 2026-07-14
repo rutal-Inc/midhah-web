@@ -26,6 +26,7 @@ export type LyricFormData = {
   poetID?: number;
   isPublished?: boolean;
   languageIDs: number[];
+  redirectTo?: string | null;
 };
 
 export type Poet = {

@@ -19,7 +19,7 @@ export default function LyricsChunks({
   }
 
   return (
-    <div className={className}>
+    <div className={`${className} max-[640px]:px-2.5`}>
       {chunks.map((part, index) => (
         <Fragment key={Number(index)}>
           <p className={textClassName}>{part.trim()}</p>
