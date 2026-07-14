@@ -1,9 +1,13 @@
+import Loader from "@/components/Loader";
+import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 import { montserrat } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import LyricsChunks from "../_components/LyricsChunks";
+import LyricsDialogClient from "../_components/LyricsDialogClient";
 import { getLyricsStaticParams } from "../_lib/generateStaticParams";
 import { getTransliteratedLyricsViaGenreSlug } from "../_lib/service";
 import { Params } from "../_lib/types";
@@ -70,10 +74,24 @@ export default async function LyricsPage({
   }
 
   return (
-    <LyricsChunks
-      content={lyric.transliteratedContent}
-      className={`${montserrat.className} py-10 pb-16 text-center`}
-      textClassName="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5"
-    />
+    <>
+      <LyricsChunks
+        content={lyric.transliteratedContent}
+        className={`${montserrat.className} py-10 pb-16 text-center`}
+        textClassName="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5"
+      />
+      <LyricsDialogClient lyricId={lyric.id} />
+      {lyric.poet?.slug && (
+        <Suspense fallback={<Loader />}>
+          <RenderPoetLyrics
+            size={6}
+            poetname={lyric.poet.name}
+            poetslug={lyric.poet.slug}
+            exclude={slug}
+            preference="transliterated"
+          />
+        </Suspense>
+      )}
+    </>
   );
 }

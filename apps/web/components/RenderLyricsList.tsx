@@ -1,5 +1,6 @@
 "use client";
 
+import { useLyricsPreference } from "@/store/useLyricsPreference";
 import { useEffect, useRef, useState } from "react";
 import Lyrics from "../models/Lyrics";
 import Loader from "./Loader";
@@ -10,12 +11,21 @@ type Params = {
 };
 
 export default function RenderLyricsList({ genre }: Readonly<Params>) {
+  const { preference } = useLyricsPreference();
+
   const [lyrics, setLyrics] = useState<Lyrics[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreData, setHasMoreData] = useState(true);
 
   const lastLyricRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    setLyrics([]);
+    setPage(0);
+    setHasMoreData(true);
+    globalThis.scrollTo({ top: 0, behavior: "smooth" });
+  }, [preference]);
 
   useEffect(() => {
     const options = {
@@ -45,14 +55,17 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
 
   useEffect(() => {
     if (genre && hasMoreData) {
+      const controller = new AbortController();
+
       setIsLoading(true);
       fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/genre/${genre}?page=${page}&size=30`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/genre/${genre}?page=${page}&size=30&preview=${preference}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
+          signal: controller.signal,
         },
       )
         .then((response) => {
@@ -69,9 +82,14 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
             setIsLoading(false);
           }
           setIsLoading(false);
+        })
+        .catch((err) => {
+          if (err.name !== "AbortError") {
+            setIsLoading(false);
+          }
         });
     }
-  }, [genre, hasMoreData, page]);
+  }, [genre, hasMoreData, page, preference]);
 
   return (
     <main className="flex min-h-[calc(100vh-575px)] flex-col items-center justify-center">
@@ -85,6 +103,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
             key={lyric.slug + index}
             ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
             poet={lyric.poet?.name}
+            preference={preference}
           />
         ))}
       </ul>

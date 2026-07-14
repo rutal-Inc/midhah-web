@@ -1,10 +1,14 @@
 import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/service";
+import Loader from "@/components/Loader";
+import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import LyricsChunks from "./_components/LyricsChunks";
+import LyricsDialogClient from "./_components/LyricsDialogClient";
 import { getLyricsStaticParams } from "./_lib/generateStaticParams";
 import { Params } from "./_lib/types";
 
@@ -68,10 +72,24 @@ export default async function LyricsPage({
   }
 
   return (
-    <LyricsChunks
-      content={lyric.content}
-      className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
-      textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
-    />
+    <>
+      <LyricsChunks
+        content={lyric.content}
+        className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
+        textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
+      />
+      <LyricsDialogClient lyricId={lyric.id} />
+      {lyric.poet?.slug && (
+        <Suspense fallback={<Loader />}>
+          <RenderPoetLyrics
+            size={6}
+            poetname={lyric.poet.name}
+            poetslug={lyric.poet.slug}
+            exclude={slug}
+            preference="original"
+          />
+        </Suspense>
+      )}
+    </>
   );
 }

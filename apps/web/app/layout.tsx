@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Settings } from "@/components/Settings";
 import { montserrat } from "@midhah/utils/fonts";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
@@ -69,6 +70,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <Settings />
           </Theme>
         </AuthProvider>
         <Toaster />

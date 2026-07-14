@@ -1,3 +1,4 @@
+import { LyricPreference } from "@/store/useLyricsPreference";
 import Link from "next/link";
 import { FilteredLyrics } from "../models/Lyrics";
 import LyricCard from "./LyricCard";
@@ -7,15 +8,16 @@ export default async function RenderPoetLyrics({
   poetname,
   poetslug,
   exclude,
+  preference,
 }: Readonly<{
   size: number;
   poetname: string;
   poetslug: string;
   exclude?: string;
+  preference: LyricPreference;
 }>) {
   const lyrics: FilteredLyrics[] = await fetch(
-    // `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets/${poetslug}/lyrics`,
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/poets/${poetslug}?size=${size}&exclude=${exclude}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/lyrics/poets/${poetslug}?size=${size}&exclude=${exclude}&preview=${preference}`,
     {
       method: "GET",
       headers: {
@@ -53,6 +55,7 @@ export default async function RenderPoetLyrics({
               slug={lyric.slug}
               preview={lyric.preview}
               poet={lyric.poet}
+              preference={preference}
             />
           ))}
         </ul>
