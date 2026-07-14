@@ -123,12 +123,16 @@ const LyricForm: React.FC<LyricFormProps> = ({
     if (defaultValues && Object.keys(defaultValues).length > 0) {
       reset(defaultValues);
       if (defaultValues.redirectTo) {
-        const slug = defaultValues.redirectTo.split("/").pop();
-        setValue("redirectTo", slug);
+        const redirect = defaultValues.redirectTo.split("/");
+        const label = `${redirect[1]} - (${redirect[0]})`;
+        const value = `${redirect[0]}/${redirect[1]}`;
+        setValue("redirectTo", value);
 
         setData((prev) => {
-          const alreadyExists = prev.some((option) => option.value === slug);
-          return alreadyExists ? prev : [{ label: slug, value: slug }, ...prev];
+          const alreadyExists = prev.some((option) => option.value === value);
+          return alreadyExists
+            ? prev
+            : [{ label: label, value: value }, ...prev];
         });
       }
     }
@@ -555,13 +559,17 @@ const LyricForm: React.FC<LyricFormProps> = ({
                               if (inputValue.length > 0) {
                                 fetchLyricsSlug(inputValue, urlSlug).then(
                                   (response: {
-                                    data: { id: number; slug: string }[];
+                                    data: {
+                                      id: number;
+                                      slug: string;
+                                      genre: string;
+                                    }[];
                                   }) => {
                                     setData(
                                       Object.values(response.data).map(
                                         (item) => ({
-                                          label: item.slug,
-                                          value: item.slug,
+                                          label: `${item.slug} - (${item.genre})`,
+                                          value: `${item.genre}/${item.slug}`,
                                         }),
                                       ),
                                     );
