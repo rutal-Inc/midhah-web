@@ -525,7 +525,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                     </div>
                   </div>
 
-                  <div className="sm:col-span-3">
+                  <div className={`sm:col-span-3 ${!isEditMode && "hidden"}`}>
                     <label
                       htmlFor="redirectTo"
                       className="block text-sm leading-6 font-medium text-gray-900"
