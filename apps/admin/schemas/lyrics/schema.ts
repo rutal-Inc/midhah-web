@@ -35,7 +35,6 @@ export const editLyricSchema = z.object({
   isPublished: z.boolean().optional(),
   redirectTo: z
     .string()
-    .min(1, "Redirect lyrics is required")
     .max(191, "Redirect lyrics is too long")
     .optional()
     .nullable(),
