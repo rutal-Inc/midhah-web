@@ -24,7 +24,7 @@ export default function OgImage({
         position: "relative",
         width: "100%",
         height: "100%",
-        background: color,
+        background: color ?? "#111111",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
