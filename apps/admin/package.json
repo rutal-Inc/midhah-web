@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

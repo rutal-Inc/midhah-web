@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.4",
