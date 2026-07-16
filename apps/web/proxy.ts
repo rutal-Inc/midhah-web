@@ -18,8 +18,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Matches all paths except internal API calls and static assets
-    `/((?!api|_next/static|_next/image|images|icons|favicon.ico|.*\\..*).*)`,
-  ],
+  matcher: ["/:genre/:slug", "/:genre/:slug/transliterated", "/poets/:slug"],
 };
