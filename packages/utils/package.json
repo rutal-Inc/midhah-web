@@ -2,6 +2,9 @@
   "name": "@midhah/utils",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "exports": {
     "./firebase": "./src/firebase.ts",
     "./axios": "./src/axios.ts",
@@ -16,5 +19,9 @@
     "jwt-decode": "^4.0.0",
     "next": "catalog:",
     "zustand": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }
