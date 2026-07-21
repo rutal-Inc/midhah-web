@@ -23,8 +23,10 @@ export default async function Image({ params }: Readonly<{ params: Params }>) {
 
   ogImage.headers.set(
     "Cache-Control",
-    "public, max-age=31536000, stale-while-revalidate=86400",
+    "public, max-age=604,800, stale-while-revalidate=86400",
   );
+
+  ogImage.headers.set("Vercel-CDN-Cache-Control", "public, s-maxage=31536000");
 
   return ogImage;
 }
