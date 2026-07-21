@@ -35,7 +35,7 @@ type Params = {
 };
 
 export default async function GenreListPage(props: Params) {
-  preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
+  preload("/images/pattern.svg", { as: "image", fetchPriority: "high" });
 
   const params = await props.params;
   const genreSlug = params.genre;

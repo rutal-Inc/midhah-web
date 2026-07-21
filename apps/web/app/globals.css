@@ -55,7 +55,7 @@
     content: "";
     position: absolute;
     z-index: -1;
-    background-image: url("/images/pattern.png");
+    background-image: url("/images/pattern.svg");
     background-repeat: repeat;
     background-position: center;
     background-size: contain;

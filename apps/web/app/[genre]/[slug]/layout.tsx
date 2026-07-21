@@ -16,7 +16,7 @@ export default async function Layout({
   children: React.ReactNode;
   params: Params;
 }>) {
-  preload("/images/pattern.png", { as: "image", fetchPriority: "high" });
+  preload("/images/pattern.svg", { as: "image", fetchPriority: "high" });
 
   const { slug, genre } = await params;
 
