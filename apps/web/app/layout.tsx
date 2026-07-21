@@ -51,7 +51,7 @@ export default function RootLayout({
         async
         crossOrigin="anonymous"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9810490020982461"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
       <body className={montserrat.className}>
         <NextTopLoader
