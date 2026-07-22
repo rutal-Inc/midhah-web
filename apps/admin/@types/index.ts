@@ -6,6 +6,7 @@ export type Lyric = {
   genre: string;
   slug: string;
   isPublished: boolean;
+  isVerified: boolean;
   poetID?: number;
   languages?: {
     id: number;
@@ -25,6 +26,7 @@ export type LyricFormData = {
   genre: string;
   poetID?: number;
   isPublished?: boolean;
+  isVerified?: boolean;
   languageIDs: number[];
   redirectTo?: string | null;
 };

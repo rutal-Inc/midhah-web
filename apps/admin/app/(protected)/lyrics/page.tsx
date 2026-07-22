@@ -13,6 +13,7 @@ import {
 import { logoutUser } from "@/utils/logout";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { AxiosError } from "axios";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
@@ -79,10 +80,18 @@ const Lyrics: React.FC = () => {
       grow: 2,
       cell: (row) => (
         <div
-          className="max-w-55 truncate font-medium text-gray-800"
+          className="flex max-w-55 flex-wrap gap-1 truncate font-medium text-gray-800"
           title={row.title}
         >
-          {row.title}
+          {row.title}{" "}
+          {row.isVerified && (
+            <Image
+              src={"/assets/verified-check.svg"}
+              alt="Verified"
+              width={16}
+              height={16}
+            />
+          )}
         </div>
       ),
     },

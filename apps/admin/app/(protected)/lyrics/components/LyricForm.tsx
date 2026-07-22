@@ -107,6 +107,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
       languageIDs: [],
       poetID: undefined,
       isPublished: true,
+      isVerified: false,
       redirectTo: null,
       ...defaultValues,
     },
@@ -312,7 +313,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
                 {title}
               </h2>
 
-              <div className="sm:col-span-3">
+              <div className="flex flex-col gap-2 sm:col-span-3">
                 <div className="flex items-center justify-end">
                   <label
                     htmlFor="isPublished"
@@ -325,6 +326,23 @@ const LyricForm: React.FC<LyricFormProps> = ({
                       id="isPublished"
                       type="checkbox"
                       {...register("isPublished")}
+                      className="peer sr-only"
+                    />
+                    <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
+                  </label>
+                </div>
+                <div className="flex items-center justify-end">
+                  <label
+                    htmlFor="isVerified"
+                    className="mr-4 block text-sm leading-6 font-medium text-gray-900"
+                  >
+                    Is Verified
+                  </label>
+                  <label className="relative inline-flex cursor-pointer items-center">
+                    <input
+                      id="isVerified"
+                      type="checkbox"
+                      {...register("isVerified")}
                       className="peer sr-only"
                     />
                     <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />

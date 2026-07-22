@@ -68,6 +68,7 @@ const createLyric = async (formData: LyricFormData) => {
       genre: formData.genre,
       poetID: formData.poetID,
       isPublished: formData.isPublished,
+      isVerified: formData.isVerified,
       languageIDs: formData.languageIDs,
     });
     return response.data;
@@ -87,6 +88,7 @@ const editLyric = async (formData: LyricFormData, slug: string) => {
       genre: formData.genre,
       poetID: formData.poetID,
       isPublished: formData.isPublished,
+      isVerified: formData.isVerified,
       languageIDs: formData.languageIDs,
       redirectTo:
         formData.redirectTo === null ? null : formData.redirectTo || undefined,
