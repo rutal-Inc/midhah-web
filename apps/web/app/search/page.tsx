@@ -3,12 +3,14 @@
 import Loader from "@/components/Loader";
 import LyricCard from "@/components/LyricCard";
 import { FilteredLyrics } from "@/models/Lyrics";
+import { useLyricsPreference } from "@/store/useLyricsPreference";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useLyricsStore } from "../../store/useLyricsStore";
 
 function SearchInner() {
   const searchParams = useSearchParams();
+  const { preference } = useLyricsPreference();
 
   const query = searchParams.get("query");
   const [lyrics, setLyrics] = useState<FilteredLyrics[]>([]);
@@ -66,6 +68,8 @@ function SearchInner() {
               slug={lyric.slug}
               preview={lyric.preview}
               poet={lyric.poet}
+              preference={preference}
+              isVerified={lyric.isVerified}
             />
           ))}
         </ul>

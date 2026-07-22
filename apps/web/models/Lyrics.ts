@@ -5,6 +5,7 @@ export default interface Lyrics {
   preview: string;
   content?: string;
   slug: string;
+  isVerified: boolean;
   poet: {
     name: string;
     slug?: string;
@@ -18,6 +19,7 @@ export interface FilteredLyrics {
   content?: string;
   slug: string;
   poet?: string;
+  isVerified: boolean;
 }
 export interface SuggestionLyrics {
   title: string;
@@ -30,6 +32,7 @@ export interface TransliteratedLyrics {
   genre: string;
   preview: string;
   transliteratedContent?: string;
+  isVerified: boolean;
   slug: string;
   poet: {
     name: string;

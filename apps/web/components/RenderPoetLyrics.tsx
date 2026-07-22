@@ -56,6 +56,7 @@ export default async function RenderPoetLyrics({
               preview={lyric.preview}
               poet={lyric.poet}
               preference={preference}
+              isVerified={lyric.isVerified}
             />
           ))}
         </ul>

@@ -32,6 +32,7 @@ export default async function RenderFilteredList({
           preview={lyric.preview}
           poet={lyric.poet}
           preference="original"
+          isVerified={lyric.isVerified}
         />
       ))}
     </ul>

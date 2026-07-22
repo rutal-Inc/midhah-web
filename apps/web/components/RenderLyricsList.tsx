@@ -104,6 +104,7 @@ export default function RenderLyricsList({ genre }: Readonly<Params>) {
             ref={index === lyrics.length - 1 ? lastLyricRef : undefined}
             poet={lyric.poet?.name}
             preference={preference}
+            isVerified={lyric.isVerified}
           />
         ))}
       </ul>

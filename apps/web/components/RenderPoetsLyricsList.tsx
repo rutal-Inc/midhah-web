@@ -56,6 +56,7 @@ export default async function RenderPoetsLyricsList({
                 slug={lyric.slug}
                 preview={lyric.preview}
                 preference="original"
+                isVerified={lyric.isVerified}
               />
             ))}
           </Fragment>
