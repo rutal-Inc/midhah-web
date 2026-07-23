@@ -67,6 +67,7 @@ export default function CollectionPage({
                 slug={lyric.slug}
                 preview={lyric.preview}
                 poet={lyric.poet?.name}
+                isVerified={lyric.isVerified}
               />
             ))}
           </ul>

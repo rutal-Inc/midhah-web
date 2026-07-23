@@ -1,6 +1,8 @@
 import BannerAd from "@/components/ads/AdSense_BannerAd";
 import ViewCount from "@/components/ViewCount";
 import { getPageGenre } from "@/utilities/helpers";
+import { Tooltip } from "@radix-ui/themes";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -34,8 +36,19 @@ export default async function Layout({
         style={{ background: genreInfo?.color }}
       >
         <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">
+          <h1 className="mb-1 text-center text-2xl text-white md:text-5xl">
             {lyric.title}
+            {lyric.isVerified && (
+              <Tooltip content="This lyric has been carefully verified against original published sources by our research team.">
+                <Image
+                  src={"/assets/verified-check.svg"}
+                  alt="Verified"
+                  width={30}
+                  height={30}
+                  className="ml-2 inline-block h-7 w-7 pb-1 md:h-9 md:w-9"
+                />
+              </Tooltip>
+            )}
           </h1>
           {lyric.poet && (
             <Link

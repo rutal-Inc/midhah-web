@@ -12,6 +12,7 @@ interface LyricCardProps {
   preview: string;
   ref?: React.Ref<HTMLLIElement>;
   preference?: LyricPreference;
+  isVerified: boolean;
 }
 const LyricCard = ({
   title,
@@ -21,6 +22,7 @@ const LyricCard = ({
   ref,
   poet,
   preference = "original",
+  isVerified,
 }: LyricCardProps) => {
   const genreImage = genresInfo.find((g) => g.path === genre)?.image;
   return (
@@ -46,7 +48,18 @@ const LyricCard = ({
               />
             )}
             <div className="mr-16 w-[90%] flex-1 pl-2">
-              <h2 className="text-gray-600">{title}</h2>
+              <h2 className="text-gray-600">
+                {title}
+                {isVerified && (
+                  <Image
+                    src={"/assets/verified-check.svg"}
+                    alt="Verified"
+                    width={18}
+                    height={18}
+                    className="ml-1.5 inline-block pb-1"
+                  />
+                )}
+              </h2>
               <h3 className="text-sm text-gray-400 uppercase">
                 {poet ? `${genre} BY ${poet}` : `${genre}`}
               </h3>

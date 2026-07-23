@@ -11,6 +11,7 @@ export const lyricSchema = z.object({
   languageIDs: z.array(z.number()).min(1, "Select at least one language"),
   poetID: z.number().optional(),
   isPublished: z.boolean().optional(),
+  isVerified: z.boolean(),
   transliteratedContent: z.string().max(100000).optional(),
   redirectTo: z.string().max(191).optional().nullable(),
 });
@@ -33,6 +34,7 @@ export const editLyricSchema = z.object({
   languageIDs: z.array(z.number()).min(1, "Select at least one language"),
   poetID: z.number().optional(),
   isPublished: z.boolean().optional(),
+  isVerified: z.boolean().optional(),
   redirectTo: z
     .string()
     .max(191, "Redirect lyrics is too long")
