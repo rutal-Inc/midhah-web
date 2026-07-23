@@ -18,5 +18,9 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:genre/:slug", "/:genre/:slug/transliterated", "/poets/:slug"],
+  matcher: [
+    "/(hamd|naat|manqbat|durood-o-salam)/:slug",
+    "/(hamd|naat|manqbat|durood-o-salam)/:slug/transliterated",
+    "/poets/:slug",
+  ],
 };
