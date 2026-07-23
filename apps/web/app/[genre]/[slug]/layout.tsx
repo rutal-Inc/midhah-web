@@ -43,9 +43,9 @@ export default async function Layout({
                 <Image
                   src={"/assets/verified-check.svg"}
                   alt="Verified"
-                  width={24}
-                  height={24}
-                  className="ml-1 inline-block pb-1"
+                  width={30}
+                  height={30}
+                  className="ml-2 inline-block h-7 w-7 pb-1 md:h-9 md:w-9"
                 />
               </Tooltip>
             )}
