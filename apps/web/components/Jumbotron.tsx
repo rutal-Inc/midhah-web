@@ -1,18 +1,8 @@
-import heroBg from "@/public/images/hero-bg.png";
-import Image from "next/image";
 import GooglePlayBadge from "./GooglePlayBadge";
 
 const Jumbotron = () => {
   return (
-    <div className="relative overflow-hidden text-center text-white sm:mx-3 md:p-5">
-      <Image
-        src={heroBg}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover"
-      />
+    <div className="theme-gradient relative overflow-hidden text-center text-white sm:mx-3 md:p-5">
       <div className="mx-auto py-30 md:col-span-3">
         <h1 className="mb-1 text-2xl md:mb-4 md:text-5xl">
           Explore the most <br /> authentic lyrics

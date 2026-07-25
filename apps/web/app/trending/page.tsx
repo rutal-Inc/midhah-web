@@ -29,8 +29,8 @@ export function generateMetadata(): Metadata {
 export default async function TrendingLyricsPage() {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div className="hero-bg relative mb-5 overflow-hidden md:rounded-[10px]">
-        <div className="py-[60px] text-center md:py-[150px]">
+      <div className="theme-gradient relative mb-5 overflow-hidden md:rounded-[10px]">
+        <div className="py-15 text-center md:py-37.5">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">Trending</h1>
           <p className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl">
             Trending Now: Lyrics Everyone Loves 🎶

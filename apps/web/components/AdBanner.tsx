@@ -1,4 +1,5 @@
 "use client";
+
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Box, Dialog, Flex, Heading, Text } from "@radix-ui/themes";
 import { useState } from "react";
@@ -9,7 +10,7 @@ const AdBanner = () => {
     <Flex
       display={visible ? "flex" : "none"}
       translate={"yes"}
-      className="hero-bg"
+      className="theme-gradient"
       p={"2"}
       align={"center"}
       justify={"center"}

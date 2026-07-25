@@ -42,9 +42,24 @@
   @apply cursor-pointer rounded-sm bg-[#027278] transition hover:opacity-92;
 }
 
-@utility hero-bg {
-  background-image: url("/images/hero-bg.png");
-  background-size: cover;
+@utility theme-gradient {
+  background-color: rgb(55 98 131);
+  background-image:
+    radial-gradient(
+      ellipse 67.4% 150.8% at 27.6% 103.2%,
+      rgb(36 73 97 / 0.709) 0%,
+      rgb(36 73 97 / 0) 100%
+    ),
+    radial-gradient(
+      ellipse 40.7% 68.1% at -3.5% -2.2%,
+      rgb(6 210 248 / 0.789) 0%,
+      rgb(6 210 248 / 0) 100%
+    ),
+    radial-gradient(
+      ellipse 81% 118.2% at 96.5% 3.8%,
+      rgb(8 115 120 / 1) 0%,
+      rgb(8 115 120 / 0) 100%
+    );
 }
 
 @utility card {

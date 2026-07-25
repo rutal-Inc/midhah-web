@@ -20,8 +20,8 @@ export function generateMetadata(): Metadata {
 const Privacy = () => {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div className="hero-bg relative overflow-hidden p-3 py-5 md:p-5">
-        <div className="py-[60px] text-center text-white md:py-[150px]">
+      <div className="theme-gradient relative overflow-hidden p-3 py-5 md:p-5">
+        <div className="py-15 text-center text-white md:py-37.5">
           <h1 className="mb-1 text-2xl md:text-5xl">Privacy Policy</h1>
           <p className="text-normal md:text-xl">
             We ensure, your Data is Secure
