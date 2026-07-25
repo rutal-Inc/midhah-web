@@ -24,7 +24,8 @@ const LyricCard = ({
   preference = "original",
   isVerified,
 }: LyricCardProps) => {
-  const genreImage = genresInfo.find((g) => g.path === genre)?.image;
+  const Icon = genresInfo.find((g) => g.path === genre)?.icon;
+
   return (
     <li className="group relative my-1 flex flex-row hover:block" ref={ref}>
       <Link
@@ -37,14 +38,11 @@ const LyricCard = ({
       >
         <div className="flex flex-1 scale-100 cursor-pointer items-center p-4 select-none group-hover:scale-0 hover:bg-gray-50">
           <div className="flex w-full flex-row items-center">
-            {genreImage && (
-              <Image
-                src={genreImage}
-                alt={`image for ${title}`}
-                className="w-[14%] invert filter md:w-[16%] lg:w-[12%]"
-                style={{
-                  margin: "auto",
-                }}
+            {Icon && (
+              <Icon
+                role="img"
+                aria-label={`Illustration for ${genre}`}
+                className="w-[14%] text-gray-600 md:w-[16%] lg:w-[12%]"
               />
             )}
             <div className="mr-16 w-[90%] flex-1 pl-2">

@@ -1,8 +1,8 @@
-import { StaticImageData } from "next/image";
+import { ComponentType, SVGProps } from "react";
 
 export default interface GenreInfo {
   title: string;
   color: string;
-  image: StaticImageData;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   path: string;
 }

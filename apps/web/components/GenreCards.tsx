@@ -1,10 +1,10 @@
 import GenreInfo from "@/models/GenreInfo";
 import { genresInfo } from "@/utilities/constants";
-import Image from "next/image";
 import Link from "next/link";
 
 const GenreCards = () => {
   const renderCards = (card: GenreInfo, index: number) => {
+    const Icon = card.icon;
     return (
       <div className="w-full gap-3 px-3 sm:w-1/2 md:w-1/3 lg:w-1/4" key={index}>
         <Link href={card.path}>
@@ -15,10 +15,10 @@ const GenreCards = () => {
               minHeight: "300px",
             }}
           >
-            <Image
-              src={card.image}
-              alt={`image for ${card.title}`}
-              style={{ width: "75%", margin: "auto", marginTop: "20px" }}
+            <Icon
+              role="img"
+              aria-label={`Illustration for ${card.title}`}
+              className="mx-auto mt-5 block w-3/4 text-white"
             />
             <div className="text-shadow-1 p-3 text-white">
               <h3 className="text-center text-xl font-bold tracking-wide">
@@ -39,7 +39,9 @@ const GenreCards = () => {
       <p className="text-normal mb-6 pl-4 md:text-xl">
         Delve into and explore the lyrics of a diverse array of madh genres{" "}
       </p>
-      <div className="flex flex-wrap">{genresInfo.map(renderCards)}</div>
+      <div className="flex flex-wrap">
+        {genresInfo.map((genre, index) => renderCards(genre, index))}
+      </div>
     </div>
   );
 };
