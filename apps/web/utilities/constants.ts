@@ -1,7 +1,7 @@
 import bait_ullah from "@/components/icons/BaitUllah";
 import gosha_e_durood from "@/components/icons/GoshaEDurood";
 import roza_imam_hussain from "@/components/icons/RozaEImamHussain";
-import roza_e_rasool from "@/components/icons/RozaERasool;";
+import roza_e_rasool from "@/components/icons/RozaERasool";
 import GenreInfo from "@/models/GenreInfo";
 
 export const genresInfo: GenreInfo[] = [
