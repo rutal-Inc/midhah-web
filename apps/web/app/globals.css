@@ -71,16 +71,31 @@
   @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
 }
 
-/* Primary action button — the theme gradient in miniature: cyan sparkle
-   into brand teal. Hover lifts brightness (gradients can't transition). */
+/* Primary action button — deep teal gradient anchored dark so white text
+   meets AA across the whole surface; the brand cyan appears only as a
+   restrained sheen in the top corner, like light catching the surface.
+   Hover deepens instantly (no filter fade) with a subtle shadow lift. */
 @utility btn-secondary {
-  @apply cursor-pointer rounded-sm text-white transition duration-200 hover:brightness-115;
-  background-image: linear-gradient(
-    135deg,
-    var(--cyan-500),
-    var(--teal-600) 55%,
-    var(--teal-700)
-  );
+  @apply cursor-pointer rounded-sm font-medium text-white shadow-sm;
+  background-color: var(--teal-600);
+  background-image:
+    radial-gradient(
+      ellipse 70% 90% at 0% 0%,
+      rgb(6 210 248 / 0.28) 0%,
+      rgb(6 210 248 / 0) 60%
+    ),
+    linear-gradient(135deg, var(--teal-500), var(--teal-700) 70%);
+
+  &:hover {
+    @apply shadow-md;
+    background-image:
+      radial-gradient(
+        ellipse 70% 90% at 0% 0%,
+        rgb(6 210 248 / 0.38) 0%,
+        rgb(6 210 248 / 0) 60%
+      ),
+      linear-gradient(135deg, var(--teal-600), var(--teal-800) 70%);
+  }
 }
 
 @utility theme-gradient {
