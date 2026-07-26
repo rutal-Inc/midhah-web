@@ -129,12 +129,21 @@ function Navbar() {
             </div>
           </div>
         </div>
-        <div className="mt-2 hidden w-full justify-center gap-2.5 align-middle sm:flex">
-          <div className="flex w-[87%] items-center justify-between lg:w-3xl lg:gap-2 xl:gap-6">
+        {/* Genre nav: swipeable chip row on mobile, centered links on sm+. */}
+        <div className="mt-2 flex w-full gap-2.5 overflow-x-auto align-middle whitespace-nowrap sm:justify-center [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center gap-1 sm:w-[87%] sm:justify-between lg:w-3xl lg:gap-2 xl:gap-6">
             <ActiveLink href="/hamd">Hamd e Ta&apos;ala</ActiveLink>
             <ActiveLink href="/naat">Naat e Rasool</ActiveLink>
             <ActiveLink href="/manqbat">Manqbat</ActiveLink>
             <ActiveLink href="/durood-o-salam">Durood o Salam</ActiveLink>
+            <span className="sm:hidden">
+              <ActiveLink href="/trending">Trending</ActiveLink>
+            </span>
+            <span className="sm:hidden">
+              <ActiveLink href="/staff-picks" otherClasses="text-nowrap">
+                Staff Picks
+              </ActiveLink>
+            </span>
           </div>
         </div>
       </nav>

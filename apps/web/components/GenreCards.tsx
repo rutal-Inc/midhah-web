@@ -2,45 +2,37 @@ import GenreInfo from "@/models/GenreInfo";
 import { genresInfo } from "@/utilities/constants";
 import Link from "next/link";
 
+/** Genre browse tiles — 2-up on mobile, 4-up on desktop. */
 const GenreCards = () => {
-  const renderCards = (card: GenreInfo, index: number) => {
+  const renderCard = (card: GenreInfo) => {
     const Icon = card.icon;
     return (
-      <div className="w-full gap-3 px-3 sm:w-1/2 md:w-1/3 lg:w-1/4" key={index}>
-        <Link href={card.path}>
-          <div
-            className="card m-auto my-3 overflow-hidden rounded-3xl shadow-lg"
-            style={{
-              background: card.color,
-              minHeight: "300px",
-            }}
-          >
-            <Icon
-              role="img"
-              aria-label={`Illustration for ${card.title}`}
-              className="mx-auto mt-5 block w-3/4 text-white"
-            />
-            <div className="p-3 text-white">
-              <h3 className="text-center text-xl font-bold tracking-wide">
-                {card.title}
-              </h3>
-            </div>
-          </div>
-        </Link>
-      </div>
+      <Link href={card.path} key={card.path} className="group block">
+        <div
+          className="card flex min-h-40 flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl p-4 shadow-md transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-lg sm:min-h-48 md:min-h-64"
+          style={{ background: card.color }}
+        >
+          <Icon
+            role="img"
+            aria-label={`Illustration for ${card.title}`}
+            className="block w-1/2 max-w-28 text-white md:max-w-36"
+          />
+          <h3 className="text-center text-sm font-bold tracking-wide text-white sm:text-base md:text-xl">
+            {card.title}
+          </h3>
+        </div>
+      </Link>
     );
   };
 
   return (
-    <div className="container mx-auto py-10 pt-10 md:px-17.5 md:pt-14">
-      <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">
-        Explore the Genres
-      </h2>
-      <p className="mb-6 pl-4 md:text-xl">
-        Delve into and explore the lyrics of a diverse array of madh genres{" "}
+    <div className="container mx-auto px-3 py-10 md:px-17.5 md:pt-14">
+      <h2 className="mb-1 text-2xl md:mb-2 md:text-4xl">Explore the Genres</h2>
+      <p className="mb-6 md:text-xl">
+        Delve into and explore the lyrics of a diverse array of madh genres
       </p>
-      <div className="flex flex-wrap">
-        {genresInfo.map((genre, index) => renderCards(genre, index))}
+      <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
+        {genresInfo.map(renderCard)}
       </div>
     </div>
   );

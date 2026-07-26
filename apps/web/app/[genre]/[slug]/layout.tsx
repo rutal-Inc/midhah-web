@@ -1,4 +1,5 @@
 import BannerAd from "@/components/ads/AdSense_BannerAd";
+import { RecordRead } from "@/components/RecentlyRead";
 import PageHero from "@/components/ui/PageHero";
 import Tooltip from "@/components/ui/Tooltip";
 import ViewCount from "@/components/ViewCount";
@@ -58,6 +59,7 @@ export default async function Layout({
           </Link>
         )}
       </PageHero>
+      <RecordRead title={lyric.title} genre={genre} slug={slug} />
       <LyricsViewToggle genre={genre} slug={slug} />
 
       <div className="py-10 text-center">

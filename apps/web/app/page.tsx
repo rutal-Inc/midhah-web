@@ -1,6 +1,7 @@
 import GenreCards from "@/components/GenreCards";
 import Jumbotron from "@/components/Jumbotron";
 import Loader from "@/components/Loader";
+import { RecentlyReadShelf } from "@/components/RecentlyRead";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import FeatureCards from "../components/FeatureCards";
@@ -17,6 +18,7 @@ export default function Home() {
   return (
     <main>
       <Jumbotron />
+      <RecentlyReadShelf />
       <GenreCards />
       <Suspense fallback={<Loader />}>
         <TrendingStaffPicksList />
