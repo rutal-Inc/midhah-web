@@ -1,6 +1,8 @@
 "use client";
 
 import Loader from "@/components/Loader";
+import lyricsLogo from "@midhah/assets/brand/lyrics-logo.svg";
+import googleLogo from "@midhah/assets/ui/google.svg";
 import parseJwt from "@midhah/utils/decodeJWT";
 import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
@@ -72,7 +74,7 @@ const LoginPage = () => {
       <div className="mt-32 text-center">
         <div className="mb-12 shrink-0">
           <Image
-            src="/assets/midhah-lyrics-logo.svg"
+            src={lyricsLogo}
             alt="Midhah Lyrics logo"
             width={290}
             height={540}
@@ -86,7 +88,7 @@ const LoginPage = () => {
             className="mx-auto mb-4 flex w-full max-w-xs cursor-pointer items-center justify-center rounded-md border px-10 py-3 font-semibold transition-colors hover:bg-gray-50"
           >
             <Image
-              src="/assets/google.svg"
+              src={googleLogo}
               alt="Google Logo"
               width={20}
               height={20}

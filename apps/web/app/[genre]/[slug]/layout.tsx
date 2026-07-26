@@ -1,6 +1,7 @@
 import BannerAd from "@/components/ads/AdSense_BannerAd";
 import ViewCount from "@/components/ViewCount";
 import { getPageGenre } from "@/utilities/helpers";
+import verifiedCheck from "@midhah/assets/ui/verified-check.svg";
 import { Tooltip } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,7 +42,7 @@ export default async function Layout({
             {lyric.isVerified && (
               <Tooltip content="This lyric has been carefully verified against original published sources by our research team.">
                 <Image
-                  src={"/assets/verified-check.svg"}
+                  src={verifiedCheck}
                   alt="Verified"
                   width={30}
                   height={30}

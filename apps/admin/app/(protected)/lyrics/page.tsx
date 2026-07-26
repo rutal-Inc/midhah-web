@@ -11,6 +11,7 @@ import {
   updateIsLyricPublished,
 } from "@/services/lyrics";
 import { logoutUser } from "@/utils/logout";
+import verifiedCheck from "@midhah/assets/ui/verified-check.svg";
 import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import { AxiosError } from "axios";
 import Image from "next/image";
@@ -85,12 +86,7 @@ const Lyrics: React.FC = () => {
         >
           {row.title}{" "}
           {row.isVerified && (
-            <Image
-              src={"/assets/verified-check.svg"}
-              alt="Verified"
-              width={16}
-              height={16}
-            />
+            <Image src={verifiedCheck} alt="Verified" width={16} height={16} />
           )}
         </div>
       ),

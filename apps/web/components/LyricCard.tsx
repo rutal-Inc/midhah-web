@@ -1,4 +1,5 @@
 import { LyricPreference } from "@/store/useLyricsPreference";
+import verifiedCheck from "@midhah/assets/ui/verified-check.svg";
 import { montserrat, noto_nastaliq_urdu } from "@midhah/utils/fonts";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,7 +51,7 @@ const LyricCard = ({
                 {title}
                 {isVerified && (
                   <Image
-                    src={"/assets/verified-check.svg"}
+                    src={verifiedCheck}
                     alt="Verified"
                     width={18}
                     height={18}

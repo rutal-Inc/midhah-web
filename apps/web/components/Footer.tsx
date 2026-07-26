@@ -1,5 +1,6 @@
 "use client";
 
+import logoGrey from "@midhah/assets/brand/logo-grey.svg";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,7 +72,7 @@ function Footer() {
         <div className="flex-md-row flex flex-row items-center justify-between">
           <div className="flex items-center">
             <Image
-              src="/images/midhah-logo-grey.svg"
+              src={logoGrey}
               alt="midhah-logo-grey"
               width={30}
               height={30}

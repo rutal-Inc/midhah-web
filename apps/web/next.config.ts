@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  transpilePackages: ["@midhah/utils"],
+  transpilePackages: ["@midhah/assets", "@midhah/utils"],
 };
 
 export default nextConfig;

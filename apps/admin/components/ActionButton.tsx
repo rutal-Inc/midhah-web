@@ -1,3 +1,5 @@
+import editIcon from "@/assets/ui/edit.svg";
+import trashIcon from "@/assets/ui/trash.svg";
 import Image from "next/image";
 
 interface ActionButtonsProps {
@@ -16,7 +18,7 @@ const ActionButtons = ({
       {handleEdit && (
         <>
           <button onClick={handleEdit} className="cursor-pointer pr-2">
-            <Image src={"/assets/edit.svg"} width={20} height={20} alt="Edit" />
+            <Image src={editIcon} width={20} height={20} alt="Edit" />
           </button>
           <div className="bg-gray h-5 w-px"></div>
         </>
@@ -28,12 +30,7 @@ const ActionButtons = ({
           onClick={confirmDelete}
           className="cursor-pointer pl-2"
         >
-          <Image
-            src={"/assets/trash.svg"}
-            width={20}
-            height={20}
-            alt="Delete"
-          />
+          <Image src={trashIcon} width={20} height={20} alt="Delete" />
         </button>
       )}
     </>

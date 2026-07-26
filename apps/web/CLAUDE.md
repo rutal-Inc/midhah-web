@@ -69,9 +69,42 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
+### Assets
+
+One rule decides where an asset goes:
+
+> **`public/` is only for assets that need a stable, predictable URL. Everything else is imported.**
+
+| Location                                  | For                                                                    | Consumed by   |
+| ----------------------------------------- | ---------------------------------------------------------------------- | ------------- |
+| `packages/assets/src/` (`@midhah/assets`) | used by **both** web and admin                                         | static import |
+| `apps/<app>/assets/`                      | used by **one** app                                                    | static import |
+| `apps/<app>/public/`                      | needs a fixed URL: CSS `url()`, webmanifest, `.well-known`, robots/ads | URL string    |
+
+```tsx
+import lyricsLogo from "@midhah/assets/brand/lyrics-logo.svg";
+<Image src={lyricsLogo} alt="Midhah Lyrics" width={150} height={70} />;
+```
+
+`@midhah/assets` is build-less (raw files via subpath `exports`, same as `@midhah/utils`). It is
+listed in `transpilePackages`, and its `src/global.d.ts` is pulled in via each app's tsconfig
+`include`. It holds only image files — if React components are ever added there, both
+`globals.css` files need an explicit `@source`, because Tailwind v4 auto-detection does not
+cross into `packages/*`.
+
+`<Image>` with an SVG (imported or by path) is served raw — Next bypasses the optimizer, so
+`dangerouslyAllowSVG` is not needed. Pass `unoptimized` when using a `/public` SVG by path.
+
 ### OG Images
 
 Each lyrics page generates a custom OG image via `[genre]/[slug]/opengraph-image.tsx` using `@vercel/og`.
+
+Its images are baked into the bundle as base64 data URIs in `_components/og/assets.generated.ts`.
+Satori runs on the edge (no filesystem) and Turbopack resolves `new URL(..., import.meta.url)` to a
+root-relative path that server-side `fetch` cannot parse, so neither approach works. Edit the source
+images in `_components/og/` and the file regenerates on `pnpm build` (or run
+`pnpm --filter @midhah/web generate:og-assets`). Never hardcode an absolute production URL here —
+that made dev and preview deployments fetch from production.
 
 ### Path Alias
 

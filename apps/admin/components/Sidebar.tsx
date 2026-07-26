@@ -1,5 +1,8 @@
 "use client";
 
+import collapseIcon from "@/assets/ui/collapse.svg";
+import lyricsLogo from "@midhah/assets/brand/lyrics-logo.svg";
+import squareLogo from "@midhah/assets/brand/square-logo.svg";
 import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
@@ -55,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
           <Image
             width={24}
             height={24}
-            src={"/assets/collapse.svg"}
+            src={collapseIcon}
             alt="collapse sidebar icon"
           />
         </button>
@@ -65,11 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapse, onCollapseToggle }) => {
             alt="Midhah logo"
             width={48}
             height={48}
-            src={
-              isCollapse
-                ? "/assets/midhah-square-logo.svg"
-                : "/assets/midhah-lyrics-logo.svg"
-            }
+            src={isCollapse ? squareLogo : lyricsLogo}
             className={`cursor-pointer transition-all duration-400 ${
               isCollapse ? "h-12 w-12" : "h-20 w-auto"
             }`}

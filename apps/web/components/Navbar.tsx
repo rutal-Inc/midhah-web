@@ -1,6 +1,7 @@
 "use client";
 
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import lyricsLogo from "@midhah/assets/brand/lyrics-logo.svg";
 import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
 import { useUserStore } from "@midhah/utils/useUserStore";
@@ -44,7 +45,7 @@ function Navbar() {
             className={`${showSearch ? "max-[520px]:hidden max-[520px]:w-[1%]" : "w-[30%] max-[520px]:block"} block`}
           >
             <Image
-              src="/images/midhah-lyrics-logo.svg"
+              src={lyricsLogo}
               alt="Midhah Lyrics Logo"
               width={150}
               height={70}

@@ -1,5 +1,5 @@
-import { WEB_BASE_URL } from "@/utilities/constants";
 import { ImageResponse } from "@vercel/og";
+import { OG_MARK, OG_PATTERN } from "./og/assets.generated";
 
 export const OG_IMAGE_SIZE = {
   width: 1200,
@@ -12,6 +12,10 @@ interface GenerateOgImageOptions {
   color?: string;
 }
 
+// The OG images are baked into the bundle as data URIs (see
+// scripts/generate-og-assets.mjs). They used to be fetched from absolute
+// lyrics.midhah.com URLs, which made dev and preview deployments depend on
+// production and left Satori rasterising a remote SVG.
 export default function OgImage({
   title,
   genreLabel,
@@ -39,7 +43,7 @@ export default function OgImage({
           width: "100%",
           height: "100%",
           opacity: "0.15",
-          backgroundImage: `url('${WEB_BASE_URL}/images/pattern.png')`,
+          backgroundImage: `url('${OG_PATTERN}')`,
           backgroundSize: "auto",
           backgroundPosition: "center",
           backgroundRepeat: "repeat",
@@ -59,7 +63,7 @@ export default function OgImage({
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`${WEB_BASE_URL}/images/midhah.svg`}
+        src={OG_MARK}
         alt=""
         height={80}
         style={{

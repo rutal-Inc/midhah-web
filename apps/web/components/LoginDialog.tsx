@@ -1,3 +1,4 @@
+import googleLogo from "@midhah/assets/ui/google.svg";
 import { auth } from "@midhah/utils/firebase";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -107,7 +108,7 @@ export default function LoginDialog({
                 onClick={handleGoogleLogin}
               >
                 <Image
-                  src="/svgs/google2.svg"
+                  src={googleLogo}
                   alt="Google Logo"
                   className="absolute left-1.5 h-6 w-6 md:h-7 md:w-7"
                   width={500}
@@ -115,13 +116,15 @@ export default function LoginDialog({
                 />
                 <p>Continue with Google</p>
               </button>
+              {/* Re-enabling this button also needs:
+                  import facebookLogo from "@midhah/assets/ui/facebook.svg"; */}
               {/* <button
                 disabled={true}
                 className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2 text-sm/6 font-semibold text-black shadow hover:shadow-black/20"
                 onClick={handleFacebookLogin}
               >
                 <Image
-                  src="/svgs/facebook.svg"
+                  src={facebookLogo}
                   alt="Facebook Logo"
                   className="absolute left-1.5 h-6 w-6 md:h-7 md:w-7"
                   width={500}
