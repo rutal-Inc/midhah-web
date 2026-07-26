@@ -1,7 +1,12 @@
 "use client";
 
+import {
+  FacebookLogo,
+  GithubLogo,
+  InstagramLogo,
+  XLogo,
+} from "@/components/icons/social";
 import logoGrey from "@midhah/assets/brand/logo-grey.svg";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -31,7 +36,7 @@ function Footer() {
                 href="https://www.facebook.com/midhah.official"
                 target="_blank"
               >
-                <i className="bi bi-facebook text-2xl"></i>
+                <FacebookLogo className="h-6 w-6" />
               </a>
             </li>
             <li>
@@ -41,7 +46,7 @@ function Footer() {
                 href="https://x.com/midhahOfficial"
                 target="_blank"
               >
-                <i className="bi bi-twitter-x text-2xl"></i>
+                <XLogo className="h-6 w-6" />
               </a>
             </li>
             <li>
@@ -51,7 +56,7 @@ function Footer() {
                 href="https://www.instagram.com/midhah.official/"
                 target="_blank"
               >
-                <i className="bi bi-instagram text-2xl"></i>
+                <InstagramLogo className="h-6 w-6" />
               </a>
             </li>
             <li>
@@ -61,7 +66,7 @@ function Footer() {
                 href="https://github.com/rutal-Inc/midhah-web"
                 target="_blank"
               >
-                <i className="bi bi-github text-2xl"></i>
+                <GithubLogo className="h-6 w-6" />
               </a>
             </li>
           </ul>
@@ -87,11 +92,7 @@ function Footer() {
           </div>
 
           <div className="flex space-x-5">
-            <Link
-              href="/privacy-policy"
-              className="text-gray-500"
-              style={{ textDecoration: "none" }}
-            >
+            <Link href="/privacy-policy" className="text-gray-500">
               Privacy Policy
             </Link>
           </div>

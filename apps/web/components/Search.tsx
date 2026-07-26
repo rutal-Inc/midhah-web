@@ -1,7 +1,7 @@
 "use client";
 
 import Loader from "@/components/Loader";
-import { TrendingUp } from "lucide-react";
+import { History, Search as SearchIcon, TrendingUp } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SuggestionLyrics } from "../models/Lyrics";
@@ -150,7 +150,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
         />
         <button
           type="button"
-          className="bi bi-search cursor-pointer rounded-sm px-1.5 py-1 hover:bg-gray-100"
+          className="cursor-pointer rounded-sm px-1.5 py-1 hover:bg-gray-100"
           onMouseDown={(e) => {
             e.preventDefault();
 
@@ -160,7 +160,9 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
               `/search?query=${searchInput.toLowerCase().replaceAll(/\s/g, "+")}`,
             );
           }}
-        ></button>
+        >
+          <SearchIcon className="h-4 w-4" />
+        </button>
         <ul
           className={`${listDisplay ? "absolute" : "hidden"} top-11.5 left-px z-9999 w-full rounded-b-md border border-gray-800 bg-white`}
         >
@@ -212,7 +214,7 @@ function Search({ showSearch, setShowSearch }: Readonly<Props>) {
           }, 0);
         }}
       >
-        <i className="bi bi-search"></i>
+        <SearchIcon className="h-4 w-4" />
       </button>
     </>
   );
@@ -246,9 +248,9 @@ const SuggestionItem = ({
         (suggestion.icon === "trend" ? (
           <TrendingUp />
         ) : (
-          <i className="bi bi-clock-history" />
+          <History className="h-5 w-5" />
         ))}
-      {!showIcon && <i className="bi bi-search" />}
+      {!showIcon && <SearchIcon className="h-5 w-5" />}
       <span className="truncate">{suggestion.title.toLowerCase()}</span>
     </button>
   </li>

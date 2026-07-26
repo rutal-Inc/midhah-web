@@ -2,6 +2,7 @@
 
 import Loader from "@/components/Loader";
 import LyricCard from "@/components/LyricCard";
+import PageHero from "@/components/ui/PageHero";
 import { CollectionType } from "@/models/Collection";
 import Lyrics from "@/models/Lyrics";
 import { getCollection } from "@/service/collectionService";
@@ -48,13 +49,11 @@ export default function CollectionPage({
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div className="theme-gradient card relative mb-5 overflow-hidden md:rounded-[10px]">
-        <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">
-            {collection.name}
-          </h1>
-        </div>
-      </div>
+      <PageHero pattern className="mb-5">
+        <h1 className="mb-1 text-2xl text-white md:text-5xl">
+          {collection.name}
+        </h1>
+      </PageHero>
 
       <main className="page-min-h flex flex-col items-center justify-center">
         {collection.lyrics.length > 0 ? (

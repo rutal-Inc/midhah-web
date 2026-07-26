@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useState } from "react";
 import { promoLines } from "../utilities/constants";
 import GooglePlayBadge from "./GooglePlayBadge";
@@ -32,7 +33,7 @@ export const AppPromoBanner = () => {
               aria-label="Close banner"
               title="Close banner"
             >
-              <i className="bi bi-x flex text-2xl"></i>
+              <X className="h-6 w-6" />
             </button>
           </div>
         </div>

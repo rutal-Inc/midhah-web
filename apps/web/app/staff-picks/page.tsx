@@ -1,4 +1,5 @@
 import RenderFilteredList from "@/components/RenderFilteredList";
+import PageHero from "@/components/ui/PageHero";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 import { Metadata } from "next";
@@ -29,14 +30,12 @@ export function generateMetadata(): Metadata {
 export default async function StaffPicksLyricsPage() {
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div className="theme-gradient relative mb-5 overflow-hidden md:rounded-[10px]">
-        <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">Staff Picks</h1>
-          <p className="mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl">
-            Hidden Gems: Editor&apos;s Pick to Discover ✨
-          </p>
-        </div>
-      </div>
+      <PageHero className="mb-5">
+        <h1 className="mb-1 text-2xl text-white md:text-5xl">Staff Picks</h1>
+        <p className="mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl">
+          Hidden Gems: Editor&apos;s Pick to Discover ✨
+        </p>
+      </PageHero>
 
       <RenderFilteredList size={16} type="staff-picks" />
     </div>

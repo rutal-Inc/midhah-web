@@ -4,7 +4,7 @@ import CollectionDialog from "@/components/CollectionDialog";
 import LoginDialog from "@/components/LoginDialog";
 import { useCollectionStore } from "@/store/useCollectionStore";
 import { useAuthStore } from "@midhah/utils/useAuthStore";
-import { Text } from "@radix-ui/themes";
+import { Bookmark, BookmarkCheck } from "lucide-react";
 import { useState } from "react";
 
 interface LyricsDialogClientProps {
@@ -37,17 +37,13 @@ export default function LyricsDialogClient({
           {currentLyricId === lyricId && collectionIds.length > 0 ? (
             <>
               {" "}
-              <i className="bi bi-bookmark-check-fill text-xl text-gray-100"></i>
-              <Text className="text-gray-100" size={"4"}>
-                Collections
-              </Text>
+              <BookmarkCheck className="h-5 w-5 text-gray-100" />
+              <span className="text-lg text-gray-100">Collections</span>
             </>
           ) : (
             <>
-              <i className="bi bi-bookmark text-xl text-gray-100"></i>
-              <Text className="text-gray-100" size={"4"}>
-                Add to Collection
-              </Text>
+              <Bookmark className="h-5 w-5 text-gray-100" />
+              <span className="text-lg text-gray-100">Add to Collection</span>
             </>
           )}
         </button>

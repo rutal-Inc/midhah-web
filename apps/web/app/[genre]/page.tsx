@@ -1,4 +1,5 @@
 import RenderLyricsList from "@/components/RenderLyricsList";
+import PageHero from "@/components/ui/PageHero";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize, getPageGenre } from "@/utilities/helpers";
 import { Metadata } from "next";
@@ -54,16 +55,11 @@ export default async function GenreListPage(props: Params) {
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
-      <div
-        className="card relative mb-5 overflow-hidden md:rounded-[10px]"
-        style={{ background: genreInfo?.color }}
-      >
-        <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">
-            {genreInfo?.title}
-          </h1>
-        </div>
-      </div>
+      <PageHero gradient={genreInfo?.color ?? "theme"} pattern className="mb-5">
+        <h1 className="mb-1 text-2xl text-white md:text-5xl">
+          {genreInfo?.title}
+        </h1>
+      </PageHero>
 
       <RenderLyricsList genre={genreSlug} />
     </div>

@@ -1,16 +1,5 @@
 import { useUserStore } from "@midhah/utils/useUserStore";
-import * as Dialog from "@radix-ui/react-dialog";
-import {
-  BookmarkFilledIcon,
-  BookmarkIcon,
-  CheckIcon,
-  Cross1Icon,
-  Cross2Icon,
-  Pencil1Icon,
-  PlusIcon,
-  TrashIcon,
-} from "@radix-ui/react-icons";
-import { Flex, Text } from "@radix-ui/themes";
+import { Bookmark, Check, Pencil, Plus, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -29,6 +18,7 @@ import {
 } from "../service/collectionService";
 import { useCollectionStore } from "../store/useCollectionStore";
 import Loader from "./Loader";
+import DialogShell from "./ui/DialogShell";
 
 export default function CollectionDialog({
   lyricId,
@@ -206,7 +196,7 @@ export default function CollectionDialog({
   }, [fetchCollections, isOpen, user]);
 
   return (
-    <Dialog.Root
+    <DialogShell
       open={isOpen}
       onOpenChange={() => {
         setIsOpen(false);
@@ -214,177 +204,158 @@ export default function CollectionDialog({
         setNewName("");
         setName("");
       }}
+      title="My Collections"
     >
-      <Dialog.Portal>
-        <Dialog.Overlay className="data-[state=open]:animate-fadeIn fixed inset-0 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Content
-          className={`fixed top-1/2 left-1/2 max-h-[60vh] w-[94%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-7 shadow-lg focus:outline-none`}
-          aria-describedby={undefined}
-        >
-          <Flex gap="3" justify="between" align={"start"}>
-            <Dialog.Title className="text-xl font-bold">
-              My Collections
-            </Dialog.Title>
-            <Dialog.Close>
-              <div className="cursor-pointer rounded-md p-1 transition-all hover:bg-gray-100">
-                <Cross1Icon className="h-4 w-4 font-bold" />
-              </div>
-            </Dialog.Close>
-          </Flex>
-
-          <div className="mt-6">
-            {loading && <Loader />}
-            {!loading &&
-              (collections && collections.length > 0 ? (
-                <ul className="w-full list-none space-y-3">
-                  {collections.map((collection) => (
-                    <li
-                      key={collection.id}
-                      className={`flex w-full items-center justify-between rounded-md ${editingId !== Number(collection.id) && "hover:bg-gray-100"}`}
-                    >
-                      <label
-                        className={`flex w-full items-center space-x-2 md:space-x-3`}
+      <div className="mt-6">
+        {loading && <Loader />}
+        {!loading &&
+          (collections && collections.length > 0 ? (
+            <ul className="w-full list-none space-y-3">
+              {collections.map((collection) => (
+                <li
+                  key={collection.id}
+                  className={`flex w-full items-center justify-between rounded-md ${editingId !== Number(collection.id) && "hover:bg-gray-100"}`}
+                >
+                  <label
+                    className={`flex w-full items-center space-x-2 md:space-x-3`}
+                  >
+                    {collectionType === "lyric" && (
+                      <button
+                        className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          if (loading) return;
+                          if (collection.isInCollection) {
+                            removeLyricFromCollection(
+                              collection.collectionLyricId!,
+                            );
+                          } else {
+                            addLyricToCollection(collection.id, lyricId!);
+                          }
+                        }}
                       >
-                        {collectionType === "lyric" && (
+                        {collection.isInCollection ? (
+                          <Bookmark className="h-6 w-6 cursor-pointer rounded-md fill-current p-0.75 font-medium text-gray-700 shadow-inner shadow-white/10 hover:bg-gray-200" />
+                        ) : (
+                          <Bookmark className="h-6 w-6 cursor-pointer rounded-md p-0.75 font-medium text-gray-800 shadow-inner shadow-white/10 hover:bg-gray-200" />
+                        )}
+                      </button>
+                    )}
+
+                    {editingId === Number(collection.id) ? (
+                      <div className="my-1 flex w-full items-center gap-1">
+                        <input
+                          ref={inputRef}
+                          type="text"
+                          onChange={(e) => setNewName(e.target.value)}
+                          className="w-full cursor-pointer rounded-lg focus:cursor-text focus:border-none focus:ring-black focus:outline-none"
+                          value={newName}
+                        />
+                        <button
+                          className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            handleUpdate(
+                              Number(collection.id),
+                              collection.name,
+                            );
+                            setEditingId(null);
+                          }}
+                          title="Update"
+                        >
+                          <Check className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-100" />
+                        </button>
+                        <button
+                          className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            setNewName("");
+                            setEditingId(null);
+                          }}
+                          title="Cancel"
+                        >
+                          <X className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-rose-500 shadow-inner shadow-white/10 hover:bg-gray-100" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="group flex w-full items-center justify-between">
+                        {collectionType === "all" ? (
+                          <Link
+                            href={`/collection/${collection.id}`}
+                            className="flex flex-1 cursor-pointer items-center justify-between rounded-md px-4 py-1"
+                            onClick={() => setIsOpen(false)}
+                            title="Click to View All Lyrics"
+                          >
+                            <span className="text-lg text-black">
+                              {collection.name}
+                            </span>
+                          </Link>
+                        ) : (
+                          <span className="text-lg text-black">
+                            {collection.name}
+                          </span>
+                        )}
+
+                        <div className="ml-1 flex gap-1 md:hidden md:group-hover:flex">
                           <button
-                            className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+                            className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
                             onClick={(e) => {
                               e.stopPropagation();
                               e.preventDefault();
                               if (loading) return;
-                              if (collection.isInCollection) {
-                                removeLyricFromCollection(
-                                  collection.collectionLyricId!,
-                                );
-                              } else {
-                                addLyricToCollection(collection.id, lyricId!);
-                              }
+                              setEditingId(Number(collection.id));
+                              inputRef.current?.focus();
+                              setNewName(collection.name);
                             }}
+                            title="Edit"
                           >
-                            {collection.isInCollection ? (
-                              <BookmarkFilledIcon className="h-6 w-6 cursor-pointer rounded-md p-0.75 font-medium text-gray-700 shadow-inner shadow-white/10 hover:bg-gray-200" />
-                            ) : (
-                              <BookmarkIcon className="h-6 w-6 cursor-pointer rounded-md p-0.75 font-medium text-gray-800 shadow-inner shadow-white/10 hover:bg-gray-200" />
-                            )}
+                            <Pencil className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-200" />
                           </button>
-                        )}
 
-                        {editingId === Number(collection.id) ? (
-                          <div className="my-1 flex w-full items-center gap-1">
-                            <input
-                              ref={inputRef}
-                              type="text"
-                              onChange={(e) => setNewName(e.target.value)}
-                              className="w-full cursor-pointer rounded-lg focus:cursor-text focus:border-none focus:ring-black focus:outline-none"
-                              value={newName}
-                            />
-                            <button
-                              className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                handleUpdate(
-                                  Number(collection.id),
-                                  collection.name,
-                                );
-                                setEditingId(null);
-                              }}
-                              title="Update"
-                            >
-                              <CheckIcon className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-100" />
-                            </button>
-                            <button
-                              className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                setNewName("");
-                                setEditingId(null);
-                              }}
-                              title="Cancel"
-                            >
-                              <Cross2Icon className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-rose-500 shadow-inner shadow-white/10 hover:bg-gray-100" />
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="group flex w-full items-center justify-between">
-                            {collectionType === "all" ? (
-                              <Link
-                                href={`/collection/${collection.id}`}
-                                className="flex flex-1 cursor-pointer items-center justify-between rounded-md px-4 py-1"
-                                onClick={() => setIsOpen(false)}
-                                title="Click to View All Lyrics"
-                              >
-                                <Text size="4" className="text-black">
-                                  {collection.name}
-                                </Text>
-                              </Link>
-                            ) : (
-                              <Text size="4" className="text-black">
-                                {collection.name}
-                              </Text>
-                            )}
-
-                            <div className="ml-1 flex gap-1 md:hidden md:group-hover:flex">
-                              <button
-                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  e.preventDefault();
-                                  if (loading) return;
-                                  setEditingId(Number(collection.id));
-                                  inputRef.current?.focus();
-                                  setNewName(collection.name);
-                                }}
-                                title="Edit"
-                              >
-                                <Pencil1Icon className="h-6 w-6 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-200" />
-                              </button>
-
-                              <button
-                                className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (loading) return;
-                                  handleDelete(Number(collection.id));
-                                }}
-                                title="Delete"
-                              >
-                                <TrashIcon className="h-6 w-6 cursor-pointer rounded-md p-0.5 text-rose-500 shadow-inner shadow-white/10 hover:bg-gray-200" />
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <Text size={"4"} className="text-gray-900">
-                  Nothing here yet! Add your favorite lyrics to a new
-                  collection.
-                </Text>
+                          <button
+                            className="flex cursor-pointer items-center rounded-md p-0.5 shadow-inner shadow-white/10 hover:bg-gray-100"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (loading) return;
+                              handleDelete(Number(collection.id));
+                            }}
+                            title="Delete"
+                          >
+                            <Trash2 className="h-6 w-6 cursor-pointer rounded-md p-0.5 text-rose-500 shadow-inner shadow-white/10 hover:bg-gray-200" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </label>
+                </li>
               ))}
-            <div className="mt-6 flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="“My fav Midhahs”… name it your way"
-                onChange={(e) => setName(e.target.value)}
-                className="w-full cursor-pointer rounded-lg focus:cursor-text focus:border-none focus:ring-black focus:outline-none"
-                value={name}
-              />
+            </ul>
+          ) : (
+            <p className="text-lg text-gray-900">
+              Nothing here yet! Add your favorite lyrics to a new collection.
+            </p>
+          ))}
+        <div className="mt-6 flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="“My fav Midhahs”… name it your way"
+            onChange={(e) => setName(e.target.value)}
+            className="w-full cursor-pointer rounded-lg focus:cursor-text focus:border-none focus:ring-black focus:outline-none"
+            value={name}
+          />
 
-              <button
-                className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
-                onClick={handleAdd}
-                title="Create New Collection"
-              >
-                <PlusIcon className="h-7 w-7 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-100" />
-              </button>
-            </div>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          <button
+            className="flex cursor-pointer items-center rounded-md shadow-inner shadow-white/10"
+            onClick={handleAdd}
+            title="Create New Collection"
+          >
+            <Plus className="h-7 w-7 cursor-pointer rounded-md p-0.5 font-semibold text-cyan-600 shadow-inner shadow-white/10 hover:bg-gray-100" />
+          </button>
+        </div>
+      </div>
+    </DialogShell>
   );
 }

@@ -2,8 +2,6 @@ import { fontVariables } from "@/app/fonts";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Settings } from "@/components/Settings";
-import { Theme } from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
@@ -66,14 +64,12 @@ export default function RootLayout({
             {NEXT_PUBLIC_GA_TRACKING_ID && (
               <GoogleAnalytics GA_TRACKING_ID={NEXT_PUBLIC_GA_TRACKING_ID} />
             )}
-            <Theme>
-              <ClientWrapper />
-              <AdBanner />
-              <Navbar />
-              {children}
-              <Footer />
-              <Settings />
-            </Theme>
+            <ClientWrapper />
+            <AdBanner />
+            <Navbar />
+            {children}
+            <Footer />
+            <Settings />
           </AuthProvider>
         </ThemeProvider>
         <Toaster />

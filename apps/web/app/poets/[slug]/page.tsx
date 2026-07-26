@@ -2,6 +2,7 @@ import { fetchPoet } from "@/app/poets/[slug]/service";
 import BannerAd from "@/components/ads/AdSense_BannerAd";
 import Loader from "@/components/Loader";
 import RenderPoetsLyricsList from "@/components/RenderPoetsLyricsList";
+import PageHero from "@/components/ui/PageHero";
 import ViewCount from "@/components/ViewCount";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
@@ -65,11 +66,9 @@ async function PoetHero({ slug }: Readonly<{ slug: string }>) {
 
   return (
     <>
-      <div className="theme-gradient card relative mb-5 overflow-hidden md:rounded-[10px]">
-        <div className="py-15 text-center md:py-37.5">
-          <h1 className="mb-1 text-2xl text-white md:text-5xl">{poet.name}</h1>
-        </div>
-      </div>
+      <PageHero pattern className="mb-5">
+        <h1 className="mb-1 text-2xl text-white md:text-5xl">{poet.name}</h1>
+      </PageHero>
       <ViewCount entityId={poet.id} entityType="POET" />
     </>
   );
