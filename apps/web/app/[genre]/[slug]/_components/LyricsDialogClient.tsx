@@ -32,7 +32,7 @@ export default function LyricsDialogClient({
             setIsOpen(true);
           }}
           disabled={!isInitialized}
-          className={`btn-secondary flex max-w-65 cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2 ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
+          className={`btn-secondary flex max-w-65 cursor-pointer items-center justify-center gap-2 rounded-sm px-3 py-1.5 text-base font-medium text-white sm:px-4 sm:py-2 ${!isInitialized && "cursor-not-allowed opacity-70"}`}
         >
           {currentLyricId === lyricId && collectionIds.length > 0 ? (
             <>

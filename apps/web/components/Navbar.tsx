@@ -73,7 +73,7 @@ function Navbar() {
                 <Popover.Root>
                   <Popover.Trigger asChild>
                     <button
-                      className={`align-middle focus-within:outline-0 ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
+                      className={`align-middle focus-within:outline-0 ${!isInitialized && "cursor-not-allowed opacity-70"}`}
                       title={`${user.name}`}
                       disabled={!isInitialized}
                     >
@@ -113,7 +113,7 @@ function Navbar() {
                 </Popover.Root>
               ) : (
                 <button
-                  className={`btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
+                  className={`btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white ${!isInitialized && "cursor-not-allowed opacity-70"}`}
                   onClick={() => {
                     setIsLoginDialogOpen(true);
                   }}
