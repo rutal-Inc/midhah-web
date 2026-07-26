@@ -69,7 +69,7 @@ function Footer() {
 
         <hr className="my-8 border-gray-300" />
 
-        <div className="flex-md-row flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between">
           <div className="flex items-center">
             <Image
               src={logoGrey}

@@ -23,17 +23,15 @@ const Privacy = () => {
       <div className="theme-gradient relative overflow-hidden p-3 py-5 md:p-5">
         <div className="py-15 text-center text-white md:py-37.5">
           <h1 className="mb-1 text-2xl md:text-5xl">Privacy Policy</h1>
-          <p className="text-normal md:text-xl">
-            We ensure, your Data is Secure
-          </p>
+          <p className="md:text-xl">We ensure, your Data is Secure</p>
         </div>
-        <p className="fs-6 text-end font-light text-slate-200">
+        <p className="text-end font-light text-slate-200">
           <small>Last Updated April 11, 2026</small>
         </p>
       </div>
 
-      <div className="justify-content container p-5">
-        <p className="text-normal mb-4 p-1 leading-relaxed">
+      <div className="container p-5">
+        <p className="mb-4 p-1 leading-relaxed">
           Rutal Labs built the Midhah Lyrics app as a Free app. This SERVICE is
           provided by Rutal Labs at no cost and is intended for use as is.
           <br />

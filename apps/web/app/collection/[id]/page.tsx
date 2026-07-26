@@ -56,7 +56,7 @@ export default function CollectionPage({
         </div>
       </div>
 
-      <main className="flex min-h-[calc(100vh-575px)] flex-col items-center justify-center">
+      <main className="page-min-h flex flex-col items-center justify-center">
         {collection.lyrics.length > 0 ? (
           <ul className="w-full md:grid md:grid-cols-2">
             {collection.lyrics.map((lyric: Lyrics, index: number) => (

@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3001",
-    "build": "node scripts/generate-og-assets.mjs && node scripts/generate-genre-icons.mjs && next build",
+    "build": "node scripts/generate-og-assets.mjs && node scripts/generate-genre-icons.mjs && node scripts/generate-theme-css.mjs && next build",
     "start": "next start -p 3001",
     "lint": "eslint .",
     "type-check": "next typegen && tsc --noEmit",
     "generate:og-assets": "node scripts/generate-og-assets.mjs",
-    "generate:genre-icons": "node scripts/generate-genre-icons.mjs"
+    "generate:genre-icons": "node scripts/generate-genre-icons.mjs",
+    "generate:theme-css": "node scripts/generate-theme-css.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.4",
@@ -24,6 +25,7 @@
     "firebase": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
+    "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.9.17",
     "react": "catalog:",
     "react-dom": "catalog:",

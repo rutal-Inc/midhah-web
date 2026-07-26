@@ -32,7 +32,7 @@ export default async function StaffPicksLyricsPage() {
       <div className="theme-gradient relative mb-5 overflow-hidden md:rounded-[10px]">
         <div className="py-15 text-center md:py-37.5">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">Staff Picks</h1>
-          <p className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl">
+          <p className="mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl">
             Hidden Gems: Editor&apos;s Pick to Discover ✨
           </p>
         </div>

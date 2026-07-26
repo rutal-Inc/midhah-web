@@ -55,7 +55,7 @@ export default async function Layout({
             <Link
               href={`/poets/${lyric.poet?.slug}`}
               prefetch={false}
-              className="leading text-normal mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl"
+              className="mx-auto py-4 font-normal text-white md:col-span-9 md:text-xl"
             >
               <h2 className="mt-2">{lyric.poet.name}</h2>
             </Link>

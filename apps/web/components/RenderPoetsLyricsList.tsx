@@ -40,7 +40,7 @@ export default async function RenderPoetsLyricsList({
   });
 
   return (
-    <main className="flex min-h-[calc(100vh-575px)] flex-col items-center justify-center">
+    <main className="page-min-h flex flex-col items-center justify-center">
       <ul className="w-full md:grid md:grid-cols-2">
         {groupedLyrics.map((group) => (
           <Fragment key={group.letter}>

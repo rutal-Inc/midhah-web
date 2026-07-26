@@ -9,7 +9,7 @@ const GenreCards = () => {
       <div className="w-full gap-3 px-3 sm:w-1/2 md:w-1/3 lg:w-1/4" key={index}>
         <Link href={card.path}>
           <div
-            className="card text-dark col-10 m-auto my-3 overflow-hidden rounded-3xl shadow-lg sm:col-8 md:col-12"
+            className="card m-auto my-3 overflow-hidden rounded-3xl shadow-lg"
             style={{
               background: card.color,
               minHeight: "300px",
@@ -20,7 +20,7 @@ const GenreCards = () => {
               aria-label={`Illustration for ${card.title}`}
               className="mx-auto mt-5 block w-3/4 text-white"
             />
-            <div className="text-shadow-1 p-3 text-white">
+            <div className="p-3 text-white">
               <h3 className="text-center text-xl font-bold tracking-wide">
                 {card.title}
               </h3>
@@ -36,7 +36,7 @@ const GenreCards = () => {
       <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">
         Explore the Genres
       </h2>
-      <p className="text-normal mb-6 pl-4 md:text-xl">
+      <p className="mb-6 pl-4 md:text-xl">
         Delve into and explore the lyrics of a diverse array of madh genres{" "}
       </p>
       <div className="flex flex-wrap">

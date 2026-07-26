@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
 import ClientWrapper from "../components/ClientWrapper";
 import AuthProvider from "../components/providers/AuthProvider";
+import ThemeProvider from "../components/providers/ThemeProvider";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
 import "./globals.css";
@@ -46,7 +47,7 @@ export default function RootLayout({
   const { NEXT_PUBLIC_GA_TRACKING_ID } = process.env;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <Script
         async
         crossOrigin="anonymous"
@@ -60,19 +61,21 @@ export default function RootLayout({
           showSpinner={false}
           shadow="0 0 20px #000000"
         />
-        <AuthProvider>
-          {NEXT_PUBLIC_GA_TRACKING_ID && (
-            <GoogleAnalytics GA_TRACKING_ID={NEXT_PUBLIC_GA_TRACKING_ID} />
-          )}
-          <Theme>
-            <ClientWrapper />
-            <AdBanner />
-            <Navbar />
-            {children}
-            <Footer />
-            <Settings />
-          </Theme>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            {NEXT_PUBLIC_GA_TRACKING_ID && (
+              <GoogleAnalytics GA_TRACKING_ID={NEXT_PUBLIC_GA_TRACKING_ID} />
+            )}
+            <Theme>
+              <ClientWrapper />
+              <AdBanner />
+              <Navbar />
+              {children}
+              <Footer />
+              <Settings />
+            </Theme>
+          </AuthProvider>
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>

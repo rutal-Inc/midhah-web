@@ -12,7 +12,7 @@ export default function FeatureCards() {
         <h2 className="mb-1 pl-4 text-2xl md:mb-4 md:text-4xl">
           Discover Uncharted Devotion
         </h2>
-        <p className="text-normal mb-6 pl-4 md:text-xl">
+        <p className="mb-6 pl-4 md:text-xl">
           Dive into diverse, authentic, and immersive lyrical experiences with
           our app
         </p>
@@ -21,7 +21,7 @@ export default function FeatureCards() {
           <div className="order-1 flex flex-col justify-between bg-slate-100 px-4 pt-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Pure Poetic Purity</h3>
-              <p className="text-normal md:text-xl">
+              <p className="md:text-xl">
                 Ensuring authenticity—experience the genuine words of poets,
                 untouched and true
               </p>
@@ -38,7 +38,7 @@ export default function FeatureCards() {
           <div className="bg-primary order-2 flex flex-col justify-between px-4 pt-4">
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">At Your Fingertips</h3>
-              <p className="text-normal md:text-xl">
+              <p className="md:text-xl">
                 Unleash the power of precision with our state-of-the-art search
                 functionality
               </p>
@@ -55,7 +55,7 @@ export default function FeatureCards() {
           <div className="bg-primary order-4 flex flex-col justify-between px-4 pt-4 lg:order-3">
             <div className="my-4 py-4 text-center text-white">
               <h3 className="mb-3 text-2xl md:text-4xl">Offline Access</h3>
-              <p className="text-normal md:text-xl">
+              <p className="md:text-xl">
                 Capture the essence offline—download app and access your
                 favorite verses anytime, anywhere
               </p>
@@ -72,7 +72,7 @@ export default function FeatureCards() {
           <div className="order-3 flex flex-col justify-between bg-slate-100 px-4 pt-4 lg:order-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Lyrical Oasis</h3>
-              <p className="text-normal md:text-xl">
+              <p className="md:text-xl">
                 A vast collection spanning Hamd, Naat, Manqabat, and Durood o
                 Salam—thousands of lyrical gems await
               </p>
@@ -89,7 +89,7 @@ export default function FeatureCards() {
           <div className="order-5 flex flex-col justify-between bg-slate-100 px-4 pt-4">
             <div className="my-4 py-4 text-center">
               <h3 className="mb-3 text-2xl md:text-4xl">Interactive Harmony</h3>
-              <p className="text-normal md:text-xl">
+              <p className="md:text-xl">
                 Embark on a seamless lyrical journey with our user-friendly
                 interface
               </p>

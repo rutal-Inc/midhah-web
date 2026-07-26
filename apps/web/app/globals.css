@@ -1,8 +1,14 @@
 @import "tailwindcss";
+@import "./theme.generated.css";
 
 @plugin "@tailwindcss/forms";
 
+/* Dark mode is opt-in via next-themes setting data-theme on <html>. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
+  /* Legacy brand tokens — superseded by the semantic tokens in
+     theme.generated.css; kept until every consumer is migrated. */
   --color-primary: #256279;
   --color-primary-light: rgb(81, 129, 148);
   --color-primary-dark: rgb(30, 78, 97);
@@ -14,6 +20,18 @@
   --color-tertiary: #247c99;
   --color-tertiary-light: rgb(80, 150, 173);
   --color-tertiary-dark: rgb(29, 99, 122);
+
+  /* Used as data-[state=open]:animate-fadeIn by the dialogs. */
+  --animate-fadeIn: fadeIn 200ms ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 /*
@@ -39,27 +57,17 @@
 }
 
 @utility btn-secondary {
-  @apply cursor-pointer rounded-sm bg-[#027278] transition hover:opacity-92;
+  @apply hover:opacity-92 cursor-pointer rounded-sm bg-(--teal-700) transition;
 }
 
 @utility theme-gradient {
-  background-color: rgb(55 98 131);
-  background-image:
-    radial-gradient(
-      ellipse 67.4% 150.8% at 27.6% 103.2%,
-      rgb(36 73 97 / 0.709) 0%,
-      rgb(36 73 97 / 0) 100%
-    ),
-    radial-gradient(
-      ellipse 40.7% 68.1% at -3.5% -2.2%,
-      rgb(6 210 248 / 0.789) 0%,
-      rgb(6 210 248 / 0) 100%
-    ),
-    radial-gradient(
-      ellipse 81% 118.2% at 96.5% 3.8%,
-      rgb(8 115 120 / 1) 0%,
-      rgb(8 115 120 / 0) 100%
-    );
+  background-color: var(--gradient-hero-base);
+  background-image: var(--gradient-hero);
+}
+
+/* Full-height content area between navbar and footer (575px combined). */
+@utility page-min-h {
+  min-height: calc(100vh - 575px);
 }
 
 @utility card {

@@ -3,29 +3,30 @@ import gosha_e_durood from "@/components/icons/GoshaEDurood";
 import roza_imam_hussain from "@/components/icons/RozaEImamHussain";
 import roza_e_rasool from "@/components/icons/RozaERasool";
 import GenreInfo from "@/models/GenreInfo";
+import { genreGradients } from "@/utilities/palette.mjs";
 
 export const genresInfo: GenreInfo[] = [
   {
     title: "HAMD E TA'ALA",
-    color: "linear-gradient(to bottom right, #2D2A2B, #1A1A1A)",
+    color: genreGradients.hamd,
     icon: bait_ullah,
     path: "hamd",
   },
   {
     title: "NAAT E RASOOL",
-    color: "linear-gradient(to bottom right, #1F605E, #319678)",
+    color: genreGradients.naat,
     icon: roza_e_rasool,
     path: "naat",
   },
   {
     title: "MANQBAT",
-    color: "linear-gradient(to bottom right, #F7C638, #B87129)",
+    color: genreGradients.manqbat,
     icon: roza_imam_hussain,
     path: "manqbat",
   },
   {
     title: "DUROOD O SALAM",
-    color: "linear-gradient(to bottom right, #027278, #081B3E)",
+    color: genreGradients["durood-o-salam"],
     icon: gosha_e_durood,
     path: "durood-o-salam",
   },
