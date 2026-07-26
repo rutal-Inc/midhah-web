@@ -4,10 +4,7 @@ import { capitalize } from "@/utilities/helpers";
 import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
-  const title = `${capitalize(
-    "Trending Lyrics",
-    "-",
-  )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  const title = `${capitalize("Trending Lyrics", "-")} Lyrics`;
   const description = `Explore trending lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
 
   return {

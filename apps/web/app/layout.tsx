@@ -10,9 +10,11 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import AdBanner from "../components/AdBanner";
 import ClientWrapper from "../components/ClientWrapper";
+import JsonLd from "../components/JsonLd";
 import AuthProvider from "../components/providers/AuthProvider";
 import GoogleAnalytics from "../components/scripts/GoogleAnalytics";
 import { WEB_BASE_URL } from "../utilities/constants";
+import { organizationJsonLd, webSiteJsonLd } from "../utilities/jsonld";
 import "./globals.css";
 
 const title = "Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform";
@@ -20,8 +22,12 @@ const description =
   "Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.";
 
 export const metadata: Metadata = {
-  title,
+  title: {
+    default: title,
+    template: "%s | Midhah Lyrics",
+  },
   description,
+  applicationName: "Midhah Lyrics",
   metadataBase: new URL(WEB_BASE_URL),
   openGraph: {
     title,
@@ -54,6 +60,7 @@ export default function RootLayout({
         strategy="afterInteractive"
       />
       <body className={montserrat.className}>
+        <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
         <NextTopLoader
           color="#256279"
           height={4}

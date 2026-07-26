@@ -1,6 +1,15 @@
 import { AppPromoBanner } from "@/components/AppPromoBanner";
 import { Fragment } from "react";
 
+// TODO(i18n/SEO): add `lang` attributes to verse blocks once the API exposes
+// language codes. A single page-level tag is NOT enough: kalam is frequently
+// multilingual — e.g. /naat/lam-yati-nazeero-kafi-nazarin carries verses in
+// four languages (Arabic, Persian, Urdu, Hindi/Punjabi). The right backend
+// shape is a per-chunk language code (content as [{ text, lang }] or a
+// parallel `languages: string[]` aligned with the "\n\n" chunks), letting each
+// <p> below get its own BCP-47 `lang` (with the "-Latn" suffix applied on the
+// transliterated route). Until then we deliberately claim nothing — a wrong
+// lang hint is worse for assistive tech and search than none.
 export default function LyricsChunks({
   content,
   className,

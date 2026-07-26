@@ -1,10 +1,12 @@
 import { fetchPoet } from "@/app/poets/[slug]/service";
 import BannerAd from "@/components/ads/AdSense_BannerAd";
+import JsonLd from "@/components/JsonLd";
 import Loader from "@/components/Loader";
 import RenderPoetsLyricsList from "@/components/RenderPoetsLyricsList";
 import ViewCount from "@/components/ViewCount";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
+import { breadcrumbJsonLd, poetJsonLd } from "@/utilities/jsonld";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -14,10 +16,7 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
   const poet = await fetchPoet(params.slug);
   const poetName = poet!.name;
 
-  const title = `${capitalize(
-    poetName,
-    " ",
-  )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  const title = `${capitalize(poetName, " ")} Lyrics`;
   const description = `Explore ${poetName} lyrics on Midhah مدحة — the most authentic platform for Hamd, Naat, Nasheed, Manqabat, and Durood o Salam. Download now on Google Play.`;
 
   return {
@@ -65,6 +64,15 @@ async function PoetHero({ slug }: Readonly<{ slug: string }>) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          poetJsonLd({ name: poet.name, slug }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: poet.name, path: `/poets/${slug}` },
+          ]),
+        ]}
+      />
       <div className="theme-gradient card relative mb-5 overflow-hidden md:rounded-[10px]">
         <div className="py-15 text-center md:py-37.5">
           <h1 className="mb-1 text-2xl text-white md:text-5xl">{poet.name}</h1>
