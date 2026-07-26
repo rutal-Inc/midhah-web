@@ -85,8 +85,10 @@ export default async function LyricsPage({
           lyricJsonLd({
             title: lyric.title,
             genre,
+            genreName: capitalize(genre, "-"),
             slug,
             transliterated: false,
+            content: lyric.content,
             poet: lyric.poet,
           }),
           breadcrumbJsonLd([
@@ -98,7 +100,6 @@ export default async function LyricsPage({
       />
       <LyricsChunks
         content={lyric.content}
-        lang="ur"
         className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
         textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
       />

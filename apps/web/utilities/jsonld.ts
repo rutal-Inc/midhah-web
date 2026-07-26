@@ -51,7 +51,9 @@ export function breadcrumbJsonLd(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${WEB_BASE_URL}${item.path}`,
+      // "/" maps to the bare origin so every entity shares the exact same
+      // URL string as Organization/WebSite (strict parsers string-compare).
+      item: item.path === "/" ? WEB_BASE_URL : `${WEB_BASE_URL}${item.path}`,
     })),
   };
 }
@@ -59,24 +61,55 @@ export function breadcrumbJsonLd(
 export function lyricJsonLd({
   title,
   genre,
+  genreName,
   slug,
   transliterated,
+  content,
   poet,
 }: {
   title: string;
+  /** URL slug of the genre (e.g. "durood-o-salam"). */
   genre: string;
+  /** Display name of the genre (e.g. "Durood o Salam"). */
+  genreName: string;
   slug: string;
   transliterated: boolean;
+  /** Full lyric text for the schema `lyrics` property. */
+  content?: string;
   poet?: { name: string; slug?: string };
 }): JsonLdObject {
-  const url = `${WEB_BASE_URL}/${genre}/${slug}${transliterated ? "/transliterated" : ""}`;
+  const originalUrl = `${WEB_BASE_URL}/${genre}/${slug}`;
+  const transliteratedUrl = `${originalUrl}/transliterated`;
   return {
     "@context": "https://schema.org",
     "@type": "MusicComposition",
     name: title,
-    url,
+    url: transliterated ? transliteratedUrl : originalUrl,
+    // Page-level script variant, mirroring the hreflang pair. Verse-level
+    // language is NOT claimed anywhere (see LyricsChunks) — kalam is often
+    // multilingual (Arabic/Persian/Urdu/etc. verse by verse).
     inLanguage: transliterated ? "ur-Latn" : "ur",
-    genre,
+    genre: genreName,
+    ...(content && {
+      lyrics: { "@type": "CreativeWork", text: content },
+    }),
+    // Cross-reference the script pair (closest schema.org relation for a
+    // transliteration; hreflang carries the same pairing for crawlers).
+    ...(transliterated
+      ? {
+          translationOfWork: {
+            "@type": "CreativeWork",
+            url: originalUrl,
+            inLanguage: "ur",
+          },
+        }
+      : {
+          workTranslation: {
+            "@type": "CreativeWork",
+            url: transliteratedUrl,
+            inLanguage: "ur-Latn",
+          },
+        }),
     ...(poet && {
       lyricist: {
         "@type": "Person",

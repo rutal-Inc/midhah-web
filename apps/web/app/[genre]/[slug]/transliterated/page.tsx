@@ -87,8 +87,10 @@ export default async function LyricsPage({
           lyricJsonLd({
             title: lyric.title,
             genre,
+            genreName: capitalize(genre, "-"),
             slug,
             transliterated: true,
+            content: lyric.transliteratedContent,
             poet: lyric.poet,
           }),
           breadcrumbJsonLd([
@@ -103,7 +105,6 @@ export default async function LyricsPage({
       />
       <LyricsChunks
         content={lyric.transliteratedContent}
-        lang="ur-Latn"
         className={`${montserrat.className} py-10 pb-16 text-center`}
         textClassName="text-2xl leading-8 whitespace-pre-wrap md:text-4xl md:leading-12.5"
       />
