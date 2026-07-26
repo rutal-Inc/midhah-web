@@ -1,6 +1,5 @@
 "use client";
 
-import { montserrat } from "@midhah/utils/fonts";
 import { useState } from "react";
 import { promoLines } from "../utilities/constants";
 import GooglePlayBadge from "./GooglePlayBadge";
@@ -18,7 +17,7 @@ export const AppPromoBanner = () => {
   return (
     <>
       {isVisible && (
-        <div className={`flex justify-center ${montserrat.className}`}>
+        <div className="flex justify-center font-sans">
           <br />
           <div className="theme-gradient relative mx-2 my-6 flex w-full flex-col items-center justify-between gap-2 rounded-lg p-5 text-white shadow-lg md:mx-auto md:w-3/4 md:flex-row md:gap-10 lg:w-3/5 lg:p-7">
             <p className="flex items-center text-left text-lg font-medium md:font-semibold">

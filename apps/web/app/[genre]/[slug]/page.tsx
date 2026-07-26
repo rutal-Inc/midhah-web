@@ -3,7 +3,7 @@ import Loader from "@/components/Loader";
 import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
-import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
+
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -75,7 +75,7 @@ export default async function LyricsPage({
     <>
       <LyricsChunks
         content={lyric.content}
-        className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
+        className="font-urdu py-10 pb-16 text-center"
         textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
       />
       <LyricsDialogClient lyricId={lyric.id} />

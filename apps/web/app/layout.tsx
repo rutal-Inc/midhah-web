@@ -1,7 +1,7 @@
+import { fontVariables } from "@/app/fonts";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Settings } from "@/components/Settings";
-import { montserrat } from "@midhah/utils/fonts";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
@@ -47,14 +47,14 @@ export default function RootLayout({
   const { NEXT_PUBLIC_GA_TRACKING_ID } = process.env;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={fontVariables}>
       <Script
         async
         crossOrigin="anonymous"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9810490020982461"
         strategy="afterInteractive"
       />
-      <body className={montserrat.className}>
+      <body className="font-sans">
         <NextTopLoader
           color="#256279"
           height={4}

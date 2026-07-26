@@ -7,6 +7,21 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
+  /* Font tokens — CSS variables provided by app/fonts.ts via next/font.
+     font-sans is the default body face; the others are opt-in utilities. */
+  --font-sans:
+    var(--font-alegreya-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-alegreya), ui-serif, Georgia, serif;
+  --font-urdu:
+    var(--font-nastaliq), "Noto Nastaliq Urdu", "Urdu Typesetting", serif;
+  --font-arabic:
+    var(--font-naskh), "Noto Naskh Arabic", "Traditional Arabic", serif;
+
+  /* Nastaliq needs roughly double Latin leading; tokens replace the ad-hoc
+     leading-12/leading-18.5 pairs on lyric pages. */
+  --leading-nastaliq: 2.1;
+  --leading-nastaliq-loose: 2.3;
+
   /* Legacy brand tokens — superseded by the semantic tokens in
      theme.generated.css; kept until every consumer is migrated. */
   --color-primary: #256279;
