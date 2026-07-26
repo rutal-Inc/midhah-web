@@ -4,6 +4,9 @@ import RenderPoetLyrics from "@/components/RenderPoetLyrics";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize } from "@/utilities/helpers";
 
+import JsonLd from "@/components/JsonLd";
+import { capitalize as cap } from "@/utilities/helpers";
+import { breadcrumbJsonLd, lyricJsonLd } from "@/utilities/jsonld";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -31,7 +34,7 @@ export async function generateMetadata({
   const title = `${lyric.title.trim()} in Urdu (${capitalize(
     lyric.genre,
     "-",
-  )}) | Midhah Lyrics`;
+  )})`;
 
   const description = `Read the lyrics of ${lyric.genre} ${lyric.title}. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
 
@@ -50,6 +53,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${WEB_BASE_URL}/${genre}/${slug}`,
+      languages: {
+        ur: `${WEB_BASE_URL}/${genre}/${slug}`,
+        "ur-Latn": `${WEB_BASE_URL}/${genre}/${slug}/transliterated`,
+        "x-default": `${WEB_BASE_URL}/${genre}/${slug}`,
+      },
     },
   };
 }
@@ -73,8 +81,25 @@ export default async function LyricsPage({
 
   return (
     <>
+      <JsonLd
+        data={[
+          lyricJsonLd({
+            title: lyric.title,
+            genre,
+            slug,
+            transliterated: false,
+            poet: lyric.poet,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: cap(genre, "-"), path: `/${genre}` },
+            { name: lyric.title, path: `/${genre}/${slug}` },
+          ]),
+        ]}
+      />
       <LyricsChunks
         content={lyric.content}
+        lang="ur"
         className="font-urdu py-10 pb-16 text-center"
         textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
       />

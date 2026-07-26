@@ -3,11 +3,11 @@
   "short_name": "Midhah Lyrics",
   "start_url": "/",
   "display": "standalone",
-  "description": "A description for your application",
-  "lang": " en",
+  "description": "Midhah \u2014 the most authentic lyrics platform for Hamd, Naat, Manqbat, Durood o Salam, and Sufiyana Kalam, in Urdu script and Roman transliteration.",
+  "lang": "en",
   "dir": "auto",
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#027278",
+  "background_color": "#FFFFFF",
   "orientation": "any",
   "icons": [
     {

@@ -1,17 +1,16 @@
+import JsonLd from "@/components/JsonLd";
 import RenderLyricsList from "@/components/RenderLyricsList";
 import PageHero from "@/components/ui/PageHero";
 import { WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize, getPageGenre } from "@/utilities/helpers";
+import { breadcrumbJsonLd } from "@/utilities/jsonld";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { preload } from "react-dom";
 
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
-  const title = `${capitalize(
-    params.genre,
-    "-",
-  )} Lyrics | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  const title = `${capitalize(params.genre, "-")} Lyrics`;
   const description = `Explore your favorite ${params.genre} lyrics. Midhah مدحة is a leading & the most authentic lyrics searching platform for Hamd, Nasheed/Naat, Manqbat, and Durood o Salam. Download the app from Google Play Store.`;
 
   return {
@@ -55,6 +54,12 @@ export default async function GenreListPage(props: Params) {
 
   return (
     <div className="container mx-auto w-full md:w-[85%]">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: genreInfo?.title ?? genreSlug, path: `/${genreSlug}` },
+        ])}
+      />
       <PageHero gradient={genreInfo?.color ?? "theme"} pattern className="mb-5">
         <h1 className="mb-1 text-2xl text-white md:text-5xl">
           {genreInfo?.title}
