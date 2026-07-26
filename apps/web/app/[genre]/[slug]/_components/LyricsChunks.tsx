@@ -5,10 +5,13 @@ export default function LyricsChunks({
   content,
   className,
   textClassName,
+  lang,
 }: Readonly<{
   content: string | undefined;
   className: string;
   textClassName: string;
+  /** BCP-47 tag for the verse ("ur" | "ur-Latn") — SEO + assistive tech. */
+  lang?: string;
 }>) {
   const chunks = content ? content.split("\n\n") : [];
 
@@ -19,7 +22,7 @@ export default function LyricsChunks({
   }
 
   return (
-    <div className={`${className} max-[640px]:px-2.5`}>
+    <div lang={lang} className={`${className} max-[640px]:px-2.5`}>
       {chunks.map((part, index) => (
         <Fragment key={Number(index)}>
           <p dir="auto" className={textClassName}>

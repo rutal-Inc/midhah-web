@@ -67,6 +67,7 @@ const LyricCard = ({
         </div>
         <div
           dir="auto"
+          lang={preference === "original" ? "ur" : "ur-Latn"}
           className={`${preference === "original" ? noto_nastaliq_urdu.className : montserrat.className} absolute top-1/2 -translate-y-1/2 scale-0 text-center whitespace-pre-wrap group-hover:z-10 group-hover:w-full group-hover:scale-100 group-hover:bg-slate-50 group-hover:py-4 group-hover:transition-all ${preference === "original" ? "text-3xl" : "text-[26px]"}`}
         >
           {preview}

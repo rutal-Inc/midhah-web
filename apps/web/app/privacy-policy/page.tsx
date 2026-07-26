@@ -2,7 +2,7 @@ import { WEB_BASE_URL } from "@/utilities/constants";
 import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
-  const title = `Privacy Policy | Midhah - Hamd, Naat, Manqbat and Durood o Salam lyrics platform`;
+  const title = `Privacy Policy`;
   return {
     title,
     openGraph: {
