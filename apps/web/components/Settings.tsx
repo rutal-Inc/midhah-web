@@ -46,8 +46,8 @@ export function Settings() {
               onClick={() => handleSetPreference("original")}
               className={`flex w-full cursor-pointer items-center justify-center px-5 py-2 text-center text-sm font-medium transition ${
                 preference === "original"
-                  ? "bg-teal-700 text-white"
-                  : "bg-gray-100 text-teal-700 hover:bg-gray-200"
+                  ? "bg-accent text-white"
+                  : "text-accent bg-gray-100 hover:bg-gray-200"
               }`}
             >
               Original
@@ -56,8 +56,8 @@ export function Settings() {
               onClick={() => handleSetPreference("transliterated")}
               className={`flex w-full cursor-pointer items-center justify-center px-5 py-2 text-center text-sm font-medium transition ${
                 preference === "transliterated"
-                  ? "bg-teal-700 text-white"
-                  : "bg-gray-100 text-teal-700 hover:bg-gray-200"
+                  ? "bg-accent text-white"
+                  : "text-accent bg-gray-100 hover:bg-gray-200"
               }`}
             >
               Transliterated

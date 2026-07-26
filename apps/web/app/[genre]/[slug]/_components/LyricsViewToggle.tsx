@@ -39,8 +39,8 @@ export default function LyricsViewToggle({
           scroll={false}
           className={`flex w-full items-center justify-center px-5 py-2 text-center text-sm font-medium transition ${index === 0 ? "md:rounded-l-lg" : "md:rounded-r-lg"} ${
             active === tab.key
-              ? "bg-teal-700 text-white"
-              : "bg-gray-100 text-teal-700 hover:bg-gray-200"
+              ? "bg-accent text-white"
+              : "text-accent bg-gray-100 hover:bg-gray-200"
           }`}
         >
           <p>

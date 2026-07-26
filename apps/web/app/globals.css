@@ -71,8 +71,16 @@
   @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
 }
 
+/* Primary action button — the theme gradient in miniature: cyan sparkle
+   into brand teal. Hover lifts brightness (gradients can't transition). */
 @utility btn-secondary {
-  @apply hover:opacity-92 cursor-pointer rounded-sm bg-(--teal-700) transition;
+  @apply cursor-pointer rounded-sm text-white transition duration-200 hover:brightness-115;
+  background-image: linear-gradient(
+    135deg,
+    var(--cyan-500),
+    var(--teal-600) 55%,
+    var(--teal-700)
+  );
 }
 
 @utility theme-gradient {
