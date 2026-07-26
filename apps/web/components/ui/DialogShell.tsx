@@ -33,24 +33,24 @@ export default function DialogShell({
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-fadeIn fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
         <Dialog.Content
-          className={`fixed top-1/2 left-1/2 z-50 max-h-[88vh] w-[92%] ${wide ? "max-w-[600px]" : "max-h-[60vh] max-w-md"} -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-white p-6 shadow-lg focus:outline-none`}
+          className={`fixed top-1/2 left-1/2 z-50 w-[92%] ${wide ? "max-h-[88vh] max-w-[600px]" : "max-h-[60vh] max-w-md"} -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-white p-6 shadow-lg focus:outline-none`}
           aria-describedby={undefined}
         >
-          <div className="flex items-start justify-between gap-3">
-            <Dialog.Title
-              className={`text-xl font-bold ${titleCentered ? "mx-1 w-full text-center" : ""}`}
+          {/* Close is absolutely positioned so a centered title centers
+              against the full panel width, not panel-minus-button. */}
+          <Dialog.Close asChild>
+            <button
+              className="absolute top-4 right-4 cursor-pointer rounded-md p-1 transition-all hover:bg-gray-100"
+              aria-label="Close"
             >
-              {title}
-            </Dialog.Title>
-            <Dialog.Close asChild>
-              <button
-                className="cursor-pointer rounded-md p-1 transition-all hover:bg-gray-100"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </Dialog.Close>
-          </div>
+              <X className="h-4 w-4" />
+            </button>
+          </Dialog.Close>
+          <Dialog.Title
+            className={`pr-8 text-xl font-bold ${titleCentered ? "pl-8 text-center" : ""}`}
+          >
+            {title}
+          </Dialog.Title>
           {children}
         </Dialog.Content>
       </Dialog.Portal>

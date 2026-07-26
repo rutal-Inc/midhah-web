@@ -35,6 +35,7 @@ function Footer() {
                 className="text-gray-500"
                 href="https://www.facebook.com/midhah.official"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <FacebookLogo className="h-6 w-6" />
               </a>
@@ -45,6 +46,7 @@ function Footer() {
                 className="text-gray-500"
                 href="https://x.com/midhahOfficial"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <XLogo className="h-6 w-6" />
               </a>
@@ -55,6 +57,7 @@ function Footer() {
                 className="text-gray-500"
                 href="https://www.instagram.com/midhah.official/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <InstagramLogo className="h-6 w-6" />
               </a>
@@ -65,6 +68,7 @@ function Footer() {
                 className="text-gray-500"
                 href="https://github.com/rutal-Inc/midhah-web"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <GithubLogo className="h-6 w-6" />
               </a>

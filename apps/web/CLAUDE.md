@@ -54,10 +54,27 @@ User collections are CRUD-managed via `src/service/collection.service.ts`. The `
 
 ### UI
 
-- **Radix UI Themes** (`@radix-ui/themes`) wraps the root layout for theming.
-- **Tailwind CSS v4** with `@tailwindcss/postcss` (no separate config file).
+- **Design tokens**: `utilities/palette.mjs` is the single source of truth for colors
+  (scales, gradients, semantic light/dark tokens). `scripts/generate-theme-css.mjs`
+  emits `app/theme.generated.css` (committed; regenerated on build). Components use
+  **semantic tokens only** (`bg-surface`, `text-ink`, `text-accent`, `bg-genre-*`) —
+  never raw hex or primitive scale vars. OG images import literals from the same
+  palette module (`@vercel/og` cannot read CSS variables).
+- **Dark mode**: `next-themes` sets `data-theme` on `<html>`; semantic tokens flip via
+  `[data-theme="dark"]`. `@custom-variant dark` exists for rare structural cases.
+  No user-facing toggle yet.
+- **Primitives**: unstyled Radix (`@radix-ui/react-dialog`/`popover`/`tooltip`, all via
+  pnpm catalog) styled in `components/ui/` — `DialogShell`, `PageHero`, `Tooltip`.
+  Icons are `lucide-react` + inline brand SVGs in `components/icons/`.
+  Radix Themes, Headless UI, and bootstrap-icons were removed — do not reintroduce.
+- **Tailwind CSS v4** with `@tailwindcss/postcss`, CSS-first config in
+  `app/globals.css` (no tailwind.config file).
 - **Prettier** auto-sorts imports (`prettier-plugin-organize-imports`) and Tailwind classes (`prettier-plugin-tailwindcss`) on save.
-- Two fonts: Montserrat (body) and Noto Nastaliq Urdu (Urdu lyrics display).
+- **Fonts** (`app/fonts.ts`, exposed as `font-*` utilities via `@theme` tokens):
+  Alegreya (`font-display` — headings + transliterated verse), Alegreya Sans
+  (`font-sans` — UI/body), Noto Nastaliq Urdu (`font-urdu`, arabic subset), Noto
+  Naskh Arabic (`font-arabic`, not preloaded). Admin still uses
+  `packages/utils/src/fonts.ts` — leave it alone.
 
 ### Key Environment Variables
 

@@ -67,10 +67,6 @@
   }
 }
 
-@utility btn-primary {
-  @apply from-secondary to-primary hover:from-secondary-dark hover:to-primary-dark focus-visible:outline-tertiary flex-none rounded-md bg-linear-to-br px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid;
-}
-
 /* Primary action button — deep teal gradient anchored dark so white text
    meets AA across the whole surface; the brand cyan appears only as a
    restrained sheen in the top corner, like light catching the surface.

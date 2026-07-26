@@ -246,7 +246,7 @@ const SuggestionItem = ({
     >
       {showIcon &&
         (suggestion.icon === "trend" ? (
-          <TrendingUp />
+          <TrendingUp className="h-5 w-5" />
         ) : (
           <History className="h-5 w-5" />
         ))}

@@ -14,7 +14,7 @@ export default function Tooltip({ content, children }: Readonly<TooltipProps>) {
     <TooltipPrimitive.Provider delayDuration={200}>
       <TooltipPrimitive.Root>
         <TooltipPrimitive.Trigger asChild>
-          <span>{children}</span>
+          <span tabIndex={0}>{children}</span>
         </TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content

@@ -16,6 +16,7 @@ export default function GooglePlayBadge({
     <a
       href="https://play.google.com/store/apps/details?id=com.midhah.lyrics"
       target="_blank"
+      rel="noopener noreferrer"
       onClick={handleClick}
     >
       <Image
