@@ -8,6 +8,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import { preload } from "react-dom";
+import FeedbackDialog from "./_components/FeedbackDialog";
 import LyricsViewToggle from "./_components/LyricsViewToggle";
 import { getLyricsViaGenreSlug } from "./_lib/service";
 import { Params } from "./_lib/types";
@@ -62,6 +63,7 @@ export default async function Layout({
           )}
         </div>
       </div>
+      <FeedbackDialog lyricId={lyric.id} lyricTitle={lyric.title} />
       <LyricsViewToggle genre={genre} slug={slug} />
 
       <div className="py-10 text-center">
