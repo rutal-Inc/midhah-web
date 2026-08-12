@@ -80,10 +80,12 @@ export interface Filters {
   isPublished?: boolean[];
   genre?: string[];
   poet?: string[];
+  status?: LyricReportStatus[];
   sortBy?: string;
   orderBy?: "asc" | "desc";
   page?: string;
   size?: string;
+  type?: LyricReportType[];
 }
 
 export type UserRole = "USER" | "ADMIN" | "SUPERADMIN";
@@ -133,4 +135,42 @@ export interface DeletedUserFilters {
   page?: string;
   size?: string;
   statuses?: DeletedUserStatus[];
+}
+
+export type LyricReportType =
+  | "INCORRECT_LYRICS"
+  | "INCORRECT_POET"
+  | "SPELLING_ERROR"
+  | "PUNCTUATION_ERROR"
+  | "TRANSLITERATION_ERROR"
+  | "OTHER";
+export type LyricReportStatus =
+  | "PENDING"
+  | "REVIEWED"
+  | "RESOLVED"
+  | "REJECTED";
+
+export interface LyricReport {
+  id: number;
+  lyric: {
+    id: number;
+    title: string;
+    slug: string;
+  };
+  type: LyricReportType;
+  message: string;
+  createdAt: Date;
+  user: {
+    name: string | null;
+    id: number;
+    displayPicture: string;
+  } | null;
+  status: LyricReportStatus;
+  reviewer: {
+    id: number;
+    name: string | null;
+    displayPicture: string;
+  } | null;
+  adminNote: string | null;
+  reviewedAt: Date | null;
 }

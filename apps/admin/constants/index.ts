@@ -38,6 +38,13 @@ export const SidebarLinks = [
     link: "/deleted-users",
     module: "deleted-users",
   },
+  {
+    id: 6,
+    title: "Reports",
+    src: Poet,
+    link: "/reports",
+    module: "reports",
+  },
 ];
 
 export const ROWS_PER_PAGE_OPTIONS = [25, 50, 75, 100];
