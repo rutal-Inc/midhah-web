@@ -73,7 +73,13 @@ export type APIResponse<T> = {
   meta: Pagination;
 };
 
-export const genreOptions = ["hamd", "naat", "manqbat", "durood-o-salam"];
+export const genreOptions = [
+  "hamd",
+  "naat",
+  "manqbat",
+  "durood-o-salam",
+  "sufiyana-kalam",
+];
 
 export interface Filters {
   slugs?: string[];
