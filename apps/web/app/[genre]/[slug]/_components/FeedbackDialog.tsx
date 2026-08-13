@@ -63,7 +63,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
 
   return (
     <>
-      <div className="flex justify-end">
+      <div className="my-1 flex justify-end">
         <button
           type="button"
           onClick={handleOpenChange}

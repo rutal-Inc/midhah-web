@@ -30,7 +30,7 @@ export default function LyricsViewToggle({
   ] as const;
 
   return (
-    <div className="flex w-full justify-center pt-6 max-[640px]:px-2.5">
+    <div className="flex w-full justify-center max-[640px]:px-2.5">
       {tabs.map((tab, index) => (
         <Link
           key={tab.key}
