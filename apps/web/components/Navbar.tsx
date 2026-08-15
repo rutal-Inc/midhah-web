@@ -1,5 +1,6 @@
 "use client";
 
+import { genresInfo } from "@/utilities/constants";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import lyricsLogo from "@midhah/assets/brand/lyrics-logo.svg";
 import { auth } from "@midhah/utils/firebase";
@@ -88,6 +89,7 @@ function Navbar() {
                     className="flex flex-col rounded-sm bg-white px-1 py-2 shadow-lg [--anchor-gap:4px]"
                   >
                     <button
+                      type="button"
                       className="flex cursor-pointer items-start gap-2 px-2 py-2 font-medium hover:bg-slate-100 lg:px-3"
                       onClick={() => {
                         setIsOpen(true);
@@ -97,6 +99,7 @@ function Navbar() {
                       <p className="flex-1 text-start">Collections</p>
                     </button>
                     <button
+                      type="button"
                       onClick={handleSignOut}
                       className="flex cursor-pointer items-start gap-2 px-2 py-2 font-medium hover:bg-slate-100 lg:px-3"
                     >
@@ -107,6 +110,7 @@ function Navbar() {
                 </Popover>
               ) : (
                 <button
+                  type="button"
                   className={`btn-secondary cursor-pointer rounded-sm px-2.5 py-1.5 text-white ${!isInitialized && "animate-pulse cursor-not-allowed"}`}
                   onClick={() => {
                     setIsLoginDialogOpen(true);
@@ -120,11 +124,12 @@ function Navbar() {
           </div>
         </div>
         <div className="mt-2 hidden w-full justify-center gap-2.5 align-middle sm:flex">
-          <div className="flex w-[87%] items-center justify-between lg:w-3xl lg:gap-2 xl:gap-6">
-            <ActiveLink href="/hamd">Hamd e Ta&apos;ala</ActiveLink>
-            <ActiveLink href="/naat">Naat e Rasool</ActiveLink>
-            <ActiveLink href="/manqbat">Manqbat</ActiveLink>
-            <ActiveLink href="/durood-o-salam">Durood o Salam</ActiveLink>
+          <div className="flex w-[96%] items-center justify-between lg:w-4xl lg:gap-2 xl:gap-6">
+            {genresInfo.map((genre) => (
+              <ActiveLink key={genre.title} href={`/${genre.path}`}>
+                {genre.nav_title}
+              </ActiveLink>
+            ))}
           </div>
         </div>
       </nav>

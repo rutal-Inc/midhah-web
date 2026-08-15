@@ -2,32 +2,44 @@ import bait_ullah from "@/components/icons/BaitUllah";
 import gosha_e_durood from "@/components/icons/GoshaEDurood";
 import roza_imam_hussain from "@/components/icons/RozaEImamHussain";
 import roza_e_rasool from "@/components/icons/RozaERasool";
+import sufiyana_kalam from "@/components/icons/SufiyanaKalam";
 import GenreInfo from "@/models/GenreInfo";
 
 export const genresInfo: GenreInfo[] = [
   {
     title: "HAMD E TA'ALA",
+    nav_title: "Hamd e Ta'ala",
     color: "linear-gradient(to bottom right, #2D2A2B, #1A1A1A)",
     icon: bait_ullah,
     path: "hamd",
   },
   {
     title: "NAAT E RASOOL",
+    nav_title: "Naat e Rasool",
     color: "linear-gradient(to bottom right, #1F605E, #319678)",
     icon: roza_e_rasool,
     path: "naat",
   },
   {
     title: "MANQBAT",
+    nav_title: "Manqbat",
     color: "linear-gradient(to bottom right, #F7C638, #B87129)",
     icon: roza_imam_hussain,
     path: "manqbat",
   },
   {
     title: "DUROOD O SALAM",
+    nav_title: "Durood o Salam",
     color: "linear-gradient(to bottom right, #027278, #081B3E)",
     icon: gosha_e_durood,
     path: "durood-o-salam",
+  },
+  {
+    title: "SUFIYANA KALAM",
+    nav_title: "Sufiyana Kalam",
+    color: "linear-gradient(to bottom right, #59CDE9, #0A2A88)",
+    icon: sufiyana_kalam,
+    path: "sufiyana-kalam",
   },
 ];
 
