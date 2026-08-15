@@ -22,6 +22,7 @@ const components = {
   naat: "RozaERasool",
   manqbat: "RozaEImamHussain",
   "durood-o-salam": "GoshaEDurood",
+  "sufiyana-kalam": "SufiyanaKalam",
 };
 
 const files = (await readdir(svgDir)).filter((f) => f.endsWith(".svg"));
