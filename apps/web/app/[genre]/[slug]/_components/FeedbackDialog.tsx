@@ -70,7 +70,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
           className="my-1.5 flex cursor-pointer items-center justify-center gap-1"
         >
           <MessageSquareMore className="h-5 w-5 text-black" />{" "}
-          <span className="text-base">Feedback</span>
+          <span className="text-base">Report an Issue</span>
         </button>
       </div>
       <Dialog.Root
@@ -86,7 +86,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
           >
             <Flex gap="3" justify="between" align={"start"}>
               <Dialog.Title className="mx-1 w-full text-start text-xl font-bold">
-                Feedback
+                Report an Issue
               </Dialog.Title>
               <Dialog.Close>
                 <div className="cursor-pointer rounded-md p-1 transition-all hover:bg-gray-100">
