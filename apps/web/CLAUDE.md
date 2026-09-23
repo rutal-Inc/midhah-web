@@ -22,7 +22,7 @@ Pre-commit hooks (Husky + lint-staged) run linting and Prettier automatically on
 The app uses two dynamic segment levels:
 
 - `[genre]` — one of `hamd`, `naat`, `manqbat`, `durood-o-salam`
-- `[genre]/[slug]` — individual lyrics pages, statically generated via `generateStaticParams()` for ~5000 pages
+- `[genre]/[slug]` — individual lyrics pages, only trending lyrics are pre-generated at build time via `generateStaticParams()` (count/window set by `TRENDING_STATIC_PARAMS_LIMIT`/`TRENDING_STATIC_PARAMS_DAYS`); all others render on demand
 
 Other routes: `search/`, `poets/[slug]/`, `trending/`, `staff-picks/`, `collection/[id]/`, `privacy-policy/`.
 
@@ -67,6 +67,9 @@ NEXT_PUBLIC_FIREBASE_API_KEY
 NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN
 NEXT_PUBLIC_FIREBASE_PROJECT_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
+SECRET                        # Shared secret for /api/revalidate
+TRENDING_STATIC_PARAMS_LIMIT  # Trending lyrics to pre-generate at build (default 50)
+TRENDING_STATIC_PARAMS_DAYS   # Trending window in days (default 30)
 ```
 
 ### Assets

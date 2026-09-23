@@ -46,11 +46,9 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
         message: formData.message,
       });
 
-      toast.success(
-        "Feedback submitted successfully. Thank you for your feedback!",
-      );
+      toast.success("Report submitted successfully. Thank you!");
     } catch {
-      toast.error("Failed to submit feedback. Please try again later.");
+      toast.error("Failed to submit report. Please try again later.");
     }
 
     setFormData({
@@ -136,7 +134,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
                     htmlFor="feedbackType"
                     className="block text-base font-medium text-gray-700"
                   >
-                    Feedback Type:
+                    Issue Type:
                   </label>
                   <select
                     name="feedbackType"
@@ -197,7 +195,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
                     type="submit"
                     className="cursor-pointer rounded-md bg-teal-700 px-4 py-2 text-white"
                   >
-                    Submit Feedback
+                    Submit Report
                   </button>
                 </div>
               </form>

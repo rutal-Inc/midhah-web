@@ -13,19 +13,25 @@ export async function getLyricsStaticParams() {
     );
 
     if (!res.ok) {
-      console.warn(
+      console.error(
         `Failed to fetch static params: ${res.status} ${res.statusText}. Falling back to on-demand generation.`,
       );
       return [];
     }
     const lyrics = await res.json();
 
-    return (lyrics.data ?? []).map((lyric: Pick<Lyrics, "genre" | "slug">) => ({
-      genre: String(lyric.genre),
-      slug: String(lyric.slug),
-    }));
+    const params = (lyrics.data ?? []).map(
+      (lyric: Pick<Lyrics, "genre" | "slug">) => ({
+        genre: String(lyric.genre),
+        slug: String(lyric.slug),
+      }),
+    );
+
+    console.log(`Pre-generating ${params.length} trending lyrics pages.`);
+
+    return params;
   } catch (error) {
-    console.warn(
+    console.error(
       "Error fetching static params, falling back to on-demand generation:",
       error,
     );

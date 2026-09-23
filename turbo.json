@@ -13,7 +13,9 @@
         "NEXT_PUBLIC_FIREBASE_PROJECT_DOMAIN",
         "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
         "NODE_ENV",
-        "SECRET"
+        "SECRET",
+        "TRENDING_STATIC_PARAMS_DAYS",
+        "TRENDING_STATIC_PARAMS_LIMIT"
       ]
     },
     "type-check": {
