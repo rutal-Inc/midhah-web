@@ -46,11 +46,9 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
         message: formData.message,
       });
 
-      toast.success(
-        "Feedback submitted successfully. Thank you for your feedback!",
-      );
+      toast.success("Report submitted successfully. Thank you!");
     } catch {
-      toast.error("Failed to submit feedback. Please try again later.");
+      toast.error("Failed to submit report. Please try again later.");
     }
 
     setFormData({
@@ -70,7 +68,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
           className="my-1.5 flex cursor-pointer items-center justify-center gap-1"
         >
           <MessageSquareMore className="h-5 w-5 text-black" />{" "}
-          <span className="text-base">Feedback</span>
+          <span className="text-base">Report an Issue</span>
         </button>
       </div>
       <Dialog.Root
@@ -86,7 +84,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
           >
             <Flex gap="3" justify="between" align={"start"}>
               <Dialog.Title className="mx-1 w-full text-start text-xl font-bold">
-                Feedback
+                Report an Issue
               </Dialog.Title>
               <Dialog.Close>
                 <div className="cursor-pointer rounded-md p-1 transition-all hover:bg-gray-100">
@@ -136,7 +134,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
                     htmlFor="feedbackType"
                     className="block text-base font-medium text-gray-700"
                   >
-                    Feedback Type:
+                    Issue Type:
                   </label>
                   <select
                     name="feedbackType"
@@ -197,7 +195,7 @@ const FeedbackDialog = ({ lyricId, lyricTitle }: FeedbackDialogProps) => {
                     type="submit"
                     className="cursor-pointer rounded-md bg-teal-700 px-4 py-2 text-white"
                   >
-                    Submit Feedback
+                    Submit Report
                   </button>
                 </div>
               </form>
