@@ -1,7 +1,8 @@
 import Lyrics from "@/models/Lyrics";
 
-// Only pre-generate top trending lyrics at build time to optimize build speed
-const TRENDING_STATIC_PARAMS_LIMIT = 50;
+// Pre-generate trending lyrics at build time (configurable via env, defaults to 50)
+const TRENDING_STATIC_PARAMS_LIMIT =
+  Number(process.env.TRENDING_STATIC_PARAMS_LIMIT) || 50;
 
 export async function getLyricsStaticParams() {
   try {
