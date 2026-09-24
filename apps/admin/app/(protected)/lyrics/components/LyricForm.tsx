@@ -1,71 +1,35 @@
 "use client";
-import { genreOptions } from "@/@types";
+
+import { genreOptions, LyricFormData } from "@/@types";
 import { capitalizeFirstLetter } from "@/helpers";
 import { extractError } from "@/lib/error";
 import { editLyricSchema, lyricSchema } from "@/schemas/lyrics/schema";
 import { fetchLanguages } from "@/services/languages";
-import {
-  createLyric,
-  editLyric,
-  fetchLyricsSlug,
-  fetchTranliterate,
-} from "@/services/lyrics";
+import { createLyric, editLyric, fetchTranliterate } from "@/services/lyrics";
 import { fetchPoets } from "@/services/poet";
 import { logoutUser } from "@/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { noto_nastaliq_urdu } from "@midhah/utils/fonts";
-import * as Dialog from "@radix-ui/react-dialog";
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import React, { useEffect, useMemo, useState } from "react";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import Select, { MultiValue, SingleValue } from "react-select";
 import slugCreater from "slug";
-import { z } from "zod";
+import {
+  DraftAlert,
+  EditFormValues,
+  LOCAL_DRAFT_KEY,
+  LyricFormProps,
+  LyricFormValues,
+  OptionType,
+  Step1ContentEditor,
+  Step2TitleSlug,
+  Step3Categorization,
+  Step4PublishReview,
+  StepperHeader,
+  TransliterationModal,
+} from "./form";
 
-type CreateFormValues = z.infer<typeof lyricSchema>;
-type EditFormValues = z.infer<typeof editLyricSchema>;
-
-type LyricFormValues = CreateFormValues | EditFormValues;
-
-interface LyricFormProps {
-  title: string;
-  defaultValues?: Partial<EditFormValues>;
-  mode: "create" | "edit";
-}
-
-interface OptionType {
-  label: string;
-  value: string;
-}
-
-const selectStyles = {
-  control: (provided: object, state: { isFocused: boolean }) => ({
-    ...provided,
-    minHeight: "37px",
-    height: "37px",
-    padding: 0,
-    borderWidth: 0,
-    borderRadius: "0.375rem",
-    borderColor: state.isFocused ? "#237c9c" : "#d1d5db",
-    boxShadow: state.isFocused
-      ? "inset 0 0 0 2px #237c9c"
-      : "inset 0 0 0 1px #d1d5db",
-    "&:hover": { borderColor: "none" },
-    outline: "none",
-  }),
-  valueContainer: (provided: object) => ({
-    ...provided,
-    paddingTop: "0px",
-    paddingBottom: "0px",
-  }),
-  input: (provided: object) => ({
-    ...provided,
-    marginTop: "0px",
-    marginBottom: "0px",
-  }),
-};
 const LyricForm: React.FC<LyricFormProps> = ({
   title,
   defaultValues,
@@ -73,30 +37,27 @@ const LyricForm: React.FC<LyricFormProps> = ({
 }) => {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const urlSlug = Array.isArray(params.slug)
     ? params.slug[0]
     : params.slug || "";
-  const searchParams = useSearchParams();
   const isEditMode = mode === "edit";
 
-  const [poets, setPoets] = React.useState<{ id: number; name: string }[]>([]);
-  const [languages, setLanguages] = React.useState<
-    { id: number; name: string }[]
-  >([]);
-  const [loading, setLoading] = React.useState(false);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [createdSlug] = React.useState<string | undefined>(undefined);
-  const [data, setData] = React.useState<OptionType[]>([]);
+  const initialStepParam = Number(searchParams.get("step"));
+  const [activeStep, setActiveStep] = useState<number>(
+    initialStepParam >= 1 && initialStepParam <= 4 ? initialStepParam : 1,
+  );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    setValue,
-    getValues,
-    formState: { errors, isSubmitting, isDirty },
-  } = useForm<EditFormValues>({
+  const [poets, setPoets] = useState<{ id: number; name: string }[]>([]);
+  const [languages, setLanguages] = useState<{ id: number; name: string }[]>(
+    [],
+  );
+  const [aiLoading, setAiLoading] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [redirectOptions, setRedirectOptions] = useState<OptionType[]>([]);
+  const [hasSavedDraft, setHasSavedDraft] = useState(false);
+
+  const methods = useForm<EditFormValues>({
     resolver: zodResolver(isEditMode ? editLyricSchema : lyricSchema),
     defaultValues: {
       title: "",
@@ -113,13 +74,30 @@ const LyricForm: React.FC<LyricFormProps> = ({
     },
   });
 
-  const currentGenre = useWatch({ control, name: "genre" });
+  const { handleSubmit, reset, control, setValue, getValues, trigger } =
+    methods;
+
+  const currentContent = useWatch({ control, name: "content" }) || "";
+  const currentTitle = useWatch({ control, name: "title" }) || "";
+  const currentSlug = useWatch({ control, name: "slug" }) || "";
+  const currentGenre = useWatch({ control, name: "genre" }) || "";
   const currentLanguageIDs = useWatch({ control, name: "languageIDs" }) || [];
   const currentPoetID = useWatch({ control, name: "poetID" });
+  const currentTransliterated =
+    useWatch({ control, name: "transliteratedContent" }) || "";
 
-  const step = searchParams.get("step");
-  const activeStep = Number(step) === 2 ? 2 : 1;
+  // Content Statistics
+  const contentLines = currentContent
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const lineCount = contentLines.length;
+  const verseCount = Math.floor(lineCount / 2);
+  const wordCount = currentContent.trim()
+    ? currentContent.trim().split(/\s+/).length
+    : 0;
 
+  // Handle default values on edit mode
   useEffect(() => {
     if (defaultValues && Object.keys(defaultValues).length > 0) {
       reset(defaultValues);
@@ -128,17 +106,15 @@ const LyricForm: React.FC<LyricFormProps> = ({
         const label = `${redirect[1]} - (${redirect[0]})`;
         const value = `${redirect[0]}/${redirect[1]}`;
         setValue("redirectTo", value);
-
-        setData((prev) => {
-          const alreadyExists = prev.some((option) => option.value === value);
-          return alreadyExists
-            ? prev
-            : [{ label: label, value: value }, ...prev];
+        setRedirectOptions((prev) => {
+          const exists = prev.some((o) => o.value === value);
+          return exists ? prev : [{ label, value }, ...prev];
         });
       }
     }
   }, [defaultValues, reset, setValue]);
 
+  // Load languages and poets from API
   useEffect(() => {
     const loadFormData = async () => {
       try {
@@ -146,9 +122,21 @@ const LyricForm: React.FC<LyricFormProps> = ({
           fetchLanguages(0, 1000),
           fetchPoets(0, 1000),
         ]);
-
         setLanguages(langRes.data);
         setPoets(poetRes.data);
+
+        // Pre-select Urdu by default in create mode if no language is selected yet
+        if (
+          !isEditMode &&
+          (!getValues("languageIDs") || getValues("languageIDs").length === 0)
+        ) {
+          const urdu = langRes.data.find(
+            (l: { name: string }) => l.name.toLowerCase() === "urdu",
+          );
+          if (urdu) {
+            setValue("languageIDs", [urdu.id]);
+          }
+        }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           logoutUser();
@@ -157,626 +145,353 @@ const LyricForm: React.FC<LyricFormProps> = ({
         toast.error("Error fetching form data. Please try again.");
       }
     };
-
     loadFormData();
-  }, []);
+  }, [isEditMode, setValue, getValues]);
 
-  const genreSelectOptions = genreOptions.map((genre) => ({
-    value: genre,
-    label: capitalizeFirstLetter(genre),
-  }));
-  const languageSelectOptions = languages.map((lang) => ({
-    value: lang.id,
-    label: lang.name,
-  }));
-  const poetSelectOptions = poets.map((poet) => ({
-    value: poet.id,
-    label: poet.name,
-  }));
+  // Check for auto-saved draft in localStorage (create mode only)
+  useEffect(() => {
+    if (isEditMode) return;
+    try {
+      const saved = localStorage.getItem(LOCAL_DRAFT_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed?.content && !getValues("content")) {
+          setHasSavedDraft(true);
+        }
+      }
+    } catch {}
+  }, [isEditMode, getValues]);
 
-  const handleGenreChange = (
-    selected: SingleValue<{ value: string; label: string }>,
-  ) => setValue("genre", selected?.value ?? "", { shouldDirty: true });
-  const handleLanguageChange = (
-    selected: MultiValue<{ value: number; label: string }>,
-  ) =>
-    setValue(
-      "languageIDs",
-      selected.map((l) => l.value),
-      { shouldDirty: true },
-    );
-  const handlePoetChange = (
-    selected: SingleValue<{ value: number; label: string }>,
-  ) => setValue("poetID", selected?.value, { shouldDirty: true });
+  // Auto-save draft changes to localStorage (create mode only)
+  useEffect(() => {
+    if (isEditMode) return;
+    if (currentContent || currentTitle || currentTransliterated) {
+      try {
+        localStorage.setItem(
+          LOCAL_DRAFT_KEY,
+          JSON.stringify({
+            content: currentContent,
+            transliteratedContent: currentTransliterated,
+            title: currentTitle,
+            slug: currentSlug,
+            genre: currentGenre,
+            languageIDs: currentLanguageIDs,
+            poetID: currentPoetID,
+            savedAt: new Date().toLocaleTimeString(),
+          }),
+        );
+      } catch {}
+    }
+  }, [
+    isEditMode,
+    currentContent,
+    currentTransliterated,
+    currentTitle,
+    currentSlug,
+    currentGenre,
+    currentLanguageIDs,
+    currentPoetID,
+  ]);
 
+  const handleRestoreDraft = () => {
+    try {
+      const saved = localStorage.getItem(LOCAL_DRAFT_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.content)
+          setValue("content", parsed.content, { shouldDirty: true });
+        if (parsed.transliteratedContent)
+          setValue("transliteratedContent", parsed.transliteratedContent, {
+            shouldDirty: true,
+          });
+        if (parsed.title)
+          setValue("title", parsed.title, { shouldDirty: true });
+        if (parsed.slug) setValue("slug", parsed.slug, { shouldDirty: true });
+        if (parsed.genre)
+          setValue("genre", parsed.genre, { shouldDirty: true });
+        if (parsed.languageIDs)
+          setValue("languageIDs", parsed.languageIDs, { shouldDirty: true });
+        if (parsed.poetID)
+          setValue("poetID", parsed.poetID, { shouldDirty: true });
+        setHasSavedDraft(false);
+        toast.success(
+          `Draft restored (saved at ${parsed.savedAt || "earlier"})`,
+        );
+      }
+    } catch {
+      toast.error("Could not restore draft.");
+    }
+  };
+
+  const handleDiscardDraft = () => {
+    localStorage.removeItem(LOCAL_DRAFT_KEY);
+    setHasSavedDraft(false);
+    toast.success("Saved draft discarded.");
+  };
+
+  // Helper to generate and set Title and Slug from first verse
+  const applyTitleAndSlugFromFirstVerse = (firstLine: string) => {
+    const cleanTitle = firstLine.replace(/[۔،,.\-—–!؟?]+$/g, "").trim();
+    setValue("title", cleanTitle, { shouldDirty: true });
+    setValue("slug", slugCreater(cleanTitle, { lower: true, remove: /\d/g }), {
+      shouldDirty: true,
+    });
+  };
+
+  // Step 1 to Step 2: Validate content and suggest title if empty
+  const handleProceedFromStep1 = async () => {
+    const isValid = await trigger("content");
+    if (!isValid || !getValues("content")?.trim()) {
+      toast.error("Please enter the lyrics content before proceeding.");
+      return;
+    }
+
+    // Auto-suggest Title from 1st verse if title is still empty
+    const existingTitle = getValues("title");
+    if (!existingTitle || existingTitle.trim().length === 0) {
+      const firstLine = contentLines[0] || "";
+      if (firstLine) {
+        applyTitleAndSlugFromFirstVerse(firstLine);
+      }
+    }
+
+    setActiveStep(2);
+  };
+
+  // Step 2 to Step 3: Validate title and slug
+  const handleProceedFromStep2 = async () => {
+    const isValid = await trigger(["title", "slug"]);
+    if (!isValid) {
+      toast.error("Please provide a valid Title and URL Slug.");
+      return;
+    }
+    setActiveStep(3);
+  };
+
+  // Step 3 to Step 4: Validate categorization (genre & languages)
+  const handleProceedFromStep3 = async () => {
+    const isValid = await trigger(["genre", "languageIDs"]);
+    if (!isValid) {
+      toast.error("Please select a Genre and at least one Language.");
+      return;
+    }
+    setActiveStep(4);
+  };
+
+  // Suggest Title from Content 1st Line
+  const handleSuggestTitleFromContent = () => {
+    const firstLine = contentLines[0];
+    if (!firstLine) {
+      toast.error("Please enter lyrics content in Step 1 first.");
+      return;
+    }
+    applyTitleAndSlugFromFirstVerse(firstLine);
+    toast.success("Title and Slug updated from 1st verse!");
+  };
+
+  // Format and clean text content
+  const handleCleanContent = () => {
+    const raw = getValues("content") || "";
+    if (!raw.trim()) return;
+    const cleaned = raw
+      .split("\n")
+      .map((line) => line.trim())
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n");
+    setValue("content", cleaned, { shouldDirty: true });
+    toast.success("Cleaned extra spaces and empty lines.");
+  };
+
+  // Final Form Submission (Step 4)
   const handleFormSubmit = async (data: LyricFormValues) => {
     try {
       if (isEditMode) {
-        await editLyric(data, urlSlug);
-        toast.success("Lyrics edited successfully!");
+        await editLyric(data as LyricFormData, urlSlug);
+        toast.success("Lyrics updated successfully!");
         reset(data);
-        if (activeStep === 1 && defaultValues?.content !== data.content) {
-          setIsOpen(true);
-        } else {
-          router.push(`/lyrics`);
-        }
+        router.push("/lyrics");
       } else {
-        await createLyric(data);
-        toast.success("Lyrics added successfully!");
-
-        router.push(`/lyrics/edit/${data.slug}?step=2`);
+        await createLyric(data as LyricFormData);
+        localStorage.removeItem(LOCAL_DRAFT_KEY);
+        toast.success("Lyrics created successfully!");
+        router.push("/lyrics");
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         logoutUser();
         return;
       }
-
-      toast.error(`Error saving lyric: ${error}`);
+      toast.error(`Error saving lyric: ${extractError(error)}`);
     }
   };
 
-  const fetchTransliterateLyric = async (lyricId: number) => {
+  // AI Transliterate action
+  const handleAITransliterate = async () => {
+    const rawContent = getValues("content");
+    if (!rawContent || !rawContent.trim()) {
+      toast.error("Please enter Urdu Kalaam in the left box first.");
+      return;
+    }
     try {
-      if (!lyricId) throw new Error("No lyric provided");
-      setLoading(true);
-      const res = await fetchTranliterate(lyricId);
-      console.log(res);
-      setValue("transliteratedContent", res.data.content);
+      setAiLoading(true);
+      const lyricId = defaultValues?.id;
+      const res = await fetchTranliterate(
+        lyricId ? { lyricId, content: rawContent } : { content: rawContent },
+      );
+      if (res?.data?.content) {
+        setValue("transliteratedContent", res.data.content, {
+          shouldDirty: true,
+        });
+        toast.success("Transliterated successfully via AI!");
+      }
     } catch (error) {
-      toast.error(`Error Transliterating lyric: ${extractError(error)}`);
+      toast.error(`Error transliterating lyric: ${extractError(error)}`);
     } finally {
-      setLoading(false);
+      setAiLoading(false);
     }
   };
 
-  const transliterateSlug = isEditMode ? urlSlug : createdSlug;
-  const canAccessStep2 = isEditMode && !isDirty;
-  const canGoBackToStep1 = isEditMode && !isDirty;
+  const genreSelectOptions = useMemo(
+    () =>
+      genreOptions.map((genre) => ({
+        value: genre,
+        label: capitalizeFirstLetter(genre),
+      })),
+    [],
+  );
+
+  const languageSelectOptions = useMemo(
+    () =>
+      languages.map((lang) => ({
+        value: lang.id,
+        label: lang.name,
+      })),
+    [languages],
+  );
+
+  const poetSelectOptions = useMemo(
+    () =>
+      poets.map((poet) => ({
+        value: poet.id,
+        label: poet.name,
+      })),
+    [poets],
+  );
 
   return (
-    <>
-      <div className="p-6">
-        <div className="mb-8 flex items-center gap-0">
+    <FormProvider {...methods}>
+      <div className="mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
+        {/* Draft Restore Notification */}
+        {hasSavedDraft && !isEditMode && (
+          <DraftAlert
+            onRestore={handleRestoreDraft}
+            onDiscard={handleDiscardDraft}
+          />
+        )}
+
+        {/* Header and Title */}
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+              {title}
+            </h1>
+            <p className="mt-1 text-sm text-gray-500">
+              {isEditMode
+                ? `Editing: ${defaultValues?.title || urlSlug}`
+                : "Step-by-step incremental lyric creation"}
+            </p>
+          </div>
           <button
             type="button"
-            onClick={() => {
-              if (canGoBackToStep1) {
-                router.push(`/lyrics/edit/${transliterateSlug}?step=1`);
-              }
-            }}
-            disabled={activeStep === 1 || !canGoBackToStep1}
-            className={`flex items-center gap-2 border-b-2 px-4 py-2 text-sm font-semibold transition-colors ${
-              activeStep === 1
-                ? "border-primary text-primary"
-                : "border-transparent text-gray-400"
-            } ${
-              activeStep !== 1 && canGoBackToStep1
-                ? "cursor-pointer hover:text-gray-600"
-                : "cursor-default"
-            }`}
+            onClick={() => router.push("/lyrics")}
+            className="cursor-pointer rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
-            <span
-              className={`bg-primary inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white`}
-            >
-              1
-            </span>
-            <span>Details</span>
-          </button>
-
-          <div className="h-px w-8 bg-gray-200" />
-
-          {/* Step 2 tab */}
-          <button
-            type="button"
-            onClick={() => {
-              if (canAccessStep2) {
-                router.push(`/lyrics/edit/${transliterateSlug}?step=2`);
-              }
-            }}
-            disabled={activeStep === 2 || !canAccessStep2}
-            className={`flex items-center gap-2 border-b-2 px-4 py-2 text-sm font-semibold transition-colors ${
-              activeStep === 2
-                ? "border-primary text-primary"
-                : "border-transparent text-gray-400"
-            } ${
-              activeStep !== 2 && canAccessStep2
-                ? "cursor-pointer hover:text-gray-600"
-                : "cursor-not-allowed opacity-40"
-            }`}
-          >
-            <span
-              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${activeStep === 2 ? "bg-primary text-white" : "bg-gray-200 text-gray-600"}`}
-            >
-              2
-            </span>
-            Transliteration
-            {!isEditMode && !createdSlug && (
-              <span className="ml-1 text-xs text-gray-600">(create first)</span>
-            )}
-            {isEditMode && isDirty && activeStep === 1 && (
-              <span className="ml-1 text-xs text-gray-600">
-                (unsaved changes)
-              </span>
-            )}
+            Cancel & Exit
           </button>
         </div>
 
-        <form
-          onSubmit={handleSubmit(handleFormSubmit, (errors) => {
-            console.log("Errors: ", errors);
-          })}
-        >
+        {/* Modern Stepper Header */}
+        <StepperHeader
+          activeStep={activeStep}
+          isEditMode={isEditMode}
+          onStepClick={(stepId) => setActiveStep(stepId)}
+        />
+
+        {/* Main Form */}
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
           {activeStep === 1 && (
-            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <h2 className="text-lg font-semibold text-gray-900 sm:col-span-3">
-                {title}
-              </h2>
-
-              <div className="flex flex-col gap-2 sm:col-span-3">
-                <div className="flex items-center justify-end">
-                  <label
-                    htmlFor="isPublished"
-                    className="mr-4 block text-sm leading-6 font-medium text-gray-900"
-                  >
-                    Publish
-                  </label>
-                  <label className="relative inline-flex cursor-pointer items-center">
-                    <input
-                      id="isPublished"
-                      type="checkbox"
-                      {...register("isPublished")}
-                      className="peer sr-only"
-                    />
-                    <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
-                  </label>
-                </div>
-                <div className="flex items-center justify-end">
-                  <label
-                    htmlFor="isVerified"
-                    className="mr-4 block text-sm leading-6 font-medium text-gray-900"
-                  >
-                    Is Verified
-                  </label>
-                  <label className="relative inline-flex cursor-pointer items-center">
-                    <input
-                      id="isVerified"
-                      type="checkbox"
-                      {...register("isVerified")}
-                      className="peer sr-only"
-                    />
-                    <div className="peer peer-checked:bg-primary h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white" />
-                  </label>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-1 place-items-center sm:col-span-6 sm:grid-cols-6">
-                <div className="grid w-3/4 grid-cols-1 justify-center gap-x-6 gap-y-8 sm:col-span-6 sm:grid-cols-6">
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="title"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Title
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="title"
-                        {...register("title")}
-                        onChange={(e) => {
-                          setValue("title", e.target.value, {
-                            shouldDirty: true,
-                          });
-                          if (!defaultValues?.title) {
-                            setValue(
-                              "slug",
-                              slugCreater(e.target.value, {
-                                lower: true,
-                                remove: /\d/g,
-                              }),
-                            );
-                          }
-                        }}
-                        className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
-                      />
-                      {errors.title && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.title.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="slug"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Slug (Only lowercase letters, numbers, and hyphens)
-                    </label>
-                    <div className="mt-2">
-                      <div className="flex flex-row gap-2">
-                        <Controller
-                          name="slug"
-                          control={control}
-                          render={({ field }) => (
-                            <input
-                              placeholder="Enter slug"
-                              value={field.value ?? ""}
-                              onChange={(e) => {
-                                const collapsed = slugCreater(e.target.value, {
-                                  lower: true,
-                                  remove: /\d/g,
-                                });
-                                field.onChange(collapsed);
-                              }}
-                              className="focus:ring-primary block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
-                            />
-                          )}
-                        />
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setValue(
-                              "slug",
-                              slugCreater(getValues("title"), { lower: true }),
-                            )
-                          }
-                          className="hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-2.5 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
-                        >
-                          <i className="bi bi-arrow-clockwise text-base" />
-                        </button>
-                      </div>
-                      {errors.slug && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.slug.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="genre"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Genre
-                    </label>
-                    <div className="mt-2">
-                      <Select
-                        id="genre"
-                        options={genreSelectOptions}
-                        onChange={handleGenreChange}
-                        value={
-                          genreSelectOptions.find(
-                            (o) => o.value === currentGenre,
-                          ) ?? null
-                        }
-                        classNamePrefix="react-select"
-                        className="block w-full rounded-md p-0 text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
-                        styles={selectStyles}
-                      />
-                      {errors.genre && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.genre.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="poetID"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Poet
-                    </label>
-                    <div className="mt-2">
-                      <Select
-                        id="poetID"
-                        options={poetSelectOptions}
-                        onChange={handlePoetChange}
-                        value={
-                          poetSelectOptions.find(
-                            (o) => o.value === currentPoetID,
-                          ) ?? null
-                        }
-                        classNamePrefix="react-select"
-                        className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
-                        styles={selectStyles}
-                      />
-                      {errors.poetID && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.poetID.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="lyrics"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Lyrics Content
-                    </label>
-                    <div className="mt-2">
-                      <textarea
-                        id="content"
-                        {...register("content")}
-                        className={`focus:ring-primary block h-58 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-lg sm:leading-8 ${noto_nastaliq_urdu.className}`}
-                        dir="auto"
-                      />
-                      {errors.content && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.content.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="languageIDs"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Languages
-                    </label>
-                    <div className="mt-2">
-                      <Select
-                        id="languageIDs"
-                        isMulti
-                        options={languageSelectOptions}
-                        onChange={handleLanguageChange}
-                        value={languageSelectOptions.filter((o) =>
-                          currentLanguageIDs.includes(o.value),
-                        )}
-                        classNamePrefix="react-select"
-                        className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
-                        styles={selectStyles}
-                      />
-                      {errors.languageIDs && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.languageIDs.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className={`sm:col-span-3 ${!isEditMode && "hidden"}`}>
-                    <label
-                      htmlFor="redirectTo"
-                      className="block text-sm leading-6 font-medium text-gray-900"
-                    >
-                      Redirect To{" "}
-                      {defaultValues?.redirectTo && (
-                        <small className="ml-1 font-normal text-gray-400">
-                          (click x to remove)
-                        </small>
-                      )}
-                    </label>
-                    <div className="mt-2">
-                      <Controller
-                        name="redirectTo"
-                        control={control}
-                        render={({ field }) => (
-                          <Select
-                            isClearable
-                            closeMenuOnSelect={false}
-                            options={data}
-                            value={
-                              data.find(
-                                (option) => option.value === field.value,
-                              ) || null
-                            }
-                            onChange={(selected) =>
-                              field.onChange(selected ? selected.value : null)
-                            }
-                            onBlur={field.onBlur}
-                            onInputChange={(inputValue) => {
-                              if (inputValue.length > 0) {
-                                fetchLyricsSlug(inputValue, urlSlug).then(
-                                  (response: {
-                                    data: {
-                                      id: number;
-                                      slug: string;
-                                      genre: string;
-                                    }[];
-                                  }) => {
-                                    setData(
-                                      Object.values(response.data).map(
-                                        (item) => ({
-                                          label: `${item.slug} - (${item.genre})`,
-                                          value: `${item.genre}/${item.slug}`,
-                                        }),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            }}
-                            placeholder="Slug to redirect"
-                            className="block w-full rounded-md text-gray-900 shadow-sm outline-none sm:text-sm sm:leading-6"
-                            styles={selectStyles}
-                          />
-                        )}
-                      />
-                      {errors.redirectTo && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.redirectTo.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-end gap-x-6 sm:col-span-6">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        reset();
-                        router.push("/lyrics");
-                      }}
-                      className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60 ${isSubmitting && "cursor-not-allowed"}`}
-                    >
-                      {isSubmitting
-                        ? "Saving…"
-                        : isEditMode
-                          ? "Save"
-                          : "Save & Continue"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Step1ContentEditor
+              isEditMode={isEditMode}
+              aiLoading={aiLoading}
+              currentContent={currentContent}
+              currentTransliterated={currentTransliterated}
+              lineCount={lineCount}
+              verseCount={verseCount}
+              wordCount={wordCount}
+              onCleanContent={handleCleanContent}
+              onAITransliterate={handleAITransliterate}
+              onProceed={handleProceedFromStep1}
+            />
           )}
 
-          {activeStep === 2 && defaultValues && (
-            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-6">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Transliteration
-                </h2>
-                <p className="mt-1 text-sm text-gray-500">
-                  Generate or manually edit the transliterated version of the
-                  lyrics.
-                </p>
-              </div>
+          {activeStep === 2 && (
+            <Step2TitleSlug
+              isEditMode={isEditMode}
+              currentGenre={currentGenre}
+              currentSlug={currentSlug}
+              onSuggestTitle={handleSuggestTitleFromContent}
+              onBack={() => setActiveStep(1)}
+              onProceed={handleProceedFromStep2}
+            />
+          )}
 
-              <div className="mt-4 grid grid-cols-1 place-items-center sm:col-span-6 sm:grid-cols-6">
-                <div className="grid w-3/4 grid-cols-1 gap-x-6 gap-y-8 sm:col-span-6 sm:grid-cols-6">
-                  <div className="sm:col-span-6">
-                    <div className="flex items-end justify-between">
-                      <label
-                        htmlFor="transliteratedContent"
-                        className="block text-sm leading-6 font-medium text-gray-900"
-                      >
-                        Transliterated Lyrics
-                      </label>
-                      <div className="flex justify-center sm:col-span-6">
-                        <button
-                          type="button"
-                          disabled={loading}
-                          onClick={() =>
-                            fetchTransliterateLyric(defaultValues.id!)
-                          }
-                          className="hover:bg-primary-hover bg-primary focus:ring-primary flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60"
-                        >
-                          {loading && (
-                            <svg
-                              className="h-4 w-4 animate-spin"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              />
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8v8H4z"
-                              />
-                            </svg>
-                          )}
-                          {loading
-                            ? "Transliterating…"
-                            : "Transliterate With AI"}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="mt-2">
-                      <textarea
-                        id="transliteratedContent"
-                        {...register("transliteratedContent")}
-                        className="focus:ring-primary block h-64 w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:outline-none focus:ring-inset sm:text-sm sm:leading-6"
-                      />
-                      {errors.transliteratedContent && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {errors.transliteratedContent.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+          {activeStep === 3 && (
+            <Step3Categorization
+              genreSelectOptions={genreSelectOptions}
+              languageSelectOptions={languageSelectOptions}
+              poetSelectOptions={poetSelectOptions}
+              currentGenre={currentGenre}
+              currentLanguageIDs={currentLanguageIDs}
+              currentPoetID={currentPoetID}
+              onBack={() => setActiveStep(2)}
+              onProceed={handleProceedFromStep3}
+            />
+          )}
 
-                  <div className="mt-6 flex items-center justify-between sm:col-span-6">
-                    <div className="flex items-center gap-x-6">
-                      <button
-                        type="button"
-                        onClick={() => router.push("/lyrics")}
-                        className="cursor-pointer text-sm leading-6 font-semibold text-gray-900"
-                      >
-                        {isEditMode ? "Cancel" : "Skip & Finish"}
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="hover:bg-primary-hover bg-primary focus:ring-primary cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-60"
-                      >
-                        {isSubmitting ? "Saving…" : "Save"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {activeStep === 4 && (
+            <Step4PublishReview
+              isEditMode={isEditMode}
+              urlSlug={urlSlug}
+              redirectOptions={redirectOptions}
+              setRedirectOptions={setRedirectOptions}
+              currentTitle={currentTitle}
+              currentGenre={currentGenre}
+              currentSlug={currentSlug}
+              currentPoetID={currentPoetID}
+              poets={poets}
+              lineCount={lineCount}
+              verseCount={verseCount}
+              wordCount={wordCount}
+              onBack={() => setActiveStep(3)}
+            />
           )}
         </form>
+
+        {/* Confirmation Dialog when content edited */}
+        <TransliterationModal
+          isOpen={isAlertOpen}
+          onOpenChange={setIsAlertOpen}
+          onKeepExisting={() => {
+            setIsAlertOpen(false);
+            router.push("/lyrics");
+          }}
+          onGoToContent={() => {
+            setIsAlertOpen(false);
+            setActiveStep(1);
+          }}
+        />
       </div>
-      <Dialog.Root open={isOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="data-[state=open]:animate-fadeIn fixed inset-0 bg-black/60 backdrop-blur-sm" />
-          <Dialog.Content
-            className={`fixed top-1/2 left-1/2 max-h-[60vh] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-lg focus:outline-none md:w-full`}
-          >
-            <div className="flex flex-col items-start justify-between gap-4">
-              <Dialog.Title className="mx-1 w-full text-start text-xl font-bold">
-                Alert
-              </Dialog.Title>
-              <Dialog.Description>
-                <div className="text-start">
-                  Lyrics have been changed. Do you want to update the
-                  transliteration?
-                </div>
-              </Dialog.Description>
-            </div>
-            <div className="mt-6">
-              <div className="mt-2 flex flex-row justify-center gap-2">
-                <button
-                  className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2 text-sm/6 font-semibold text-black shadow hover:shadow-black/20"
-                  onClick={() => {
-                    setIsOpen(false);
-                    const slug = getValues("slug");
-                    router.push(`/lyrics/edit/${slug}?step=2`);
-                  }}
-                >
-                  <p>Yes</p>
-                </button>
-                <button
-                  className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2 text-sm/6 font-semibold text-black shadow hover:shadow-black/20"
-                  onClick={() => {
-                    setIsOpen(false);
-                    router.push(`/lyrics`);
-                  }}
-                >
-                  <p>No</p>
-                </button>
-              </div>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </>
+    </FormProvider>
   );
 };
 

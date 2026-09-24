@@ -65,6 +65,8 @@ const createLyric = async (formData: LyricFormData) => {
       title: formData.title.trim(),
       slug: formData.slug,
       content: formData.content.trim(),
+      transliteratedContent:
+        formData.transliteratedContent?.trim() || undefined,
       genre: formData.genre,
       poetID: formData.poetID,
       isPublished: formData.isPublished,
@@ -108,11 +110,12 @@ const deleteLyric = async (slug: string) => {
   }
 };
 
-const fetchTranliterate = async (lyricId: number) => {
+const fetchTranliterate = async (payload: {
+  lyricId?: number;
+  content?: string;
+}) => {
   try {
-    const response = await api.post("/lyrics/transliterate", {
-      lyricId: lyricId,
-    });
+    const response = await api.post("/lyrics/transliterate", payload);
     return response.data;
   } catch (error) {
     throw new Error(extractError(error));
