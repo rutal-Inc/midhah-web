@@ -1,3 +1,4 @@
+import infoIcon from "@/assets/info.svg";
 import BannerAd from "@/components/ads/AdSense_BannerAd";
 import ViewCount from "@/components/ViewCount";
 import { getPageGenre } from "@/utilities/helpers";
@@ -40,7 +41,7 @@ export default async function Layout({
         <div className="py-15 text-center md:py-37.5">
           <h1 className="mb-1 text-center text-2xl text-white md:text-5xl">
             {lyric.title}
-            {lyric.isVerified && (
+            {lyric.isVerified ? (
               <Tooltip content="This lyric has been carefully verified against original published sources by our research team.">
                 <Image
                   src={verifiedCheck}
@@ -48,6 +49,16 @@ export default async function Layout({
                   width={30}
                   height={30}
                   className="ml-2 inline-block h-7 w-7 pb-1 md:h-9 md:w-9"
+                />
+              </Tooltip>
+            ) : (
+              <Tooltip content="This lyric has not been verified yet against original published sources.">
+                <Image
+                  src={infoIcon}
+                  alt="Not Verified"
+                  width={30}
+                  height={30}
+                  className="ml-2 inline-block h-7 w-7 pb-1 brightness-0 invert md:h-9 md:w-9"
                 />
               </Tooltip>
             )}
