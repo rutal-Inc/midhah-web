@@ -56,9 +56,9 @@ export default async function Layout({
                 <Image
                   src={infoIcon}
                   alt="Not Verified"
-                  width={30}
-                  height={30}
-                  className="ml-2 inline-block h-7 w-7 pb-1 brightness-0 invert md:h-9 md:w-9"
+                  width={20}
+                  height={20}
+                  className="ml-2 inline-block h-4.5 w-4.5 cursor-pointer pb-0.5 opacity-60 brightness-0 invert transition-opacity duration-200 hover:opacity-100 md:h-6 md:w-6 md:pb-1"
                 />
               </Tooltip>
             )}
