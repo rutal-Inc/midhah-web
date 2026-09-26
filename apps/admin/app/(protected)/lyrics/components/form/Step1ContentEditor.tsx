@@ -44,10 +44,6 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
           <h2 className="text-lg font-bold text-gray-900">
             Step 1: Lyrics Content & Transliteration
           </h2>
-          <p className="text-sm text-gray-500">
-            Enter original Urdu Kalaam alongside Roman Urdu transliteration side
-            by side.
-          </p>
         </div>
 
         {!isEditMode && (
@@ -68,29 +64,16 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
                 htmlFor="content"
                 className="block text-sm font-bold text-gray-900"
               >
-                Original Kalaam (Urdu) <span className="text-red-500">*</span>
+                Original Kalaam <span className="text-red-500">*</span>
               </label>
-              <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold text-gray-600">
-                Nastaliq
-              </span>
             </div>
-            <button
-              type="button"
-              onClick={onCleanContent}
-              disabled={!currentContent}
-              className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium text-gray-700 shadow-2xs hover:bg-gray-50 disabled:opacity-40"
-              title="Clean extra empty lines and trim whitespace"
-            >
-              <i className="bi bi-text-left" />
-              Format Lines
-            </button>
           </div>
 
           <textarea
             id="content"
             {...register("content")}
             rows={9}
-            placeholder="یہاں کلام / نعت مبارکہ درج کریں..."
+            placeholder="یہاں کلام درج کریں"
             className={`block w-full flex-1 rounded-lg border border-gray-300 p-3.5 text-gray-900 shadow-xs focus:border-[#256279] focus:ring-2 focus:ring-[#256279] focus:outline-none sm:text-lg sm:leading-8 ${noto_nastaliq_urdu.className}`}
             dir="auto"
           />
@@ -99,21 +82,6 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
               {errors.content.message}
             </p>
           )}
-
-          {/* Urdu Column Stats */}
-          <div className="mt-3 flex items-center gap-3 border-t border-gray-100 pt-2.5 text-xs text-gray-500">
-            <span>
-              <strong>{lineCount}</strong> Lines
-            </span>
-            <span>•</span>
-            <span>
-              <strong>~{verseCount}</strong> Ash&apos;aar
-            </span>
-            <span>•</span>
-            <span>
-              <strong>{wordCount}</strong> Words
-            </span>
-          </div>
         </div>
 
         {/* Right Column: Roman Urdu Transliteration */}
@@ -124,11 +92,8 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
                 htmlFor="transliteratedContent"
                 className="block text-sm font-bold text-gray-900"
               >
-                Roman Urdu Transliteration
+                Transliteration
               </label>
-              <span className="rounded border border-sky-100 bg-sky-50 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700">
-                Optional
-              </span>
             </div>
             <button
               type="button"
@@ -185,26 +150,6 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
               {errors.transliteratedContent.message}
             </p>
           )}
-
-          {/* Roman Column Stats */}
-          <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-2.5 text-xs text-gray-500">
-            <div className="flex items-center gap-2">
-              <span>
-                <strong>{romanLineCount}</strong> Lines Roman
-              </span>
-            </div>
-            <div>
-              {lineCount > 0 && romanLineCount === lineCount ? (
-                <span className="font-medium text-emerald-600">
-                  <i className="bi bi-check2" /> Lines match original
-                </span>
-              ) : (
-                <span className="text-gray-400">
-                  Manual entry or AI generated
-                </span>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 

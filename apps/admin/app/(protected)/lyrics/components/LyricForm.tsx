@@ -5,7 +5,12 @@ import { capitalizeFirstLetter } from "@/helpers";
 import { extractError } from "@/lib/error";
 import { editLyricSchema, lyricSchema } from "@/schemas/lyrics/schema";
 import { fetchLanguages } from "@/services/languages";
-import { createLyric, editLyric, fetchTranliterate } from "@/services/lyrics";
+import {
+  createLyric,
+  editLyric,
+  fetchTranliterate,
+  updateLyricById,
+} from "@/services/lyrics";
 import { fetchPoets } from "@/services/poet";
 import { logoutUser } from "@/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -56,6 +61,9 @@ const LyricForm: React.FC<LyricFormProps> = ({
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [redirectOptions, setRedirectOptions] = useState<OptionType[]>([]);
   const [hasSavedDraft, setHasSavedDraft] = useState(false);
+  const [currentLyricId, setCurrentLyricId] = useState<number | undefined>(
+    defaultValues?.id,
+  );
 
   const methods = useForm<EditFormValues>({
     resolver: zodResolver(isEditMode ? editLyricSchema : lyricSchema),
@@ -170,6 +178,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
         localStorage.setItem(
           LOCAL_DRAFT_KEY,
           JSON.stringify({
+            lyricId: currentLyricId,
             content: currentContent,
             transliteratedContent: currentTransliterated,
             title: currentTitle,
@@ -184,6 +193,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
     }
   }, [
     isEditMode,
+    currentLyricId,
     currentContent,
     currentTransliterated,
     currentTitle,
@@ -213,6 +223,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
           setValue("languageIDs", parsed.languageIDs, { shouldDirty: true });
         if (parsed.poetID)
           setValue("poetID", parsed.poetID, { shouldDirty: true });
+        if (parsed.lyricId) setCurrentLyricId(parsed.lyricId);
         setHasSavedDraft(false);
         toast.success(
           `Draft restored (saved at ${parsed.savedAt || "earlier"})`,
@@ -225,6 +236,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
 
   const handleDiscardDraft = () => {
     localStorage.removeItem(LOCAL_DRAFT_KEY);
+    setCurrentLyricId(undefined);
     setHasSavedDraft(false);
     toast.success("Saved draft discarded.");
   };
@@ -310,6 +322,11 @@ const LyricForm: React.FC<LyricFormProps> = ({
         toast.success("Lyrics updated successfully!");
         reset(data);
         router.push("/lyrics");
+      } else if (currentLyricId) {
+        await updateLyricById(currentLyricId, data as LyricFormData);
+        localStorage.removeItem(LOCAL_DRAFT_KEY);
+        toast.success("Lyrics created successfully!");
+        router.push("/lyrics");
       } else {
         await createLyric(data as LyricFormData);
         localStorage.removeItem(LOCAL_DRAFT_KEY);
@@ -334,7 +351,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
     }
     try {
       setAiLoading(true);
-      const lyricId = defaultValues?.id;
+      const lyricId = currentLyricId || defaultValues?.id;
       const res = await fetchTranliterate(
         lyricId ? { lyricId, content: rawContent } : { content: rawContent },
       );
@@ -343,6 +360,10 @@ const LyricForm: React.FC<LyricFormProps> = ({
           shouldDirty: true,
         });
         toast.success("Transliterated successfully via AI!");
+
+        if (res?.data?.lyricId) {
+          setCurrentLyricId(res.data.lyricId);
+        }
       }
     } catch (error) {
       toast.error(`Error transliterating lyric: ${extractError(error)}`);
@@ -396,9 +417,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
               {title}
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              {isEditMode
-                ? `Editing: ${defaultValues?.title || urlSlug}`
-                : "Step-by-step incremental lyric creation"}
+              {isEditMode ? `Editing: ${defaultValues?.title || urlSlug}` : ""}
             </p>
           </div>
           <button

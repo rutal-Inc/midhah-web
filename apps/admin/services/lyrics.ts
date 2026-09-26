@@ -79,6 +79,28 @@ const createLyric = async (formData: LyricFormData) => {
   }
 };
 
+const updateLyricById = async (id: number, formData: LyricFormData) => {
+  try {
+    const response = await api.put(`/lyrics/id/${id}`, {
+      title: formData.title.trim(),
+      slug: formData.slug,
+      content: formData.content.trim(),
+      transliteratedContent:
+        formData.transliteratedContent?.trim() || undefined,
+      genre: formData.genre,
+      poetID: formData.poetID,
+      isPublished: formData.isPublished,
+      isVerified: formData.isVerified,
+      languageIDs: formData.languageIDs,
+      redirectTo:
+        formData.redirectTo === null ? null : formData.redirectTo || undefined,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(extractError(error));
+  }
+};
+
 const editLyric = async (formData: LyricFormData, slug: string) => {
   try {
     const response = await api.put(`/lyrics/${slug}`, {
@@ -131,4 +153,5 @@ export {
   fetchSingleLyrics,
   fetchTranliterate,
   updateIsLyricPublished,
+  updateLyricById,
 };

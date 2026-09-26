@@ -35,10 +35,6 @@ export const Step3Categorization: React.FC<Step3CategorizationProps> = ({
         <h2 className="text-lg font-bold text-gray-900">
           Step 3: Language, Genre & Poet
         </h2>
-        <p className="text-sm text-gray-500">
-          Categorize this lyric with appropriate taxonomy and publishing
-          controls.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -48,7 +44,7 @@ export const Step3Categorization: React.FC<Step3CategorizationProps> = ({
             htmlFor="genre"
             className="block text-sm font-semibold text-gray-900"
           >
-            Genre (Sinf) <span className="text-red-500">*</span>
+            Genre <span className="text-red-500">*</span>
           </label>
           <div className="mt-2">
             <Select
@@ -79,7 +75,7 @@ export const Step3Categorization: React.FC<Step3CategorizationProps> = ({
             htmlFor="poetID"
             className="block text-sm font-semibold text-gray-900"
           >
-            Poet (Shayar)
+            Poet
           </label>
           <div className="mt-2">
             <Select

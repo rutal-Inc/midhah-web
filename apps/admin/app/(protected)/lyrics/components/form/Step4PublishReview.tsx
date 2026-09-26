@@ -48,10 +48,6 @@ export const Step4PublishReview: React.FC<Step4PublishReviewProps> = ({
         <h2 className="text-lg font-bold text-gray-900">
           Step 4: Publishing & Verification Settings
         </h2>
-        <p className="text-sm text-gray-500">
-          Configure public visibility, authenticity verification, and review
-          before saving.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -76,9 +72,6 @@ export const Step4PublishReview: React.FC<Step4PublishReviewProps> = ({
                 <span className="text-sm font-semibold text-gray-900">
                   Publish to Public Website
                 </span>
-                <p className="text-xs text-gray-500">
-                  When off, this lyric remains saved as an internal Draft
-                </p>
               </div>
             </label>
 
@@ -97,9 +90,6 @@ export const Step4PublishReview: React.FC<Step4PublishReviewProps> = ({
                 <span className="text-sm font-semibold text-gray-900">
                   Mark as Verified
                 </span>
-                <p className="text-xs text-gray-500">
-                  Confirm authenticity of kalaam text and poet attribution
-                </p>
               </div>
             </label>
           </div>
@@ -179,15 +169,6 @@ export const Step4PublishReview: React.FC<Step4PublishReviewProps> = ({
               <dd className="mt-0.5 text-xs text-gray-600">
                 {poets.find((p) => p.id === currentPoetID)?.name ||
                   "Unknown / Anonymous"}
-              </dd>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-3">
-              <dt className="text-xs text-gray-500">Content Stats</dt>
-              <dd className="mt-1 font-semibold text-gray-900">
-                {lineCount} lines ({verseCount} Ash&apos;aar)
-              </dd>
-              <dd className="mt-0.5 text-xs text-gray-600">
-                {wordCount} words
               </dd>
             </div>
           </dl>

@@ -46,8 +46,8 @@ export const selectStyles = {
 };
 
 export const STEPS = [
-  { id: 1, title: "1. Content & Roman", subtitle: "Urdu & Transliteration" },
-  { id: 2, title: "2. Title & Slug", subtitle: "Unwan & Permalink" },
-  { id: 3, title: "3. Categorization", subtitle: "Language, Genre & Poet" },
-  { id: 4, title: "4. Status & Publish", subtitle: "Publish & Verify" },
+  { id: 1, title: "1. Content & Roman", subtitle: "" },
+  { id: 2, title: "2. Title & Slug", subtitle: "" },
+  { id: 3, title: "3. Categorization", subtitle: "" },
+  { id: 4, title: "4. Status & Publish", subtitle: "" },
 ];
