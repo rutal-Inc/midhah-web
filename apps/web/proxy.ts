@@ -19,8 +19,8 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/(hamd|naat|manqbat|durood-o-salam)/:slug",
-    "/(hamd|naat|manqbat|durood-o-salam)/:slug/transliterated",
-    "/poets/:slug",
+    `/(hamd|naat|manqbat|durood-o-salam|sufiyana-kalam)/:slug`,
+    `/(hamd|naat|manqbat|durood-o-salam|sufiyana-kalam)/:slug/transliterated`,
+    `/poets/:slug`,
   ],
 };
