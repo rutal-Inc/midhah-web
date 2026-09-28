@@ -1,6 +1,7 @@
 "use client";
 
 import { genreOptions, LyricFormData } from "@/@types";
+import newTabIcon from "@/assets/ui/newTab.svg";
 import { capitalizeFirstLetter } from "@/helpers";
 import { extractError } from "@/lib/error";
 import { editLyricSchema, lyricSchema } from "@/schemas/lyrics/schema";
@@ -15,6 +16,7 @@ import { fetchPoets } from "@/services/poet";
 import { logoutUser } from "@/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import Image from "next/image";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
@@ -93,6 +95,13 @@ const LyricForm: React.FC<LyricFormProps> = ({
   const currentPoetID = useWatch({ control, name: "poetID" });
   const currentTransliterated =
     useWatch({ control, name: "transliteratedContent" }) || "";
+
+  const viewGenre = (currentGenre || defaultValues?.genre)?.toLowerCase();
+  const viewSlug = currentSlug || defaultValues?.slug || urlSlug;
+  const viewUrl =
+    viewGenre && viewSlug
+      ? `${(process.env.NEXT_PUBLIC_WEB_BASE_URL || "").replace(/\/$/, "")}/${viewGenre}/${viewSlug}`
+      : undefined;
 
   // Content Statistics
   const contentLines = currentContent
@@ -402,13 +411,26 @@ const LyricForm: React.FC<LyricFormProps> = ({
               {isEditMode ? `Editing: ${defaultValues?.title || urlSlug}` : ""}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => router.push("/lyrics")}
-            className="cursor-pointer rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >
-            Cancel & Exit
-          </button>
+          <div className="flex items-center gap-2">
+            {isEditMode && viewUrl && (
+              <a
+                href={viewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Preview"
+                className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 p-1.5 text-gray-700 transition-colors hover:bg-gray-50"
+              >
+                <Image src={newTabIcon} width={20} height={20} alt="Preview" />
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={() => router.push("/lyrics")}
+              className="cursor-pointer rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Cancel & Exit
+            </button>
+          </div>
         </div>
 
         {/* Modern Stepper Header */}

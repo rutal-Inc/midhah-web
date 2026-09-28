@@ -28,8 +28,8 @@ export const StepperHeader: React.FC<StepperHeaderProps> = ({
               onClick={() => isClickable && onStepClick(s.id)}
               className={`flex items-center gap-3 rounded-lg p-2.5 text-left transition-all ${
                 isActive
-                  ? "bg-[#256279]/10 text-[#256279] ring-1 ring-[#256279]"
-                  : isCompleted
+                  ? "cursor-pointer bg-[#256279]/10 text-[#256279] ring-1 ring-[#256279]"
+                  : isClickable
                     ? "cursor-pointer text-gray-800 hover:bg-gray-50"
                     : "cursor-not-allowed text-gray-400 opacity-60"
               }`}
@@ -40,7 +40,9 @@ export const StepperHeader: React.FC<StepperHeaderProps> = ({
                     ? "bg-[#256279] text-white shadow-xs"
                     : isCompleted
                       ? "bg-emerald-600 text-white"
-                      : "bg-gray-100 text-gray-500"
+                      : isClickable
+                        ? "bg-gray-100 text-gray-700"
+                        : "bg-gray-100 text-gray-400"
                 }`}
               >
                 {isCompleted ? <i className="bi bi-check-lg text-sm" /> : s.id}
