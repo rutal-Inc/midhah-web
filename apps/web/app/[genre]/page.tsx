@@ -1,11 +1,15 @@
 import JsonLd from "@/components/JsonLd";
 import RenderLyricsList from "@/components/RenderLyricsList";
-import { WEB_BASE_URL } from "@/utilities/constants";
+import { genresInfo, WEB_BASE_URL } from "@/utilities/constants";
 import { capitalize, getPageGenre } from "@/utilities/helpers";
 import { breadcrumbJsonLd } from "@/utilities/jsonld";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { preload } from "react-dom";
+
+export function generateStaticParams() {
+  return genresInfo.map((g) => ({ genre: g.path }));
+}
 
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
