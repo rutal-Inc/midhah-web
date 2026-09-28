@@ -15,9 +15,6 @@ interface Step4PublishReviewProps {
   currentSlug: string;
   currentPoetID?: number;
   poets: { id: number; name: string }[];
-  lineCount: number;
-  verseCount: number;
-  wordCount: number;
   onBack: () => void;
 }
 
@@ -31,9 +28,6 @@ export const Step4PublishReview: React.FC<Step4PublishReviewProps> = ({
   currentSlug,
   currentPoetID,
   poets,
-  lineCount,
-  verseCount,
-  wordCount,
   onBack,
 }) => {
   const {

@@ -16,7 +16,6 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
   isEditMode,
   currentGenre,
   currentSlug,
-  onSuggestTitle,
   onBack,
   onProceed,
 }) => {

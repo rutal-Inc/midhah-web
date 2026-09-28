@@ -8,10 +8,6 @@ interface Step1ContentEditorProps {
   aiLoading: boolean;
   currentContent: string;
   currentTransliterated: string;
-  lineCount: number;
-  verseCount: number;
-  wordCount: number;
-  onCleanContent: () => void;
   onAITransliterate: () => void;
   onProceed: () => void;
 }
@@ -20,11 +16,6 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
   isEditMode,
   aiLoading,
   currentContent,
-  currentTransliterated,
-  lineCount,
-  verseCount,
-  wordCount,
-  onCleanContent,
   onAITransliterate,
   onProceed,
 }) => {
@@ -32,10 +23,6 @@ export const Step1ContentEditor: React.FC<Step1ContentEditorProps> = ({
     register,
     formState: { errors },
   } = useFormContext<LyricFormValues>();
-
-  const romanLineCount = currentTransliterated.trim()
-    ? currentTransliterated.split("\n").filter(Boolean).length
-    : 0;
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
