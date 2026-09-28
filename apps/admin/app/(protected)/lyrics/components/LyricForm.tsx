@@ -5,7 +5,12 @@ import { capitalizeFirstLetter } from "@/helpers";
 import { extractError } from "@/lib/error";
 import { editLyricSchema, lyricSchema } from "@/schemas/lyrics/schema";
 import { fetchLanguages } from "@/services/languages";
-import { createLyric, editLyric, fetchTranliterate } from "@/services/lyrics";
+import {
+  createLyric,
+  editLyric,
+  fetchTranliterate,
+  updateLyricById,
+} from "@/services/lyrics";
 import { fetchPoets } from "@/services/poet";
 import { logoutUser } from "@/utils/logout";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -56,6 +61,9 @@ const LyricForm: React.FC<LyricFormProps> = ({
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [redirectOptions, setRedirectOptions] = useState<OptionType[]>([]);
   const [hasSavedDraft, setHasSavedDraft] = useState(false);
+  const [currentLyricId, setCurrentLyricId] = useState<number | undefined>(
+    defaultValues?.id,
+  );
 
   const methods = useForm<EditFormValues>({
     resolver: zodResolver(isEditMode ? editLyricSchema : lyricSchema),
@@ -91,11 +99,6 @@ const LyricForm: React.FC<LyricFormProps> = ({
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
-  const lineCount = contentLines.length;
-  const verseCount = Math.floor(lineCount / 2);
-  const wordCount = currentContent.trim()
-    ? currentContent.trim().split(/\s+/).length
-    : 0;
 
   // Handle default values on edit mode
   useEffect(() => {
@@ -170,6 +173,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
         localStorage.setItem(
           LOCAL_DRAFT_KEY,
           JSON.stringify({
+            lyricId: currentLyricId,
             content: currentContent,
             transliteratedContent: currentTransliterated,
             title: currentTitle,
@@ -184,6 +188,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
     }
   }, [
     isEditMode,
+    currentLyricId,
     currentContent,
     currentTransliterated,
     currentTitle,
@@ -213,6 +218,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
           setValue("languageIDs", parsed.languageIDs, { shouldDirty: true });
         if (parsed.poetID)
           setValue("poetID", parsed.poetID, { shouldDirty: true });
+        if (parsed.lyricId) setCurrentLyricId(parsed.lyricId);
         setHasSavedDraft(false);
         toast.success(
           `Draft restored (saved at ${parsed.savedAt || "earlier"})`,
@@ -225,6 +231,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
 
   const handleDiscardDraft = () => {
     localStorage.removeItem(LOCAL_DRAFT_KEY);
+    setCurrentLyricId(undefined);
     setHasSavedDraft(false);
     toast.success("Saved draft discarded.");
   };
@@ -289,19 +296,6 @@ const LyricForm: React.FC<LyricFormProps> = ({
     toast.success("Title and Slug updated from 1st verse!");
   };
 
-  // Format and clean text content
-  const handleCleanContent = () => {
-    const raw = getValues("content") || "";
-    if (!raw.trim()) return;
-    const cleaned = raw
-      .split("\n")
-      .map((line) => line.trim())
-      .join("\n")
-      .replace(/\n{3,}/g, "\n\n");
-    setValue("content", cleaned, { shouldDirty: true });
-    toast.success("Cleaned extra spaces and empty lines.");
-  };
-
   // Final Form Submission (Step 4)
   const handleFormSubmit = async (data: LyricFormValues) => {
     try {
@@ -309,6 +303,11 @@ const LyricForm: React.FC<LyricFormProps> = ({
         await editLyric(data as LyricFormData, urlSlug);
         toast.success("Lyrics updated successfully!");
         reset(data);
+        router.push("/lyrics");
+      } else if (currentLyricId) {
+        await updateLyricById(currentLyricId, data as LyricFormData);
+        localStorage.removeItem(LOCAL_DRAFT_KEY);
+        toast.success("Lyrics created successfully!");
         router.push("/lyrics");
       } else {
         await createLyric(data as LyricFormData);
@@ -328,13 +327,13 @@ const LyricForm: React.FC<LyricFormProps> = ({
   // AI Transliterate action
   const handleAITransliterate = async () => {
     const rawContent = getValues("content");
-    if (!rawContent || !rawContent.trim()) {
+    if (!rawContent) {
       toast.error("Please enter Urdu Kalaam in the left box first.");
       return;
     }
     try {
       setAiLoading(true);
-      const lyricId = defaultValues?.id;
+      const lyricId = currentLyricId || defaultValues?.id;
       const res = await fetchTranliterate(
         lyricId ? { lyricId, content: rawContent } : { content: rawContent },
       );
@@ -343,6 +342,10 @@ const LyricForm: React.FC<LyricFormProps> = ({
           shouldDirty: true,
         });
         toast.success("Transliterated successfully via AI!");
+
+        if (res?.data?.lyricId) {
+          setCurrentLyricId(res.data.lyricId);
+        }
       }
     } catch (error) {
       toast.error(`Error transliterating lyric: ${extractError(error)}`);
@@ -396,9 +399,7 @@ const LyricForm: React.FC<LyricFormProps> = ({
               {title}
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              {isEditMode
-                ? `Editing: ${defaultValues?.title || urlSlug}`
-                : "Step-by-step incremental lyric creation"}
+              {isEditMode ? `Editing: ${defaultValues?.title || urlSlug}` : ""}
             </p>
           </div>
           <button
@@ -425,10 +426,6 @@ const LyricForm: React.FC<LyricFormProps> = ({
               aiLoading={aiLoading}
               currentContent={currentContent}
               currentTransliterated={currentTransliterated}
-              lineCount={lineCount}
-              verseCount={verseCount}
-              wordCount={wordCount}
-              onCleanContent={handleCleanContent}
               onAITransliterate={handleAITransliterate}
               onProceed={handleProceedFromStep1}
             />
@@ -469,9 +466,6 @@ const LyricForm: React.FC<LyricFormProps> = ({
               currentSlug={currentSlug}
               currentPoetID={currentPoetID}
               poets={poets}
-              lineCount={lineCount}
-              verseCount={verseCount}
-              wordCount={wordCount}
               onBack={() => setActiveStep(3)}
             />
           )}

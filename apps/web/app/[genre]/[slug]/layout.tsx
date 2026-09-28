@@ -52,7 +52,7 @@ export default async function Layout({
                 />
               </Tooltip>
             ) : (
-              <Tooltip content="This lyric has not been verified yet against original published sources.">
+              <Tooltip content="This content has not been verified by Midhah yet. It may contain mistakes or variations from the authentic source.">
                 <Image
                   src={infoIcon}
                   alt="Not Verified"

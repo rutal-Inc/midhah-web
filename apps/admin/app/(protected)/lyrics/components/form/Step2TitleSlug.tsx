@@ -16,7 +16,6 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
   isEditMode,
   currentGenre,
   currentSlug,
-  onSuggestTitle,
   onBack,
   onProceed,
 }) => {
@@ -35,18 +34,7 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
           <h2 className="text-lg font-bold text-gray-900">
             Step 2: Title & URL Slug
           </h2>
-          <p className="text-sm text-gray-500">
-            Define the primary title and SEO-friendly web permalink.
-          </p>
         </div>
-        <button
-          type="button"
-          onClick={onSuggestTitle}
-          className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[#256279] bg-[#256279]/5 px-3 py-1.5 text-xs font-semibold text-[#256279] shadow-xs hover:bg-[#256279]/10"
-        >
-          <i className="bi bi-magic" />
-          Suggest from 1st Verse
-        </button>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -56,7 +44,7 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
             htmlFor="title"
             className="block text-sm font-semibold text-gray-900"
           >
-            Lyric Title (Unwan) <span className="text-red-500">*</span>
+            Lyric Title<span className="text-red-500">*</span>
           </label>
           <div className="mt-2">
             <input
@@ -92,7 +80,7 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
             htmlFor="slug"
             className="block text-sm font-semibold text-gray-900"
           >
-            Permalink Slug (URL path) <span className="text-red-500">*</span>
+            Slug (URL path) <span className="text-red-500">*</span>
           </label>
           <div className="mt-2 flex gap-2">
             <Controller
@@ -140,8 +128,8 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
             <i className="bi bi-link-45deg text-sm text-gray-500" />
             <span className="text-gray-400">Public URL:</span>
             <span className="font-mono text-[#256279]">
-              lyrics.midhah.com/{currentGenre || "genre"}/
-              {currentSlug || "slug"}
+              {process.env.NEXT_PUBLIC_WEB_BASE_URL}/{currentGenre}/
+              {currentSlug}
             </span>
           </div>
         </div>

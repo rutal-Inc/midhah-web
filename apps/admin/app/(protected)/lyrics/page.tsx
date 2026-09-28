@@ -162,13 +162,18 @@ const Lyrics: React.FC = () => {
 
     {
       name: "Actions",
-      width: "100px",
+      width: "130px",
       ignoreRowClick: true,
       center: true,
       cell: (row) => (
         <ActionButtons
           handleEdit={() => handleEdit(row)}
           confirmDelete={() => handleDelete(row)}
+          viewUrl={
+            row.genre && row.slug
+              ? `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/${row.genre.toLowerCase()}/${row.slug}`
+              : undefined
+          }
         />
       ),
     },
