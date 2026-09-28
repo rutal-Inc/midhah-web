@@ -13,7 +13,7 @@ export default async function RenderFilteredList({
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      next: { revalidate: 10800, tags: [`lyrics-list-${type}`] },
     },
   )
     .then((response) => {
