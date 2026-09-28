@@ -128,8 +128,8 @@ export const Step2TitleSlug: React.FC<Step2TitleSlugProps> = ({
             <i className="bi bi-link-45deg text-sm text-gray-500" />
             <span className="text-gray-400">Public URL:</span>
             <span className="font-mono text-[#256279]">
-              lyrics.midhah.com/{currentGenre || "genre"}/
-              {currentSlug || "slug"}
+              {process.env.NEXT_PUBLIC_WEB_BASE_URL}/{currentGenre}/
+              {currentSlug}
             </span>
           </div>
         </div>
