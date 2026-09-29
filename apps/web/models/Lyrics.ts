@@ -6,6 +6,7 @@ export default interface Lyrics {
   content?: string;
   slug: string;
   isVerified: boolean;
+  poetID?: number | null;
   poet: {
     name: string;
     slug?: string;
@@ -21,6 +22,7 @@ export interface FilteredLyrics {
   poet?: string;
   isVerified: boolean;
 }
+
 export interface SuggestionLyrics {
   title: string;
   icon: string;
@@ -34,6 +36,7 @@ export interface TransliteratedLyrics {
   transliteratedContent?: string;
   isVerified: boolean;
   slug: string;
+  poetID?: number | null;
   poet: {
     name: string;
     slug?: string;

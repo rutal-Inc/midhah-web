@@ -59,6 +59,19 @@ export default function RootLayout({
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9810490020982461"
         strategy="afterInteractive"
       />
+      <Script
+        async
+        crossOrigin="anonymous"
+        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+        strategy="afterInteractive"
+      />
+      <Script id="gpt-init" strategy="afterInteractive">
+        {`window.googletag = window.googletag || { cmd: [] };
+          googletag.cmd.push(function () {
+            googletag.setConfig({ singleRequest: true, collapseDiv: "ON_NO_FILL" });
+            googletag.enableServices();
+          });`}
+      </Script>
       <body className={montserrat.className}>
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
         <NextTopLoader

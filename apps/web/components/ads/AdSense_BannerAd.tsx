@@ -19,16 +19,20 @@ function BannerAd({ adSlot, adFormat }: Readonly<Props>) {
     }
   }, [pathname]);
 
+  // AdSense sets data-ad-status on the <ins> once it responds; spacing is only
+  // applied when it's "filled", so an unfilled or blocked unit leaves no gap.
   return (
-    <ins
-      key={pathname}
-      className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-9810490020982461"
-      data-ad-slot={adSlot}
-      data-ad-format={adFormat}
-      data-full-width-responsive="true"
-    />
+    <div className="text-center has-[ins[data-ad-status=filled]]:py-10">
+      <ins
+        key={pathname}
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-9810490020982461"
+        data-ad-slot={adSlot}
+        data-ad-format={adFormat}
+        data-full-width-responsive="true"
+      />
+    </div>
   );
 }
 export default BannerAd;

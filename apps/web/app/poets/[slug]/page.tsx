@@ -48,9 +48,7 @@ export default async function PoetLyricsPage(props: Params) {
       <Suspense fallback={<Loader />}>
         <PoetHero slug={slug} />
       </Suspense>
-      <div className="py-10 text-center">
-        <BannerAd adSlot="9551075709" adFormat="auto" />
-      </div>
+      <BannerAd adSlot="9551075709" adFormat="auto" />
       <Suspense fallback={<Loader />}>
         <RenderPoetsLyricsList slug={slug} />
       </Suspense>

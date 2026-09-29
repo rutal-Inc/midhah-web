@@ -218,6 +218,7 @@ Examples:
 ```ts
 window.gtag;
 window.adsbygoogle;
+window.googletag;
 ```
 
 To make Next.js aware of these types, include the file in each application's `tsconfig.json`.

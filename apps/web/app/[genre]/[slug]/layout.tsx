@@ -1,5 +1,5 @@
 import infoIcon from "@/assets/info.svg";
-import BannerAd from "@/components/ads/AdSense_BannerAd";
+import GAMBannerAd from "@/components/ads/GAM_BannerAd";
 import ViewCount from "@/components/ViewCount";
 import { getPageGenre } from "@/utilities/helpers";
 import verifiedCheck from "@midhah/assets/ui/verified-check.svg";
@@ -77,9 +77,8 @@ export default async function Layout({
       <FeedbackDialog lyricId={lyric.id} lyricTitle={lyric.title} />
       <LyricsViewToggle genre={genre} slug={slug} />
 
-      <div className="py-10 text-center">
-        <BannerAd adSlot="8493724848" adFormat="auto" />
-      </div>
+      <GAMBannerAd lyricId={lyric.id} poetId={lyric.poetID} />
+
       {children}
       <ViewCount entityId={lyric.id} entityType="LYRICS" />
     </div>

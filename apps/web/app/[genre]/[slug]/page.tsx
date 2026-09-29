@@ -1,4 +1,5 @@
 import { getLyricsViaGenreSlug } from "@/app/[genre]/[slug]/_lib/service";
+import BannerAd from "@/components/ads/AdSense_BannerAd";
 import JsonLd from "@/components/JsonLd";
 import Loader from "@/components/Loader";
 import RenderPoetLyrics from "@/components/RenderPoetLyrics";
@@ -103,7 +104,11 @@ export default async function LyricsPage({
         className={`${noto_nastaliq_urdu.className} py-10 pb-16 text-center`}
         textClassName="text-2xl leading-12 whitespace-pre-wrap md:text-4xl md:leading-18.5"
       />
+
+      <BannerAd adSlot="8493724848" adFormat="auto" />
+
       <LyricsDialogClient lyricId={lyric.id} />
+
       {lyric.poet?.slug && (
         <Suspense fallback={<Loader />}>
           <RenderPoetLyrics
